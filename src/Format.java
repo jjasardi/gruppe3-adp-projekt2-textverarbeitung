@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 public class Format {
     private ArrayList<String> testText;
-    private String text;
+    int chars;
 
     public Format() {
         testText = new ArrayList<>();
@@ -33,21 +33,23 @@ public class Format {
      * @param width definiert maximale Spaltenlänge
      * @param index Position der Sammlung
      */
-    public void formatFix(int width, int index) {
+    public String formatFix(int width, int index) {
         String[] format = testText.get(index).split(" ");
-        int chars = 0;
         for (int slot = 0; slot < format.length - 1; slot++) {
             chars = chars + format[slot].length();
-            if (++chars + format[slot + 1].length() < width) {
+            if (chars > width){
+                format[slot] = stringUmbruch(format[slot], width);
+                if (chars + format[slot + 1].length() > width) {
+                    format[slot] = format[slot] + "\n";
+                }
+            } else if (++chars + format[slot + 1].length() < width) {
                 format[slot] = format[slot] + " ";
             } else {
                 format[slot] = format[slot] + " \n";
                 chars = 0;
             }
         }
-        text = String.join("", format);
-        System.out.println(text);
-
+        return String.join("", format);
     }
 
     /**
@@ -56,8 +58,21 @@ public class Format {
      * 
      * @param index Position der Sammlung
      */
-    public void formatRaw(int index) {
-            text = (index + 1) + " : " + testText.get(index);
-            System.out.println(text);
+    public String formatRaw(int index) {
+        return (index + 1) + " : " + testText.get(index);
+        }
+
+
+    public String stringUmbruch(String format, int width) {
+        String[] subString = format.split("(?<=\\G.{"+width+"})");
+            for (int slot = 0; slot < subString.length; slot++) {
+                if (slot == subString.length -1){
+                subString[slot] = subString[slot] + " ";
+                chars = subString[slot].length();
+                } else {
+                    subString[slot] = subString[slot] + " \n";    
+                }
+            }
+            return String.join("", subString);
         }
     }
