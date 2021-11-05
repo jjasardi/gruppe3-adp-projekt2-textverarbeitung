@@ -1,78 +1,78 @@
 import java.util.ArrayList;
 
 /**
- * Diese Klasse enthält methodem zur Formatierung von Absätzen.
+ * Diese Klasse enthaelt Methoden zur Formatierung von Absätzen.
  * 
  * @author (sadikdur)
  * @version (1)
  */
 public class Format {
-    private ArrayList<String> testText;
-    int chars;
+    private int zeichen;
 
+    /**
+     * Konstruktor
+     */
     public Format() {
-        testText = new ArrayList<>();
-        fillList();
-    }
-
-    private void fillList() {
-        testText.add(0,
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's "
-                        + "standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type "
-                        + "specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially "
-                        + "unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with "
-                        + "desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.");
-        testText.add(1,
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry");
+        zeichen = 0;
     }
 
     /**
-     * Prüft ob Indexeingabe Valide ist und fügt Zeilenumbrüche nach definierter
-     * maximalen Spaltenlänge.
+     * Fuegt Leerzeichen und Zeilenumbrüche nach definierter maximalen Spaltenlänge
+     * ein.
      * 
-     * @param width definiert maximale Spaltenlänge
-     * @param index Position der Sammlung
+     * @param absatz        ArrayList
+     * @param index         der Sammlung
+     * @param spaltenBreite Maximale Zeichen pro Zeile
+     * @return formatierter Absatz als String
      */
-    public String formatFix(int width, int index) {
-        String[] format = testText.get(index).split(" ");
-        for (int slot = 0; slot < format.length - 1; slot++) {
-            chars = chars + format[slot].length();
-            if (chars > width){
-                format[slot] = stringUmbruch(format[slot], width);
-                if (chars + format[slot + 1].length() > width) {
-                    format[slot] = format[slot] + "\n";
+    public String formatFix(ArrayList<String> absatz, int index, int spaltenBreite) {
+        String[] absatzString = absatz.get(index).split(" ");
+        for (int slot = 0; slot < absatzString.length - 1; slot++) {
+            zeichen = zeichen + absatzString[slot].length();
+            if (zeichen > spaltenBreite) {
+                absatzString[slot] = stringUmbruch(absatzString[slot], spaltenBreite);
+                if (zeichen + absatzString[slot + 1].length() > spaltenBreite) {
+                    absatzString[slot] = absatzString[slot] + "\n";
                 }
-            } else if (++chars + format[slot + 1].length() < width) {
-                format[slot] = format[slot] + " ";
+            } else if (++zeichen + absatzString[slot + 1].length() < spaltenBreite) {
+                absatzString[slot] = absatzString[slot] + " ";
             } else {
-                format[slot] = format[slot] + " \n";
-                chars = 0;
+                absatzString[slot] = absatzString[slot] + " \n";
+                zeichen = 0;
             }
         }
-        return String.join("", format);
+        return String.join("", absatzString);
     }
 
     /**
-     * Prüft ob Indexeingabe Valide ist und fügt Nummer zum Absatz hinzu. Format:
-     * <n> : <Absatz>
+     * Fuegt Indexnummer zum Absatz hinzu. Format: <n> : <Absatz>
      * 
-     * @param index Position der Sammlung
+     * @param absatz Arraylist
+     * @param index  der Sammlung
+     * @return formatierter Absatz als String
      */
-    public String formatRaw(int index) {
-        return (index + 1) + " : " + testText.get(index);
-        }
-
-
-    public String stringUmbruch(String format, int width) {
-        String[] subString = format.split("(?<=\\G.{"+width+"})");
-            for (int slot = 0; slot < subString.length; slot++) {
-                if (slot == subString.length -1){
-                subString[slot] = subString[slot] + " ";
-                chars = subString[slot].length();
-                } else {
-                    subString[slot] = subString[slot] + " \n";    
-                }
-            }
-            return String.join("", subString);
-        }
+    public String formatRaw(ArrayList<String> absatz, int index) {
+        return (index + 1) + " : " + absatz.get(index);
     }
+
+    /**
+     * Bricht Strings in mehrere Teile auf, fuegt Leerzeichen oder Zeilenumbrueche
+     * ein und fuegt die Teile wieder zu einem String zusammen.
+     * 
+     * @param absatzString  String der umgebrochen werden muss
+     * @param spaltenBreite Maximale Zeichen pro Zeile
+     * @return String mit Leerzeichen und Zeilenumbruechen an vorgegebener Stelle.
+     */
+    private String stringUmbruch(String absatzString, int spaltenBreite) {
+        String[] subString = absatzString.split("(?<=\\G.{" + spaltenBreite + "})");
+        for (int slot = 0; slot < subString.length; slot++) {
+            if (slot == subString.length - 1) {
+                subString[slot] = subString[slot] + " ";
+                zeichen = subString[slot].length();
+            } else {
+                subString[slot] = subString[slot] + " \n";
+            }
+        }
+        return String.join("", subString);
+    }
+}
