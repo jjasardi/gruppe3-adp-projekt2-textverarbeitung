@@ -41,6 +41,7 @@ public class Format {
                 zeichen = 0;
             }
         }
+        stringUmbruch(absatzString[absatzString.length - 1], spaltenBreite);
         return String.join("", absatzString);
     }
 
