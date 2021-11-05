@@ -1,10 +1,11 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Diese Klasse enthaelt Methoden zur Formatierung von Absätzen.
  * 
- * @author (sadikdur)
- * @version (1)
+ * @author sadikdur
+ * @version 1
  */
 public class Format {
     private int zeichen;
@@ -52,8 +53,10 @@ public class Format {
      * @param index  der Sammlung
      * @return formatierter Absatz als String
      */
-    public String formatRaw(ArrayList<String> absatz, int index) {
-        return (index + 1) + " : " + absatz.get(index);
+    public void formatRaw(ArrayList<String> absaetze) {
+        for (int index = 0; index < absaetze.size(); index++) {
+            System.out.println((index+1) + " : " + absaetze.get(index));
+        }
     }
 
     /**

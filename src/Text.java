@@ -10,6 +10,7 @@ import java.util.HashSet;
 
 public class Text {
     private Format format;
+    private int spaltenBreite;
     private ArrayList<String> absaetze;
     private String dummyText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et"
             + "dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo"
@@ -19,6 +20,7 @@ public class Text {
     public Text(Format format) {
         absaetze = new ArrayList<>();
         this.format = format;
+        spaltenBreite = 0;
     }
 
     /**
@@ -75,6 +77,9 @@ public class Text {
     }
 
     public void absaetzeAusgeben() {
+        if (spaltenBreite == 0) {
+            format.formatRaw(absaetze);
+        }
 
     }
 
@@ -107,6 +112,7 @@ public class Text {
         return absatz;
     }
 
+    /*
     public void indexAusgeben() {
         Set<String> alleWoerter = new HashSet<>();
         HashMap<String, Integer> woerterHaeufigkeit = new HashMap<>();
@@ -126,5 +132,5 @@ public class Text {
                 }
             }
         }
-    }
+    }*/
 }

@@ -1,6 +1,7 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
-import org.junit.platform.console.shadow.picocli.CommandLine.Command;
+//import org.junit.platform.console.shadow.picocli.CommandLine.Command;
 
 /**
  * @version 1.0
@@ -9,14 +10,19 @@ import org.junit.platform.console.shadow.picocli.CommandLine.Command;
 public class Input {
 
     private Scanner scanner;
+    private Text text;
     private String[] allCommands;
     private String command;
     private String paragraph;
+    private boolean exit;
+    private Format format;
 
     /**
      * Constructor
      */
     public Input() {
+        format = new Format();
+        text = new Text(format);
         scanner = new Scanner(System.in);
         allCommands = new String[10];
         setAllCommands();
@@ -27,7 +33,7 @@ public class Input {
      * 
      * @return Input line
      */
-    private void formatNextLine() {
+    void formatNextLine() {
         String formatNextLine = getInput().toUpperCase();
         String[] commandSplit = splitInput(formatNextLine);
         setCommandAndParagraph(commandSplit);
@@ -114,6 +120,39 @@ public class Input {
         allCommands[9] = "REPLACE";
     }
 
+    public void executeCommand() {
+        if (command.equals("EXIT")) {
+            exit();
+        } else if (command.equals("DUMMY")) {
+            text.addDummyText();
+        } else if (command.equals("PRINT")) {
+            text.absaetzeAusgeben();
+        }
+        
+    }
+
+    public void inputCheck(ArrayList<String> absaetze) {
+        int index = Integer.valueOf(paragraph);
+        if (isCommand(command) == false) {
+            System.err.println("Ihre Eingabe ist keine gueltiger Befehlssatz");
+        } else if (isNumber(paragraph) == false) {
+            System.err.println("Der eingebene Index ist keine Nummer");
+        } else if (index < 0 || index > absaetze.size()) {
+            System.err.println("Der angegebe Index liegt nicht im gueltigen Indexbereich");
+        }
+    }
+
+    public void exit() {
+        scanner.close();
+        exit = true;
+    }
+
+    public boolean run() {
+        if (exit == true) {
+            return true;
+        }else return false;
+    }
+
     public static void main(String[] args) {
         // testing
         Input input = new Input();
@@ -123,4 +162,6 @@ public class Input {
         System.out.println(input.getCommand());
         System.out.println(input.getParagraph());
     }
+
+
 }
