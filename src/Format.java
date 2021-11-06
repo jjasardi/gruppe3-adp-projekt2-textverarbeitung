@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * Diese Klasse enthaelt Methoden zur Formatierung von Absätzen.
@@ -16,7 +15,6 @@ public class Format {
     public Format() {
         zeichen = 0;
     }
-
     /**
      * Fuegt Leerzeichen und Zeilenumbrüche nach definierter maximalen Spaltenlänge
      * ein.
@@ -26,26 +24,27 @@ public class Format {
      * @param spaltenBreite Maximale Zeichen pro Zeile
      * @return formatierter Absatz als String
      */
-    public String formatFix(ArrayList<String> absatz, int index, int spaltenBreite) {
-        String[] absatzString = absatz.get(index).split(" ");
-        for (int slot = 0; slot < absatzString.length - 1; slot++) {
-            zeichen = zeichen + absatzString[slot].length();
-            if (zeichen > spaltenBreite) {
-                absatzString[slot] = stringUmbruch(absatzString[slot], spaltenBreite);
-                if (zeichen + absatzString[slot + 1].length() > spaltenBreite) {
-                    absatzString[slot] = absatzString[slot] + "\n";
+    public void formatFix(ArrayList<String> absaetze, int spaltenBreite) {
+        for (String absatz : absaetze) {
+            String[] absatzString = absatz.split(" ");
+            for (int slot = 0; slot < absatzString.length - 1; slot++) {
+                zeichen = zeichen + absatzString[slot].length();
+                if (zeichen > spaltenBreite) {
+                    absatzString[slot] = stringUmbruch(absatzString[slot], spaltenBreite);
+                    if (zeichen + absatzString[slot + 1].length() > spaltenBreite) {
+                        absatzString[slot] = absatzString[slot] + "\n";
+                    }
+                } else if (++zeichen + absatzString[slot + 1].length() < spaltenBreite) {
+                    absatzString[slot] = absatzString[slot] + " ";
+                } else {
+                    absatzString[slot] = absatzString[slot] + " \n";
+                    zeichen = 0;
                 }
-            } else if (++zeichen + absatzString[slot + 1].length() < spaltenBreite) {
-                absatzString[slot] = absatzString[slot] + " ";
-            } else {
-                absatzString[slot] = absatzString[slot] + " \n";
-                zeichen = 0;
             }
+            stringUmbruch(absatzString[absatzString.length - 1], spaltenBreite);
+            System.out.println(String.join("", absatzString));
         }
-        stringUmbruch(absatzString[absatzString.length - 1], spaltenBreite);
-        return String.join("", absatzString);
     }
-
     /**
      * Fuegt Indexnummer zum Absatz hinzu. Format: <n> : <Absatz>
      * 
@@ -55,7 +54,7 @@ public class Format {
      */
     public void formatRaw(ArrayList<String> absaetze) {
         for (int index = 0; index < absaetze.size(); index++) {
-            System.out.println((index+1) + " : " + absaetze.get(index));
+            System.out.println((index + 1) + " : " + absaetze.get(index));
         }
     }
 

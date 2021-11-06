@@ -127,6 +127,10 @@ public class Input {
             text.addDummyText();
         } else if (command.equals("PRINT")) {
             text.absaetzeAusgeben();
+        } else if (command.equals("FORMAT RAW")) {
+            text.setSpaltenBreite(0);
+        } else if (command.equals("FORMAT FIX")) {
+            text.setSpaltenBreite(Integer.valueOf(getParagraph()));
         }
         
     }

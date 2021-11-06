@@ -20,7 +20,7 @@ public class Text {
     public Text(Format format) {
         absaetze = new ArrayList<>();
         this.format = format;
-        spaltenBreite = 0;
+        spaltenBreite = 15;
     }
 
     /**
@@ -79,7 +79,7 @@ public class Text {
     public void absaetzeAusgeben() {
         if (spaltenBreite == 0) {
             format.formatRaw(absaetze);
-        }
+        } else format.formatFix(absaetze, spaltenBreite);
 
     }
 
@@ -110,6 +110,10 @@ public class Text {
         absatz.replace(zuSuchen, ersetzenMit);
         absaetze.set(absaetze.size(), absatz);
         return absatz;
+    }
+
+    public void setSpaltenBreite(int spaltenBreite) {
+        this.spaltenBreite = spaltenBreite;
     }
 
     /*
