@@ -7,50 +7,63 @@ import java.util.ArrayList;
  * @version 1
  */
 public class Format {
-    private int zeichen;
+    private String line;
+    private ArrayList<String> testText;
 
     /**
      * Konstruktor
      */
     public Format() {
-        zeichen = 0;
+        line = "";
+        testText = new ArrayList<>();
+        fillList();
+
     }
+
+    private void fillList() {
+        testText.add(0,
+                "STAAAAAAAAAAAAAAART Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. ");
+        testText.add(1,
+                "STAAAAAAAAAAAAAAART Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. ");
+        testText.add(1,
+                "STAAAAAAAAAAAAAAART Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. ");
+    }
+
     /**
-     * Fuegt Leerzeichen und Zeilenumbrüche nach definierter maximalen Spaltenlänge
-     * ein.
+     * Druckt Absaetze nach vorgegebener Spaltenbreite aus. Ruft dazu gegenenfalls
+     * methode zum zerteilen von Strings die laenger als die Spaltenbreite sind.
      * 
-     * @param absatz        ArrayList
-     * @param index         der Sammlung
-     * @param spaltenBreite Maximale Zeichen pro Zeile
-     * @return formatierter Absatz als String
+     * @param absaetze      Arraylist
+     * @param spaltenBreite maximale Zeichen pro Zeile
      */
     public void formatFix(ArrayList<String> absaetze, int spaltenBreite) {
         for (String absatz : absaetze) {
             String[] absatzString = absatz.split(" ");
-            for (int slot = 0; slot < absatzString.length - 1; slot++) {
-                zeichen = zeichen + absatzString[slot].length();
-                if (zeichen > spaltenBreite) {
-                    absatzString[slot] = stringUmbruch(absatzString[slot], spaltenBreite);
-                    if (zeichen + absatzString[slot + 1].length() > spaltenBreite) {
-                        absatzString[slot] = absatzString[slot] + "\n";
-                    }
-                } else if (++zeichen + absatzString[slot + 1].length() < spaltenBreite) {
-                    absatzString[slot] = absatzString[slot] + " ";
-                } else {
-                    absatzString[slot] = absatzString[slot] + " \n";
-                    zeichen = 0;
+            String spalte = "";
+            String spalte2 = "";
+            for (String string : absatzString) {
+                if (string.length() > spaltenBreite) {
+                    System.out.print("\n");
+                    stringUmbruch(string, spaltenBreite);
+                } else if (line.length() + spalte.length() + string.length() > spaltenBreite) {
+                    System.out.print("\n");
+                    spalte = string + " ";
+                    System.out.print(spalte);
+                } else if (line.length() + spalte.length() + string.length() <= spaltenBreite) {
+                    spalte2 = string + " ";
+                    spalte = spalte + spalte2;
+                    System.out.print(spalte2);
                 }
             }
-            stringUmbruch(absatzString[absatzString.length - 1], spaltenBreite);
-            System.out.println(String.join("", absatzString));
+            System.out.println(" ");
         }
     }
+
     /**
      * Fuegt Indexnummer zum Absatz hinzu. Format: <n> : <Absatz>
      * 
      * @param absatz Arraylist
      * @param index  der Sammlung
-     * @return formatierter Absatz als String
      */
     public void formatRaw(ArrayList<String> absaetze) {
         for (int index = 0; index < absaetze.size(); index++) {
@@ -59,23 +72,22 @@ public class Format {
     }
 
     /**
-     * Bricht Strings in mehrere Teile auf, fuegt Leerzeichen oder Zeilenumbrueche
-     * ein und fuegt die Teile wieder zu einem String zusammen.
-     * 
-     * @param absatzString  String der umgebrochen werden muss
-     * @param spaltenBreite Maximale Zeichen pro Zeile
-     * @return String mit Leerzeichen und Zeilenumbruechen an vorgegebener Stelle.
+     * Bricht Strings auf die laenger sind als die maximale Spaltenbreite
+     * @param string der zu Lange String
+     * @param spaltenBreite maximale Zeichen pro Zeile
      */
-    private String stringUmbruch(String absatzString, int spaltenBreite) {
-        String[] subString = absatzString.split("(?<=\\G.{" + spaltenBreite + "})");
-        for (int slot = 0; slot < subString.length; slot++) {
-            if (slot == subString.length - 1) {
-                subString[slot] = subString[slot] + " ";
-                zeichen = subString[slot].length();
+    private void stringUmbruch(String string, int spaltenBreite) {
+        String[] subString = string.split("(?<=\\G.{" + (spaltenBreite) + "})");
+        line = "";
+        for (String stringKlein : subString) {
+            if (line.length() + stringKlein.length() <= spaltenBreite) {
+                line = stringKlein + " ";
+                System.out.print(line);
             } else {
-                subString[slot] = subString[slot] + " \n";
+                System.out.print("\n");
+                line = stringKlein + " ";
+                System.out.print(line);
             }
         }
-        return String.join("", subString);
     }
 }
