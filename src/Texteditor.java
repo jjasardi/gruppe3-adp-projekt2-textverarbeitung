@@ -17,7 +17,7 @@ public class Texteditor {
         start();
     }
 
-    public static void start() {
+    private static void start() {
         input = new Input();
     }
 }
