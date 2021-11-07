@@ -52,12 +52,6 @@ public class Input {
         return commandSplit;
     }
 
-    // vorbereitung
-    private boolean checkSpecialCharacter() {
-        // TODO when needed finish it.
-        return true;
-    }
-
     /**
      * Returns true if the String is a command from the allComand list.
      * 
@@ -97,6 +91,17 @@ public class Input {
         } else {
             System.err.println("error");
         }
+    }
+
+    /**
+     * filters all forbidden characters out. exception: 'a-z', 'A-Z', '0-9',
+     * 'äöüÄÖÜ', '.,;:!?%$@&+*#(){}/\'"[]'
+     * 
+     * @param input the unfiltered paragraph.
+     * @return String, gives the filteret paragraph back.
+     */
+    public String filterParagraph(String input) {
+        return input.replaceAll("[^a-zA-Z0-9äöüÄÖÜ .,:;\\-!?’()\\\"%@+*[\\\\]{}\\/\\\\&#$]", "");
     }
 
     public String getCommand() {
@@ -140,19 +145,19 @@ public class Input {
             if (paragraph == null) {
                 text.addDummyText();
             } else {
-                text.addDummyText(Integer.valueOf(paragraph));
+                text.addDummyText(Integer.parseInt(paragraph));
             }
         } else if (command.equals("PRINT")) {
             text.absaetzeAusgeben();
         } else if (command.equals("FORMAT RAW")) {
             text.setSpaltenBreite(0);
-        } else if (command.equals("FORMAT FIX ")) {
-            text.setSpaltenBreite(Integer.valueOf(paragraph));
+        } else if (command.equals("FORMAT FIX ")) {// TODO check space
+            text.setSpaltenBreite(Integer.parseInt(paragraph));
         } else if (command.equals("DEL")) {
             if (paragraph == null) {
                 text.loescheAbsatz();
             } else {
-                text.loescheAbsatz(Integer.valueOf(paragraph));
+                text.loescheAbsatz(Integer.parseInt(paragraph));
             }
         } else if (command.equals("INDEX")) {
             text.indexAusgeben();
@@ -160,7 +165,7 @@ public class Input {
             if (paragraph == null) {
                 // text.textErsetzen(zuSuchen, ersetzenMit)
             } else {
-                // text.textErsetzen(Integer.valueOf(paragraph), zuSuchen, ersetzenMit));
+                // text.textErsetzen(Integer.parseInt(paragraph), zuSuchen, ersetzenMit));
             }
         }
 
@@ -168,7 +173,7 @@ public class Input {
 
     private void inputCheck(ArrayList<String> absaetze) {
         if (paragraph != null && isNumber()) {
-            int index = Integer.valueOf(paragraph);
+            int index = Integer.parseInt(paragraph);
             if (command.contains("FORMAT") == false && paragraph != null && (index < 0 || index > absaetze.size())) {
                 System.err.println("Der angegebe Index liegt nicht im gueltigen Indexbereich");
                 error = true;
