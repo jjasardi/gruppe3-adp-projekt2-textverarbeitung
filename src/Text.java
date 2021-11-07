@@ -12,8 +12,8 @@ public class Text {
     private Format format;
     private int spaltenBreite;
     private ArrayList<String> absaetze;
-    private String dummyText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et"
-            + "dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo"
+    private String dummyText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et "
+            + "dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
             + "consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. "
             + "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
@@ -79,7 +79,8 @@ public class Text {
     public void absaetzeAusgeben() {
         if (spaltenBreite == 0) {
             format.formatRaw(absaetze);
-        } else format.formatFix(absaetze, spaltenBreite);
+        } else
+            format.formatFix(absaetze, spaltenBreite);
 
     }
 
@@ -116,9 +117,12 @@ public class Text {
         this.spaltenBreite = spaltenBreite;
     }
 
-    /*
+    public ArrayList<String> getAbsaetze() {
+        return absaetze;
+    }
+
     public void indexAusgeben() {
-        Set<String> alleWoerter = new HashSet<>();
+        HashSet<String> alleWoerter = new HashSet<>();
         HashMap<String, Integer> woerterHaeufigkeit = new HashMap<>();
         for (String absatz : absaetze) {
             String woerterInAbsatz[] = absatz.split(" ");
@@ -136,5 +140,5 @@ public class Text {
                 }
             }
         }
-    }*/
+    }
 }
