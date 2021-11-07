@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-//import org.junit.platform.console.shadow.picocli.CommandLine.Command;
-
 /**
  * @version 1.0
  * @author Schiess
@@ -16,6 +14,7 @@ public class Input {
     private String paragraph;
     private boolean exit;
     private Format format;
+    private boolean error;
 
     /**
      * Constructor
@@ -26,6 +25,7 @@ public class Input {
         scanner = new Scanner(System.in);
         allCommands = new String[10];
         setAllCommands();
+        error = false;
     }
 
     /**
@@ -37,6 +37,11 @@ public class Input {
         String formatNextLine = getInput().toUpperCase();
         String[] commandSplit = splitInput(formatNextLine);
         setCommandAndParagraph(commandSplit);
+        inputCheck(text.getAbsaetze());
+        if (error == false) {
+            executeCommand();
+        }
+        error = false;
     }
 
     /**
@@ -74,7 +79,7 @@ public class Input {
      * @param inputSplit
      * @return
      */
-    private boolean isNumber(String paragraph) {
+    private boolean isNumber() {
         if (paragraph.matches("\\d+")) {
             return true;
         }
@@ -82,6 +87,7 @@ public class Input {
     }
 
     private void setCommandAndParagraph(String[] commandSplit) {
+
         if (commandSplit.length == 1) {
             command = commandSplit[0];
             paragraph = null;
@@ -120,52 +126,77 @@ public class Input {
         allCommands[9] = "REPLACE";
     }
 
-    public void executeCommand() {
+    private void executeCommand() {
         if (command.equals("EXIT")) {
             exit();
+        } else if (command.equals("ADD")) {
+            if (paragraph == null) {
+                String scan = "input";
+                text.addAbsatz(scan);
+            } else {
+                // text.addAbsatz(absatz, absatzNummer););
+            }
         } else if (command.equals("DUMMY")) {
-            text.addDummyText();
+            if (paragraph == null) {
+                text.addDummyText();
+            } else {
+                text.addDummyText(Integer.valueOf(paragraph));
+            }
         } else if (command.equals("PRINT")) {
             text.absaetzeAusgeben();
         } else if (command.equals("FORMAT RAW")) {
             text.setSpaltenBreite(0);
-        } else if (command.equals("FORMAT FIX")) {
-            text.setSpaltenBreite(Integer.valueOf(getParagraph()));
+        } else if (command.equals("FORMAT FIX ")) {
+            text.setSpaltenBreite(Integer.valueOf(paragraph));
+        } else if (command.equals("DEL")) {
+            if (paragraph == null) {
+                text.loescheAbsatz();
+            } else {
+                text.loescheAbsatz(Integer.valueOf(paragraph));
+            }
+        } else if (command.equals("INDEX")) {
+            text.indexAusgeben();
+        } else if (command.equals("REPLACE")) {
+            if (paragraph == null) {
+                // text.textErsetzen(zuSuchen, ersetzenMit)
+            } else {
+                // text.textErsetzen(Integer.valueOf(paragraph), zuSuchen, ersetzenMit));
+            }
         }
-        
+
     }
 
-    public void inputCheck(ArrayList<String> absaetze) {
-        int index = Integer.valueOf(paragraph);
-        if (isCommand(command) == false) {
+    private void inputCheck(ArrayList<String> absaetze) {
+        if (paragraph != null && isNumber()) {
+            int index = Integer.valueOf(paragraph);
+            if (command.contains("FORMAT") == false && paragraph != null && (index < 0 || index > absaetze.size())) {
+                System.err.println("Der angegebe Index liegt nicht im gueltigen Indexbereich");
+                error = true;
+            } else if (command.contains("FORMAT") == true && paragraph != null && index < 0) {
+                System.err.println("Der angegebe Zahl ist negativ");
+                error = true;
+            } else if (isNumber() == false) {
+                System.err.println("Der eingebene Index ist keine Nummer");
+                error = true;
+            }
+        } else if (isCommand(command) == false) {
             System.err.println("Ihre Eingabe ist keine gueltiger Befehlssatz");
-        } else if (isNumber(paragraph) == false) {
-            System.err.println("Der eingebene Index ist keine Nummer");
-        } else if (index < 0 || index > absaetze.size()) {
-            System.err.println("Der angegebe Index liegt nicht im gueltigen Indexbereich");
+            error = true;
+        } else if (paragraph != null && isNumber() == false) {
+            System.err.println("Der eingebene Wert ist keine Nummer");
+            error = true;
         }
     }
 
-    public void exit() {
+    private void exit() {
         scanner.close();
         exit = true;
     }
 
     public boolean run() {
         if (exit == true) {
+            return false;
+        } else
             return true;
-        }else return false;
     }
-
-    public static void main(String[] args) {
-        // testing
-        Input input = new Input();
-        System.out.print("Please enter your input: ");
-        input.formatNextLine();
-
-        System.out.println(input.getCommand());
-        System.out.println(input.getParagraph());
-    }
-
-
 }
