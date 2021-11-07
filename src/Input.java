@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-//import org.junit.platform.console.shadow.picocli.CommandLine.Command;
-
 /**
  * @version 1.0
  * @author Schiess
@@ -83,7 +81,7 @@ public class Input {
     }
 
     private void setCommandAndParagraph(String[] commandSplit) {
-        if (commandSplit.length == 1) {
+          if (commandSplit.length == 1) {
             command = commandSplit[0];
             paragraph = null;
         } else if (commandSplit.length == 2) {
