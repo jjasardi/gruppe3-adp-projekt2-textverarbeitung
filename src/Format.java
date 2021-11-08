@@ -25,7 +25,6 @@ public class Format {
         for (String absatz : absaetze) {
             String[] absatzString = absatz.split(" ");
             String spalte = "";
-            String spalte2 = "";
             for (String string : absatzString) {
                 if (string.length() > spaltenBreite) {
                     String[] subString = string.split("(?<=\\G.{" + (spaltenBreite) + "})");
@@ -44,9 +43,8 @@ public class Format {
                     spalte = string + " ";
                     System.out.print(spalte);
                 } else if (spalte.length() + string.length() <= spaltenBreite) {
-                    spalte2 = string + " ";
-                    spalte = spalte + spalte2;
-                    System.out.print(spalte2);
+                    spalte = spalte + string + " ";
+                    System.out.print(string + " ");
                 }
             }
             System.out.println("\n");
@@ -54,7 +52,7 @@ public class Format {
     }
 
     /**
-     * Fuegt Indexnummer zum Absatz hinzu. Format: <n> : <Absatz>
+     * Fuegt Indexnummer zum Absatz hinzu und druckt diesen. Format: <n> : <Absatz>
      * 
      * @param absatz Arraylist
      * @param index  der Sammlung
