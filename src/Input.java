@@ -6,22 +6,18 @@ import java.util.Scanner;
  * @author Schiess
  */
 public class Input {
-
     private Scanner scanner;
-    private Text text;
+    private Logic logic;
     private String[] allCommands;
     private String command;
     private String paragraph;
     private boolean exit;
-    private Format format;
     private boolean error;
 
     /**
      * Constructor
      */
     public Input() {
-        format = new Format();
-        text = new Text(format);
         scanner = new Scanner(System.in);
         allCommands = new String[10];
         setAllCommands();
@@ -37,9 +33,9 @@ public class Input {
         String formatNextLine = getInput().toUpperCase();
         String[] commandSplit = splitInput(formatNextLine);
         setCommandAndParagraph(commandSplit);
-        inputCheck(text.getAbsaetze());
+        inputCheck(logic.getAbsaetze());
         if (error == false) {
-            executeCommand();
+            logic.executeCommand();
         }
         error = false;
     }
@@ -81,7 +77,7 @@ public class Input {
     }
 
     private void setCommandAndParagraph(String[] commandSplit) {
-          if (commandSplit.length == 1) {
+        if (commandSplit.length == 1) {
             command = commandSplit[0];
             paragraph = null;
         } else if (commandSplit.length == 2) {
@@ -111,7 +107,7 @@ public class Input {
         return paragraph;
     }
 
-    private String getInput() {
+    public String getInput() {
         return scanner.nextLine();
     }
 
@@ -128,46 +124,6 @@ public class Input {
         allCommands[7] = "INDEX";
         allCommands[8] = "PRINT";
         allCommands[9] = "REPLACE";
-    }
-
-    private void executeCommand() {
-        if (command.equals("EXIT")) {
-            exit();
-        } else if (command.equals("ADD")) {
-            if (paragraph == null) {
-                String scan = "input";
-                text.addAbsatz(scan);
-            } else {
-                // text.addAbsatz(absatz, absatzNummer););
-            }
-        } else if (command.equals("DUMMY")) {
-            if (paragraph == null) {
-                text.addDummyText();
-            } else {
-                text.addDummyText(Integer.parseInt(paragraph));
-            }
-        } else if (command.equals("PRINT")) {
-            text.absaetzeAusgeben();
-        } else if (command.equals("FORMAT RAW")) {
-            text.setSpaltenBreite(0);
-        } else if (command.equals("FORMAT FIX ")) {// TODO check space
-            text.setSpaltenBreite(Integer.parseInt(paragraph));
-        } else if (command.equals("DEL")) {
-            if (paragraph == null) {
-                text.loescheAbsatz();
-            } else {
-                text.loescheAbsatz(Integer.parseInt(paragraph));
-            }
-        } else if (command.equals("INDEX")) {
-            text.indexAusgeben();
-        } else if (command.equals("REPLACE")) {
-            if (paragraph == null) {
-                // text.textErsetzen(zuSuchen, ersetzenMit)
-            } else {
-                // text.textErsetzen(Integer.parseInt(paragraph), zuSuchen, ersetzenMit));
-            }
-        }
-
     }
 
     private void inputCheck(ArrayList<String> absaetze) {
@@ -192,7 +148,7 @@ public class Input {
         }
     }
 
-    private void exit() {
+    public void exit() {
         scanner.close();
         exit = true;
     }

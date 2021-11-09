@@ -16,7 +16,7 @@ public class Format {
 
     /**
      * Druckt Absaetze nach vorgegebener Spaltenbreite aus. Wenn Woerter laenger
-     * sind als die Spaltenbreite werden sie aufeinandergebrochen.
+     * sind als die Spaltenbreite werden sie auseinandergebrochen.
      * 
      * @param absaetze      Arraylist
      * @param spaltenBreite maximale Zeichen pro Zeile
@@ -27,7 +27,7 @@ public class Format {
             String spalte = "";
             for (String string : absatzString) {
                 if (string.length() > spaltenBreite) {
-                    String[] subString = string.split("(?<=\\G.{" + (spaltenBreite) + "})");
+                    String[] subString = string.split("(?<=\\G.{" + spaltenBreite + "})");
                     for (String stringKlein : subString) {
                         if (spalte.length() + stringKlein.length() <= spaltenBreite) {
                             spalte = stringKlein + " ";
@@ -54,8 +54,7 @@ public class Format {
     /**
      * Fuegt Indexnummer zum Absatz hinzu und druckt diesen. Format: <n> : <Absatz>
      * 
-     * @param absatz Arraylist
-     * @param index  der Sammlung
+     * @param absaetze Arraylist
      */
     public void formatRaw(ArrayList<String> absaetze) {
         for (int index = 0; index < absaetze.size(); index++) {
