@@ -15,7 +15,8 @@ public class Output {
     private void setOutput() {
         output.put("welcom", "Willkommen zum Texteditor von ADP /n" 
                 + "Bitte geben Sie Einen Text ein oder erstellen"
-                + "sie einen Dummy-Text mit dem Befehl DUMMY.");
+                + "sie einen Dummy-Text mit dem Befehl DUMMY. /n"
+                + "Fuer Hilfe geben sie HELP ein.");
         output.put("help", "HELP"); //TODO: einen Help erstellen.
         output.put("command", "Bitte geben Sie einen Befehl ein.");
         output.put("addText", "Bitte geben Sie einen Text ein.");
