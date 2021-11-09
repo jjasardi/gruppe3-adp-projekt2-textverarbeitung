@@ -32,7 +32,7 @@ public class Text {
      * @param absatzNummer An welcher Stelle der Absatz eingefügt werden soll
      */
     public void addAbsatz(String absatz, int absatzNummer) {
-        absaetze.add(absatzNummer, absatz);
+        absaetze.add(--absatzNummer , absatz);
     }
 
     /**
@@ -50,14 +50,14 @@ public class Text {
      * @param absatzNummer Die Nummer des zu löschenden Absatzes
      */
     public void loescheAbsatz(int absatzNummer) {
-        absaetze.remove(absatzNummer);
+        absaetze.remove(--absatzNummer);
     }
 
     /**
      * loescht den letzten Absatz aus der ArrayList
      */
     public void loescheAbsatz() {
-        absaetze.remove(absaetze.size());
+        absaetze.remove(absaetze.size() - 1);
     }
 
     /**
@@ -66,7 +66,7 @@ public class Text {
      * @param absatzNummer An welcher Stelle der DummyText eingefügt werden soll
      */
     public void addDummyText(int absatzNummer) {
-        absaetze.add(absatzNummer, dummyText);
+        absaetze.add(--absatzNummer, dummyText);
     }
 
     /**
@@ -95,9 +95,9 @@ public class Text {
      * @return String. gibt den geänderten Absatz zurück
      */
     public String textErsetzen(int absatzNummer, String zuSuchen, String ersetzenMit) {
-        String absatz = absaetze.get(absatzNummer);
+        String absatz = absaetze.get(--absatzNummer);
         absatz.replace(zuSuchen, ersetzenMit);
-        absaetze.set(absatzNummer, absatz);
+        absaetze.set(--absatzNummer, absatz);
         return absatz;
     }
 
@@ -108,11 +108,10 @@ public class Text {
      * @param ersetzenMit mit was soll das Gesuchte ersetzt werden
      * @return String. gibt den geänderten Absatz zurück
      */
-    public String textErsetzen(String zuSuchen, String ersetzenMit) {
-        String absatz = absaetze.get(absaetze.size());
+    public void textErsetzen(String zuSuchen, String ersetzenMit) {
+        String absatz = absaetze.get(absaetze.size()-1);
         absatz.replace(zuSuchen, ersetzenMit);
-        absaetze.set(absaetze.size(), absatz);
-        return absatz;
+        absaetze.set(absaetze.size()-1, absatz);
     }
 
     public ArrayList<String> getAbsaetze() {

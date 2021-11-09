@@ -7,13 +7,11 @@ import java.util.ArrayList;
  * @version 1
  */
 public class Format {
-    private ArrayList<String> test;
 
     /**
      * leerer Konstruktor
      */
     public Format() {
-        test = new ArrayList<>();
     }
 
     /**
@@ -28,7 +26,7 @@ public class Format {
             String[] absatzString = absatz.split(" ");
             String spalte = "";
             for (String string : absatzString) {
-                int length= string.length();
+                int length = string.length();
                 if (length > spaltenBreite) {
                     String[] subString = string.split("(?<=\\G.{" + spaltenBreite + "})");
                     for (String stringKlein : subString) {
@@ -63,9 +61,5 @@ public class Format {
         for (int index = 0; index < absaetze.size(); index++) {
             System.out.println((index + 1) + " : " + absaetze.get(index));
         }
-    }
-    
-    private void test() {
-        
     }
 }
