@@ -20,11 +20,11 @@ public class Text {
             + "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
     private HashMap<String, Set<Integer>> index;
 
-    public Text(Format format) {
+    public Text() {
+        format = new Format();
         absaetze = new ArrayList<>();
-        this.format = format;
         index = new HashMap<>();
-        spaltenBreite = 15;
+        spaltenBreite = 0;
     }
 
     /**
