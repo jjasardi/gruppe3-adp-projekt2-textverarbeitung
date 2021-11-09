@@ -10,11 +10,10 @@ public class Input {
     private Logic logic;
     private String command;
     private String paragraph;
-    private boolean exit;
     private boolean error;
 
-    private static final String[] allCommands = { "ADD", "DEL", "DUMMY", "EXIT", "FORMAT RAW", "FORMAT FIX", "INDEX",
-            "PRINT", "REPLACE" };
+    private static final String[] allCommands = { "ADD", "DEL", "DUMMY", "EXIT", 
+    "FORMAT RAW", "FORMAT FIX", "INDEX", "PRINT", "REPLACE" };
 
             
     public Input() {
