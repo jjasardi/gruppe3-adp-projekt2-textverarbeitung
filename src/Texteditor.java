@@ -1,10 +1,11 @@
 public class Texteditor {
     private static Input input;
+    private static Logic logic;
 
     
     public static void main(String[] args) {
         start();
-        while (input.run() == true) {
+        while (logic.run() == true) {
         System.out.print("Please enter your input: ");
         input.formatNextLine();
 
@@ -17,7 +18,15 @@ public class Texteditor {
         start();
     }
 
-    private static void start() {
+    public static void start() {
+        welcome();
+        logic = new Logic();
         input = new Input();
+        logic.setInput(input);
+        input.setLogic(logic);
+    }
+
+    private static void welcome() {
+        System.out.println("Welcome");
     }
 }

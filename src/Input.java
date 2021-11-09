@@ -16,10 +16,13 @@ public class Input {
     private static final String[] allCommands = { "ADD", "DEL", "DUMMY", "EXIT", "FORMAT RAW", "FORMAT FIX", "INDEX",
             "PRINT", "REPLACE" };
 
-    /**
-     * Constructor
-     */
+            
     public Input() {
+
+    }
+   
+    public void setLogic(Logic logic) {
+        this.logic = logic;
         scanner = new Scanner(System.in);
         error = false;
     }
@@ -133,15 +136,7 @@ public class Input {
         }
     }
 
-    public void exit() {
+    public void close() {
         scanner.close();
-        exit = true;
-    }
-
-    public boolean run() {
-        if (exit == true) {
-            return false;
-        } else
-            return true;
     }
 }

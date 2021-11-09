@@ -1,59 +1,108 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Logic {
     private Input input;
     private Text text;
+    private int spaltenBreite;
+    private Scanner scan;
+    private boolean exit;
 
-    public Logic() {
-        input = new Input();
+    public Logic () {
+
+    }
+
+    public void setInput(Input input) {
+        this.input = input;
         text = new Text();
+        spaltenBreite = 0;
+        exit = false;
     }
 
     public void executeCommand() {
         if (input.getCommand().equals("EXIT")) {
-            input.exit();
+            exit();
         } else if (input.getCommand().equals("ADD")) {
-            if (input.getParagraph() == null) {
-                String scan = "input";
-                text.addAbsatz(scan);
-            } else {
-                // text.addAbsatz(absatz, absatzNummer););
-            }
+            add();
         } else if (input.getCommand().equals("DUMMY")) {
-            if (input.getParagraph() == null) {
-                text.addDummyText();
-            } else {
-                text.addDummyText(getParagraph());
-            }
+            dummy();
         } else if (input.getCommand().equals("PRINT")) {
-            text.absaetzeAusgeben();
+            text.absaetzeAusgeben(spaltenBreite);
         } else if (input.getCommand().equals("FORMAT RAW")) {
-            text.setSpaltenBreite(0);
+            spaltenBreite = 0;
         } else if (input.getCommand().equals("FORMAT FIX ")) {// TODO check space
-            text.setSpaltenBreite(getParagraph());
+            spaltenBreite = getParagraph();
         } else if (input.getCommand().equals("DEL")) {
-            if (input.getParagraph() == null) {
-                text.loescheAbsatz();
-            } else {
-                text.loescheAbsatz(getParagraph());
-            }
+            del();
         } else if (input.getCommand().equals("INDEX")) {
             text.indexAusgeben();
         } else if (input.getCommand().equals("REPLACE")) {
-            if (input.getParagraph() == null) {
-                // text.textErsetzen(zuSuchen, ersetzenMit)
-            } else {
-                // text.textErsetzen(Integer.parseInt(paragraph), zuSuchen, ersetzenMit));
-            }
+            replace();
         }
     }
-    
+
+    private String scan() {
+        scan = new Scanner(System.in);
+        return input.filterParagraph(scan.nextLine());
+    }
+
+    private void replace() {
+        String wort1 = "";
+        String wort2 = "";
+        System.out.print("Wort: ");
+        wort1 = scan();
+        System.out.print("ersetzen durch: ");
+        wort2 = scan();
+        if (input.getParagraph() == null) {
+            text.textErsetzen(wort1, wort2);
+        } else {
+            text.textErsetzen(getParagraph(), wort1, wort2);
+        }
+    }
+
+    private void dummy() {
+        if (input.getParagraph() == null) {
+            text.addDummyText();
+        } else {
+            text.addDummyText(getParagraph());
+        }
+    }
+
+    private void add() {
+        if (input.getParagraph() == null) {
+            System.out.print("Text: ");
+            text.addAbsatz(scan());
+        } else {
+            System.out.print("Text: ");
+            text.addAbsatz(scan(), getParagraph());
+        }
+    }
+
+    private void del() {
+        if (input.getParagraph() == null) {
+            text.loescheAbsatz();
+        } else {
+            text.loescheAbsatz(getParagraph());
+        }
+    }
+
     private int getParagraph() {
         return Integer.parseInt(input.getParagraph());
     }
 
     public ArrayList<String> getAbsaetze() {
         return text.getAbsaetze();
-    } 
+    }
 
+    public boolean run() {
+        if (exit == true) {
+            return false;
+        } else
+            return true;
+    }
+
+    public void exit() {
+        input.close();
+        exit = true;
+    }
 }
