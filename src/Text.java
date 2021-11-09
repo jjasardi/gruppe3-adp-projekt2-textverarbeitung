@@ -12,7 +12,6 @@ import java.util.Set;
 
 public class Text {
     private Format format;
-    private int spaltenBreite;
     private ArrayList<String> absaetze;
     private String dummyText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et "
             + "dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
@@ -24,7 +23,6 @@ public class Text {
         format = new Format();
         absaetze = new ArrayList<>();
         index = new HashMap<>();
-        spaltenBreite = 0;
     }
 
     /**
@@ -80,7 +78,7 @@ public class Text {
         absaetze.add(dummyText);
     }
 
-    public void absaetzeAusgeben() {
+    public void absaetzeAusgeben(int spaltenBreite) {
         if (spaltenBreite == 0) {
             format.formatRaw(absaetze);
         } else
@@ -115,10 +113,6 @@ public class Text {
         absatz.replace(zuSuchen, ersetzenMit);
         absaetze.set(absaetze.size(), absatz);
         return absatz;
-    }
-
-    public void setSpaltenBreite(int spaltenBreite) {
-        this.spaltenBreite = spaltenBreite;
     }
 
     public ArrayList<String> getAbsaetze() {
