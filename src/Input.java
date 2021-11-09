@@ -21,7 +21,6 @@ public class Input {
      */
     public Input() {
         scanner = new Scanner(System.in);
-        setAllCommands();
         error = false;
     }
 
@@ -110,21 +109,6 @@ public class Input {
 
     public String getInput() {
         return scanner.nextLine();
-    }
-
-    /**
-     * Sets to allCommands List the commands
-     */
-    private void setAllCommands() {
-        allCommands[0] = "ADD";
-        allCommands[1] = "DEL";
-        allCommands[2] = "DUMMY";
-        allCommands[3] = "EXIT";
-        allCommands[4] = "FORMAT RAW";
-        allCommands[5] = "FORMAT FIX";
-        allCommands[7] = "INDEX";
-        allCommands[8] = "PRINT";
-        allCommands[9] = "REPLACE";
     }
 
     private void inputCheck(ArrayList<String> absaetze) {
