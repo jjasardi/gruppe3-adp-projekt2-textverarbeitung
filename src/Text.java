@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * 
@@ -16,10 +18,12 @@ public class Text {
             + "dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
             + "consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. "
             + "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+    private HashMap<String, Set<Integer>> index;
 
     public Text(Format format) {
         absaetze = new ArrayList<>();
         this.format = format;
+        index = new HashMap<>();
         spaltenBreite = 15;
     }
 
@@ -121,23 +125,40 @@ public class Text {
         return absaetze;
     }
 
-    public void indexAusgeben() {
-        HashSet<String> alleWoerter = new HashSet<>();
-        HashMap<String, Integer> woerterHaeufigkeit = new HashMap<>();
-        for (String absatz : absaetze) {
+    public void indexAktualisieren() {
+        for (int absatzNr = 1; absatzNr <= absaetze.size(); absatzNr++) {
+            String absatz = absaetze.get(absatzNr - 1);
             String woerterInAbsatz[] = absatz.split(" ");
             for (String wortInAbsatz : woerterInAbsatz) {
                 wortInAbsatz = wortInAbsatz.trim();
                 // erste Buchstabe gross
                 wortInAbsatz = wortInAbsatz.substring(0, 1).toUpperCase() + wortInAbsatz.substring(1);
-                // wort = entferneSatzzeichen(wort);
+                // TODO: wort = entferneSatzzeichen(wort);
 
-                if (woerterHaeufigkeit.containsKey(wortInAbsatz)) {
-                    Integer zaehler = woerterHaeufigkeit.get(wortInAbsatz);
-                    woerterHaeufigkeit.put(wortInAbsatz, zaehler++);
+                Set<Integer> vorkommenInAbsaetzeNr = new HashSet<Integer>();
+                if (index.containsKey(wortInAbsatz)) {
+                    vorkommenInAbsaetzeNr = index.get(wortInAbsatz);
+                    vorkommenInAbsaetzeNr.add(absatzNr);
+                    index.put(wortInAbsatz, vorkommenInAbsaetzeNr);
                 } else {
-                    woerterHaeufigkeit.put(wortInAbsatz, 1);
+                    vorkommenInAbsaetzeNr.add(absatzNr);
+                    index.put(wortInAbsatz, vorkommenInAbsaetzeNr);
                 }
+            }
+        }
+    }
+
+    public void indexAusgeben() {
+        indexAktualisieren();
+        Set<Map.Entry<String, Set<Integer>>> entrySet = index.entrySet();
+        for (Map.Entry<String, Set<Integer>> entry : entrySet) {
+            String wort = entry.getKey();
+            Set<Integer> vorkommenInAbsaetzeNr = entry.getValue();
+            if (vorkommenInAbsaetzeNr.size() > 3) {
+                System.out.print(wort);
+                // for (int absatzNr : vorkommenInAbsaetzeNr) {
+
+                // }
             }
         }
     }
