@@ -8,18 +8,19 @@ import java.util.Scanner;
 public class Input {
     private Scanner scanner;
     private Logic logic;
-    private String[] allCommands;
     private String command;
     private String paragraph;
     private boolean exit;
     private boolean error;
+
+    private static final String[] allCommands = { "ADD", "DEL", "DUMMY", "EXIT", "FORMAT RAW", "FORMAT FIX", "INDEX",
+            "PRINT", "REPLACE" };
 
     /**
      * Constructor
      */
     public Input() {
         scanner = new Scanner(System.in);
-        allCommands = new String[10];
         setAllCommands();
         error = false;
     }
