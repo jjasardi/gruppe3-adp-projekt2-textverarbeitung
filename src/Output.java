@@ -1,8 +1,8 @@
 import java.util.HashMap;
 
 public class Output {
-    Logic logic;
-    Input input;
+    private Logic logic;
+    private Input input;
 
     private HashMap<String, String> output;
     private HashMap<String, String> errorOutput;
