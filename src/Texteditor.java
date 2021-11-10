@@ -1,3 +1,10 @@
+/**
+ * Diese Texteditor klasse enthält die Main methode zur Ausfuehrung des
+ * Projekts.
+ * 
+ * @author sadikdur, Schiess
+ */
+
 public class Texteditor {
     private Output output;
 
@@ -6,16 +13,23 @@ public class Texteditor {
         texteditor.start();
     }
 
+    /**
+     * leeer Konstruktor
+     */
     public Texteditor() {
-        
+
     }
 
-    public void start() {       
+    /**
+     * Erstellt ein neues Output Objekt und initialisiert das "loop" fuer das
+     * Programm.
+     */
+    private void start() {
         output = new Output();
         System.out.print(output.getOutput("welcome"));
         while (output.run() == true) {
-        System.out.print(output.getOutput("command"));
-        output.formatNextLine();
+            System.out.print(output.getOutput("command"));
+            output.formatNextLine();
         }
     }
 }

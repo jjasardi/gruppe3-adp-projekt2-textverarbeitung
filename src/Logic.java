@@ -1,6 +1,13 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Diese Texteditor klasse enthält die Main methode zur Ausfuehrung des
+ * Projekts.
+ * 
+ * @author sadikdur, Schiess
+ */
+
 public class Logic {
     private Input input;
     private Text text;
@@ -9,11 +16,23 @@ public class Logic {
     private Scanner scan;
     private boolean exit;
 
-    public Logic (Output output) {
+    /**
+     * Konstruktor initialisiert das Output Objekt.
+     * 
+     * @param output Output objekt
+     */
+    public Logic(Output output) {
         this.output = output;
 
     }
 
+    /**
+     * Diese methode macht das, das Input objekt auf das selbe objekt zeigt wie die
+     * Input Klasse. Sie erstellt ein neues Text Objekt und initialisiert die
+     * Datenfelder.
+     * 
+     * @param input Input objekt
+     */
     public void setInput(Input input) {
         this.input = input;
         text = new Text();
@@ -25,6 +44,9 @@ public class Logic {
         return this.input;
     }
 
+    /**
+     * Diese methode fuehrt die methoden auf bezug zur Eingabe aus.
+     */
     public void executeCommand() {
         if (input.getCommand().equals("EXIT")) {
             exit();
@@ -49,11 +71,19 @@ public class Logic {
         }
     }
 
+    /**
+     * Scan Eingabe und liefert diesen als String.
+     * 
+     * @return gefilterer String
+     */
     private String scan() {
         scan = new Scanner(System.in);
         return input.filterParagraph(scan.nextLine());
     }
 
+    /**
+     * Ersetzt Wort1/Absatzteil1 durch Wort2/Absatzteil2.
+     */
     private void replace() {
         String wort1 = "";
         String wort2 = "";
@@ -68,6 +98,9 @@ public class Logic {
         }
     }
 
+    /**
+     * Fuegt einen vorgegeben String zu einer Arraylist hinzu.
+     */
     private void dummy() {
         if (input.getParagraph() == null) {
             text.addDummyText();
@@ -78,6 +111,9 @@ public class Logic {
         }
     }
 
+    /**
+     * Ruft zur Eingabe auf und fuegt Eingabe in einer Arraylist hinzu.
+     */
     private void add() {
         System.out.print(output.getOutput("addText"));
         if (input.getParagraph() == null) {
@@ -89,6 +125,9 @@ public class Logic {
         }
     }
 
+    /**
+     * Loescht Absatz
+     */
     private void del() {
         if (input.getParagraph() == null) {
             text.loescheAbsatz();
@@ -103,11 +142,15 @@ public class Logic {
         return Integer.parseInt(input.getParagraph());
     }
 
-
     public ArrayList<String> getAbsaetze() {
         return text.getAbsaetze();
     }
 
+    /**
+     * Wenn das Programm beendet wird, wechselt diese Methode den Wert.
+     * 
+     * @return boolean true/false
+     */
     public boolean run() {
         if (exit == true) {
             return false;
@@ -115,6 +158,9 @@ public class Logic {
             return true;
     }
 
+    /**
+     * Schliesst den Scan und signalisiert das Beenden des Programs.
+     */
     public void exit() {
         input.close();
         exit = true;

@@ -12,6 +12,7 @@ public class Format {
      * leerer Konstruktor
      */
     public Format() {
+
     }
 
     /**
@@ -44,7 +45,7 @@ public class Format {
                     spalte = string + " ";
                     System.out.print(spalte);
                 } else if (spalte.length() + laenge <= spaltenBreite) {
-                    spalte = spalte + string + " ";
+                    spalte += string + " ";
                     System.out.print(string + " ");
                 }
             }

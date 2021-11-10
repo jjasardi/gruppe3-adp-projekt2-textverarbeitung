@@ -35,7 +35,7 @@ public class Output {
         output.put("replace", "Welches Wort möchten Sie ersetzen?\n> ");
         output.put("toReplace", "Mit welchem Wort möchten Sie Ihre Auswahl ersetzen?\n> ");
         output.put("del", "Der letzte Absatz wurde gelöscht.\n");
-        output.put("deln", "Dieser Absatz wurde gelöscht: ");
+        output.put("deln", "Der Absatz aus diesem Index wurde gelöscht: ");
     }
 
     private void setErrorOutput() {
