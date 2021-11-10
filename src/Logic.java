@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 /**
  * Diese Texteditor klasse enthält die Main methode zur Ausfuehrung des
- * Projekts.
+ * Projekts. TODO
  * 
  * @author sadikdur, Schiess
  */

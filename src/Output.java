@@ -1,5 +1,11 @@
 import java.util.HashMap;
 
+/**
+ * Diese Klasse enthaelt Methoden für die Ausgabe über System.out und System.err
+ * 
+ * @version 1.0
+ * @author Sadikdur, Schiess
+ */
 public class Output {
     private Logic logic;
     private Input input;
@@ -7,6 +13,9 @@ public class Output {
     private HashMap<String, String> output;
     private HashMap<String, String> errorOutput;
 
+    /**
+     * Konstruktor initialisiert das Output Objekt mit Logic und Input Objekt.
+     */
     public Output() {
         output = new HashMap<>();
         errorOutput = new HashMap<>();
@@ -18,10 +27,13 @@ public class Output {
         logic.setInput(input);
     }
 
+    /**
+     * Diese Methode initialisiert alle Output Strings in eine HashMap.
+     */
     private void setOutput() {
-        output.put("welcome", "Willkommen zum Texteditor von ADP \n" 
-                + "Bitte geben Sie Einen Text ein oder erstellen "
-                + "sie einen Dummy-Text mit dem Befehl DUMMY. \n");
+        output.put("welcome",
+                "Willkommen zum Texteditor von ADP \n" + "Bitte geben Sie Einen Text ein oder erstellen "
+                        + "sie einen Dummy-Text mit dem Befehl DUMMY. \n");
         output.put("command", "Bitte geben Sie einen Befehl ein.\n> ");
         output.put("addText", "Bitte geben Sie einen Text ein.\n> ");
         output.put("addedText", "Ihr Text wurde hinzugefügt.\n");
@@ -36,6 +48,9 @@ public class Output {
         output.put("deln", "Der Absatz aus diesem Index wurde gelöscht: ");
     }
 
+    /**
+     * Diese Methode initialisiert alle Error-Outputs Strings in eine HashMap.
+     */
     private void setErrorOutput() {
         errorOutput.put("noCommand", "Ihre Eingabe ist keine gueltiger Befehlssatz.\n");
         errorOutput.put("noNumber", "Der eingebene Index ist keine Nummer.\n");
@@ -47,18 +62,34 @@ public class Output {
         errorOutput.put("noWord", "Bitte ein gueltiges Wort eingeben.\n"); // ??
     }
 
+    /**
+     * Gibt mit dem "Key", den richtigen String Output im System.out aus.
+     * 
+     * @param key String für richtige ausgabe.
+     */
     public void printOutput(String key) {
         System.out.print(output.get(key));
     }
 
+    /**
+     * Gibt mit dem "Key", den richtigen String Error-Output im System.err aus.
+     * 
+     * @param key String für richtige ausgabe.
+     */
     public void printErrorOutput(String key) {
         System.err.print(errorOutput.get(key));
     }
 
+    /**
+     * @return TODO
+     */
     public boolean run() {
         return logic.run();
     }
 
+    /**
+     * TODO
+     */
     public void formatNextLine() {
         input.formatNextLine();
     }
