@@ -116,7 +116,7 @@ public class Input {
     private void inputCheck(ArrayList<String> absaetze) {
         if (paragraph != null && isNumber()) {
             int index = Integer.parseInt(paragraph);
-            if (command.contains("FORMAT") == false && paragraph != null && (index < 0 || index > absaetze.size())) {
+            if (command.contains("FORMAT") == false && paragraph != null && (index < 0 || index > (absaetze.size())+1)) {
                 System.err.println("Der angegebe Index liegt nicht im gueltigen Indexbereich");
                 error = true;
             } else if (command.contains("FORMAT") == true && paragraph != null && index < 0) {

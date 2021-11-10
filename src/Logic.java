@@ -22,9 +22,9 @@ public class Logic {
     public void executeCommand() {
         if (input.getCommand().equals("EXIT")) {
             exit();
-        } else if (input.getCommand().equals("ADD")) {
+        } else if (input.getCommand().contains("ADD")) {
             add();
-        } else if (input.getCommand().equals("DUMMY")) {
+        } else if (input.getCommand().contains("DUMMY")) {
             dummy();
         } else if (input.getCommand().equals("PRINT")) {
             text.absaetzeAusgeben(spaltenBreite);
@@ -32,18 +32,18 @@ public class Logic {
             spaltenBreite = 0;
         } else if (input.getCommand().equals("FORMAT FIX ")) {// TODO check space
             spaltenBreite = getParagraph();
-        } else if (input.getCommand().equals("DEL")) {
+        } else if (input.getCommand().contains("DEL")) {
             del();
         } else if (input.getCommand().equals("INDEX")) {
             text.indexAusgeben();
-        } else if (input.getCommand().equals("REPLACE")) {
+        } else if (input.getCommand().contains("REPLACE")) {
             replace();
         }
     }
 
     private String scan() {
         scan = new Scanner(System.in);
-        return input.filterParagraph(scan.nextLine());
+        return scan.nextLine();
     }
 
     private void replace() {
@@ -64,16 +64,16 @@ public class Logic {
         if (input.getParagraph() == null) {
             text.addDummyText();
         } else {
+            System.err.println("test");
             text.addDummyText(getParagraph());
         }
     }
 
     private void add() {
+        System.out.print("Text: ");
         if (input.getParagraph() == null) {
-            System.out.print("Text: ");
             text.addAbsatz(scan());
         } else {
-            System.out.print("Text: ");
             text.addAbsatz(scan(), getParagraph());
         }
     }
@@ -89,6 +89,7 @@ public class Logic {
     private int getParagraph() {
         return Integer.parseInt(input.getParagraph());
     }
+
 
     public ArrayList<String> getAbsaetze() {
         return text.getAbsaetze();
