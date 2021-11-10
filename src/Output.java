@@ -30,8 +30,8 @@ public class Output {
         output.put("addedDummyn", "Ein Dummy-Text zu diesem Index hinzugefügt: ");
         output.put("toRaw", "Das Format ist jetzt auf Standart eingestellt.\n");
         output.put("toFix", "Das Format ist jetzt auf diesen Wert eingestellt: ");
-        output.put("replace", "Welches Wort möchten Sie ersetzen?\n> ");
-        output.put("toReplace", "Mit welchem Wort möchten Sie Ihre Auswahl ersetzen?\n> ");
+        output.put("replace", "Welches Wort oder Textteil möchten Sie ersetzen?\n> ");
+        output.put("toReplace", "Mit welchem Wort oder Textteil möchten Sie Ihre Auswahl ersetzen?\n> ");
         output.put("del", "Der letzte Absatz wurde gelöscht.\n");
         output.put("deln", "Der Absatz aus diesem Index wurde gelöscht: ");
     }
@@ -47,19 +47,11 @@ public class Output {
         errorOutput.put("noWord", "Bitte ein gueltiges Wort eingeben.\n"); // ??
     }
 
-    public String getOutput(String key) {
-        return output.get(key);
-    }
-
-    public void direktOutput(String key) {
+    public void getOutput(String key) {
         System.out.print(output.get(key));
     }
 
-    public String getErrorOutput(String key) {
-        return errorOutput.get(key);
-    }
-
-    public void direktErrorOutput(String key) {
+    public void ErrorOutput(String key) {
         System.err.print(errorOutput.get(key));
     }
 

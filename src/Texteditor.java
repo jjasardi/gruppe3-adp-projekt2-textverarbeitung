@@ -17,7 +17,6 @@ public class Texteditor {
      * leeer Konstruktor
      */
     public Texteditor() {
-
     }
 
     /**
@@ -26,9 +25,9 @@ public class Texteditor {
      */
     private void start() {
         output = new Output();
-        output.direktOutput("welcome");
+        output.getOutput("welcome");
         while (output.run() == true) {
-            output.direktOutput("command");
+            output.getOutput("command");
             output.formatNextLine();
         }
     }

@@ -13,8 +13,8 @@ public class Input {
     private boolean error;
     private Output output;
 
-    private static final String[] allCommands = { "ADD", "DEL", "DUMMY", "EXIT", "FORMAT RAW", "FORMAT FIX",
-            "INDEX", "PRINT", "REPLACE" };
+    private static final String[] allCommands = { "ADD", "DEL", "DUMMY", "EXIT",
+        "FORMAT RAW", "FORMAT FIX", "INDEX", "PRINT", "REPLACE" };
 
     public Input(Output output) {
         this.output = output;
@@ -119,20 +119,19 @@ public class Input {
 
     private void inputCheck(ArrayList<String> absaetze) {
         if (isCommand(command) == false) {
-            // System.err.println(output.getErrorOutput("noCommand"));
-            output.direktErrorOutput("noCommand");
+            output.ErrorOutput("noCommand");
             error = true;
         } else if (paragraph != null && isNumber()) {
             int index = Integer.parseInt(paragraph);
             if (command.contains("FORMAT") == false && paragraph != null
                     && (index < 0 || index > (absaetze.size()) + 1)) {
-                System.err.println("Der angegebe Index liegt nicht im gueltigen Indexbereich");
+                output.ErrorOutput("notValidNumber");
                 error = true;
             } else if (command.contains("FORMAT") == true && paragraph != null && index < 0) {
-                System.err.println("Der angegebe Zahl ist negativ");
+                output.ErrorOutput("minusNumber");
                 error = true;
             } else if (isNumber() == false) {
-                System.err.println("Der eingebene Index ist keine Nummer");
+                output.ErrorOutput("noNumber");
                 error = true;
             }
         }
