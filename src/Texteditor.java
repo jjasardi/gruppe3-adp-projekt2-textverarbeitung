@@ -1,6 +1,7 @@
 public class Texteditor {
     private Input input;
     private Logic logic;
+    private Output output;
 
     public static void main(String[] args) {
         Texteditor texteditor = new Texteditor();
@@ -11,22 +12,19 @@ public class Texteditor {
         
     }
 
-    public void start() {
-        welcome();
-        logic = new Logic();
-        input = new Input();
+    public void start() {       
+        output = new Output();
+        logic = new Logic(output);
+        input = new Input(output);      
         logic.setInput(input);
         input.setLogic(logic);
+        System.out.print(output.getOutput("welcome"));
         while (logic.run() == true) {
-        System.out.print("Please enter your input: ");
+        System.out.print(output.getOutput("command"));
         input.formatNextLine();
 
         System.out.println(input.getCommand());
         System.out.println(input.getParagraph());
         }
-    }
-
-    private void welcome() {
-        System.out.println("Welcome");
     }
 }

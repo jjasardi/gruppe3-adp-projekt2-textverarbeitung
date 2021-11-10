@@ -4,11 +4,13 @@ import java.util.Scanner;
 public class Logic {
     private Input input;
     private Text text;
+    private Output output;
     private int spaltenBreite;
     private Scanner scan;
     private boolean exit;
 
-    public Logic () {
+    public Logic (Output output) {
+        this.output = output;
 
     }
 
@@ -17,6 +19,10 @@ public class Logic {
         text = new Text();
         spaltenBreite = 0;
         exit = false;
+    }
+
+    public Input getInput() {
+        return this.input;
     }
 
     public void executeCommand() {
@@ -30,8 +36,10 @@ public class Logic {
             text.absaetzeAusgeben(spaltenBreite);
         } else if (input.getCommand().equals("FORMAT RAW")) {
             spaltenBreite = 0;
+            System.out.print(output.getOutput("toRaw"));
         } else if (input.getCommand().equals("FORMAT FIX ")) {// TODO check space
             spaltenBreite = getParagraph();
+            System.out.print(output.getOutput("toFix") + getParagraph() + "\n");
         } else if (input.getCommand().contains("DEL")) {
             del();
         } else if (input.getCommand().equals("INDEX")) {
@@ -43,15 +51,15 @@ public class Logic {
 
     private String scan() {
         scan = new Scanner(System.in);
-        return scan.nextLine();
+        return input.filterParagraph(scan.nextLine());
     }
 
     private void replace() {
         String wort1 = "";
         String wort2 = "";
-        System.out.print("Wort: ");
+        System.out.print(output.getOutput("replace"));
         wort1 = scan();
-        System.out.print("ersetzen durch: ");
+        System.out.print(output.getOutput("toReplace"));
         wort2 = scan();
         if (input.getParagraph() == null) {
             text.textErsetzen(wort1, wort2);
@@ -63,26 +71,31 @@ public class Logic {
     private void dummy() {
         if (input.getParagraph() == null) {
             text.addDummyText();
+            System.out.print(output.getOutput("addedDummy"));
         } else {
-            System.err.println("test");
             text.addDummyText(getParagraph());
+            System.out.print(output.getOutput("addedDummyn") + getParagraph() + "\n");
         }
     }
 
     private void add() {
-        System.out.print("Text: ");
+        System.out.print(output.getOutput("addText"));
         if (input.getParagraph() == null) {
             text.addAbsatz(scan());
+            System.out.print(output.getOutput("addedText"));
         } else {
             text.addAbsatz(scan(), getParagraph());
+            System.out.print(output.getOutput("addedTextn") + getParagraph() + "\n");
         }
     }
 
     private void del() {
         if (input.getParagraph() == null) {
             text.loescheAbsatz();
+            System.out.print(output.getOutput("del"));
         } else {
             text.loescheAbsatz(getParagraph());
+            System.out.print(output.getOutput("deln") + getParagraph() + "\n");
         }
     }
 

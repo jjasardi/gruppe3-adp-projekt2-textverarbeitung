@@ -94,11 +94,10 @@ public class Text {
      * @param ersetzenMit  mit was soll das Gesuchte ersetzt werden
      * @return String. gibt den geänderten Absatz zurück
      */
-    public String textErsetzen(int absatzNummer, String zuSuchen, String ersetzenMit) {
+    public void textErsetzen(int absatzNummer, String zuSuchen, String ersetzenMit) {
         String absatz = absaetze.get(--absatzNummer);
-        absatz.replace(zuSuchen, ersetzenMit);
-        absaetze.set(--absatzNummer, absatz);
-        return absatz;
+        absatz = absatz.replace(zuSuchen, ersetzenMit);
+        absaetze.set(absatzNummer, absatz);
     }
 
     /**
@@ -110,7 +109,7 @@ public class Text {
      */
     public void textErsetzen(String zuSuchen, String ersetzenMit) {
         String absatz = absaetze.get(absaetze.size()-1);
-        absatz.replace(zuSuchen, ersetzenMit);
+        absatz = absatz.replace(zuSuchen, ersetzenMit);
         absaetze.set(absaetze.size()-1, absatz);
     }
 

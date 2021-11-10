@@ -26,8 +26,8 @@ public class Format {
             String[] absatzString = absatz.split(" ");
             String spalte = "";
             for (String string : absatzString) {
-                int length = string.length();
-                if (length > spaltenBreite) {
+                int laenge = string.length();
+                if (laenge > spaltenBreite) {
                     String[] subString = string.split("(?<=\\G.{" + spaltenBreite + "})");
                     for (String stringKlein : subString) {
                         if (spalte.length() + stringKlein.length() <= spaltenBreite) {
@@ -39,11 +39,11 @@ public class Format {
                             System.out.print(spalte);
                         }
                     }
-                } else if (spalte.length() + length > spaltenBreite) {
+                } else if (spalte.length() + laenge > spaltenBreite) {
                     System.out.print("\n");
                     spalte = string + " ";
                     System.out.print(spalte);
-                } else if (spalte.length() + length <= spaltenBreite) {
+                } else if (spalte.length() + laenge <= spaltenBreite) {
                     spalte = spalte + string + " ";
                     System.out.print(string + " ");
                 }

@@ -11,12 +11,14 @@ public class Input {
     private String command;
     private String paragraph;
     private boolean error;
+    private Output output;
 
     private static final String[] allCommands = { "ADD", "DEL", "DUMMY", "EXIT", 
     "FORMAT RAW", "FORMAT FIX", "INDEX", "PRINT", "REPLACE" };
 
             
-    public Input() {
+    public Input(Output output) {
+        this.output = output;
 
     }
    
@@ -24,6 +26,10 @@ public class Input {
         this.logic = logic;
         scanner = new Scanner(System.in);
         error = false;
+    }
+
+    public Logic getLogic() {
+        return this.logic;
     }
 
     /**
