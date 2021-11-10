@@ -58,10 +58,10 @@ public class Logic {
             text.absaetzeAusgeben(spaltenBreite);
         } else if (input.getCommand().equals("FORMAT RAW")) {
             spaltenBreite = 0;
-            output.getOutput("toRaw");
+            output.printOutput("toRaw");
         } else if (input.getCommand().equals("FORMAT FIX")) {
             spaltenBreite = getParagraph();
-            output.getOutput("toFix");
+            output.printOutput("toFix");
             System.out.print(getParagraph() + "\n");
         } else if (input.getCommand().equals("DEL")) {
             del();
@@ -88,9 +88,9 @@ public class Logic {
     private void replace() {
         String wort1 = "";
         String wort2 = "";
-        output.getOutput("replace");
+        output.printOutput("replace");
         wort1 = scan();
-        output.getOutput("toReplace");
+        output.printOutput("toReplace");
         wort2 = scan();
         if (input.getParagraph() == null) {
             text.textErsetzen(wort1, wort2);
@@ -105,10 +105,10 @@ public class Logic {
     private void dummy() {
         if (input.getParagraph() == null) {
             text.addDummyText();
-            output.getOutput("addedDummy");
+            output.printOutput("addedDummy");
         } else {
             text.addDummyText(getParagraph());
-            output.getOutput("addedDummyn");
+            output.printOutput("addedDummyn");
             System.out.print(getParagraph() + "\n");
         }
     }
@@ -117,13 +117,13 @@ public class Logic {
      * Ruft zur Eingabe auf und fuegt Eingabe in einer Arraylist hinzu.
      */
     private void add() {
-        output.getOutput("addText");
+        output.printOutput("addText");
         if (input.getParagraph() == null) {
             text.addAbsatz(scan());
-            output.getOutput("addedText");
+            output.printOutput("addedText");
         } else {
             text.addAbsatz(scan(), getParagraph());
-            output.getOutput("addedTextn");
+            output.printOutput("addedTextn");
             System.out.print(getParagraph() + "\n");
         }
     }
@@ -134,10 +134,10 @@ public class Logic {
     private void del() {
         if (input.getParagraph() == null) {
             text.loescheAbsatz();
-            output.getOutput("del");
+            output.printOutput("del");
         } else {
             text.loescheAbsatz(getParagraph());
-            output.getOutput("deln");
+            output.printOutput("deln");
             System.out.print(getParagraph() + "\n");
         }
     }

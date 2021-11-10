@@ -47,11 +47,11 @@ public class Output {
         errorOutput.put("noWord", "Bitte ein gueltiges Wort eingeben.\n"); // ??
     }
 
-    public void getOutput(String key) {
+    public void printOutput(String key) {
         System.out.print(output.get(key));
     }
 
-    public void ErrorOutput(String key) {
+    public void printErrorOutput(String key) {
         System.err.print(errorOutput.get(key));
     }
 

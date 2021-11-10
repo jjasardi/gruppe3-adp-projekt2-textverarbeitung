@@ -119,19 +119,19 @@ public class Input {
 
     private void inputCheck(ArrayList<String> absaetze) {
         if (isCommand(command) == false) {
-            output.ErrorOutput("noCommand");
+            output.printErrorOutput("noCommand");
             error = true;
         } else if (paragraph != null && isNumber()) {
             int index = Integer.parseInt(paragraph);
             if (command.contains("FORMAT") == false && paragraph != null
                     && (index < 0 || index > (absaetze.size()) + 1)) {
-                output.ErrorOutput("notValidNumber");
+                output.printErrorOutput("notValidNumber");
                 error = true;
             } else if (command.contains("FORMAT") == true && paragraph != null && index < 0) {
-                output.ErrorOutput("minusNumber");
+                output.printErrorOutput("minusNumber");
                 error = true;
             } else if (isNumber() == false) {
-                output.ErrorOutput("noNumber");
+                output.printErrorOutput("noNumber");
                 error = true;
             }
         }
