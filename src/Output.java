@@ -23,7 +23,6 @@ public class Output {
         output.put("welcome", "Willkommen zum Texteditor von ADP \n" 
                 + "Bitte geben Sie Einen Text ein oder erstellen "
                 + "sie einen Dummy-Text mit dem Befehl DUMMY. \n");
-        output.put("help", "HELP"); //TODO: einen Help erstellen.
         output.put("command", "Bitte geben Sie einen Befehl ein.\n> ");
         output.put("addText", "Bitte geben Sie einen Text ein.\n> ");
         output.put("addedText", "Ihr Text wurde hinzugefügt.\n");

@@ -19,7 +19,6 @@ public class Input {
             
     public Input(Output output) {
         this.output = output;
-
     }
    
     public void setLogic(Logic logic) {
