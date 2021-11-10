@@ -8,15 +8,14 @@ public class Output {
     private HashMap<String, String> errorOutput;
 
     public Output() {
-        logic = new Logic(this);
-        input = new Input(this);
-        input.setLogic(logic);
-        logic.setInput(input);
         output = new HashMap<>();
         errorOutput = new HashMap<>();
         setOutput();
         setErrorOutput();
-        
+        logic = new Logic(this);
+        input = new Input(this);
+        input.setLogic(logic);
+        logic.setInput(input);
     }
 
     private void setOutput() {
@@ -38,22 +37,30 @@ public class Output {
     }
 
     private void setErrorOutput() {
-        errorOutput.put("noCommand", "Ihre Eingabe ist keine gueltiger Befehlssatz.");
-        errorOutput.put("noNumber", "Der eingebene Index ist keine Nummer.");
-        errorOutput.put("minusNumber", "Die angegebene Zahl ist negativ.");
-        errorOutput.put("notValidNumber", "Die angegebene Zahl liegt nicht im gueltigen Indexbereich.");
-        errorOutput.put("notValidString", "Der eingegebene Text ist nicht gueltig."); // ??
-        errorOutput.put("noString", "Bitte einen gueltigen Text eingeben."); // ??
-        errorOutput.put("notValidWord", "Das eingegebene Wort ist nicht gueltig."); // ??
-        errorOutput.put("noWord", "Bitte ein gueltiges Wort eingeben."); // ??
+        errorOutput.put("noCommand", "Ihre Eingabe ist keine gueltiger Befehlssatz.\n");
+        errorOutput.put("noNumber", "Der eingebene Index ist keine Nummer.\n");
+        errorOutput.put("minusNumber", "Die angegebene Zahl ist negativ.\n");
+        errorOutput.put("notValidNumber", "Die angegebene Zahl liegt nicht im gueltigen Indexbereich.\n");
+        errorOutput.put("notValidString", "Der eingegebene Text ist nicht gueltig.\n"); // ??
+        errorOutput.put("noString", "Bitte einen gueltigen Text eingeben.\n"); // ??
+        errorOutput.put("notValidWord", "Das eingegebene Wort ist nicht gueltig.\n"); // ??
+        errorOutput.put("noWord", "Bitte ein gueltiges Wort eingeben.\n"); // ??
     }
 
     public String getOutput(String key) {
         return output.get(key);
     }
 
+    public void direktOutput(String key) {
+        System.out.print(output.get(key));
+    }
+
     public String getErrorOutput(String key) {
         return errorOutput.get(key);
+    }
+
+    public void direktErrorOutput(String key) {
+        System.err.print(errorOutput.get(key));
     }
 
     public boolean run() {

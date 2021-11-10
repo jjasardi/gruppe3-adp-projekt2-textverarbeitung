@@ -13,14 +13,13 @@ public class Input {
     private boolean error;
     private Output output;
 
-    private static final String[] allCommands = { "ADD", "DEL", "DUMMY", "EXIT", 
-    "FORMAT RAW", "FORMAT FIX", "INDEX", "PRINT", "REPLACE" };
+    private static final String[] allCommands = { "ADD", "DEL", "DUMMY", "EXIT", "FORMAT RAW", "FORMAT FIX",
+            "INDEX", "PRINT", "REPLACE" };
 
-            
     public Input(Output output) {
         this.output = output;
     }
-   
+
     public void setLogic(Logic logic) {
         this.logic = logic;
         scanner = new Scanner(System.in);
@@ -85,10 +84,10 @@ public class Input {
 
     private void setCommandAndParagraph(String[] commandSplit) {
         if (commandSplit.length == 1) {
-            command = commandSplit[0];
+            command = commandSplit[0].trim();
             paragraph = null;
         } else if (commandSplit.length == 2) {
-            command = commandSplit[0];
+            command = commandSplit[0].trim();
             paragraph = commandSplit[1];
         } else {
             System.err.println("error");
@@ -119,9 +118,14 @@ public class Input {
     }
 
     private void inputCheck(ArrayList<String> absaetze) {
-        if (paragraph != null && isNumber()) {
+        if (isCommand(command) == false) {
+            // System.err.println(output.getErrorOutput("noCommand"));
+            output.direktErrorOutput("noCommand");
+            error = true;
+        } else if (paragraph != null && isNumber()) {
             int index = Integer.parseInt(paragraph);
-            if (command.contains("FORMAT") == false && paragraph != null && (index < 0 || index > (absaetze.size())+1)) {
+            if (command.contains("FORMAT") == false && paragraph != null
+                    && (index < 0 || index > (absaetze.size()) + 1)) {
                 System.err.println("Der angegebe Index liegt nicht im gueltigen Indexbereich");
                 error = true;
             } else if (command.contains("FORMAT") == true && paragraph != null && index < 0) {
@@ -131,12 +135,6 @@ public class Input {
                 System.err.println("Der eingebene Index ist keine Nummer");
                 error = true;
             }
-        } else if (isCommand(command) == false) {
-            System.err.println("Ihre Eingabe ist keine gueltiger Befehlssatz");
-            error = true;
-        } else if (paragraph != null && isNumber() == false) {
-            System.err.println("Der eingebene Wert ist keine Nummer");
-            error = true;
         }
     }
 

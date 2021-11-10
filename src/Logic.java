@@ -50,23 +50,23 @@ public class Logic {
     public void executeCommand() {
         if (input.getCommand().equals("EXIT")) {
             exit();
-        } else if (input.getCommand().contains("ADD")) {
+        } else if (input.getCommand().equals("ADD")) {
             add();
-        } else if (input.getCommand().contains("DUMMY")) {
+        } else if (input.getCommand().equals("DUMMY")) {
             dummy();
         } else if (input.getCommand().equals("PRINT")) {
             text.absaetzeAusgeben(spaltenBreite);
         } else if (input.getCommand().equals("FORMAT RAW")) {
             spaltenBreite = 0;
             System.out.print(output.getOutput("toRaw"));
-        } else if (input.getCommand().equals("FORMAT FIX ")) {// TODO check space
+        } else if (input.getCommand().equals("FORMAT FIX")) {
             spaltenBreite = getParagraph();
             System.out.print(output.getOutput("toFix") + getParagraph() + "\n");
-        } else if (input.getCommand().contains("DEL")) {
+        } else if (input.getCommand().equals("DEL")) {
             del();
         } else if (input.getCommand().equals("INDEX")) {
             text.indexAusgeben();
-        } else if (input.getCommand().contains("REPLACE")) {
+        } else if (input.getCommand().equals("REPLACE")) {
             replace();
         }
     }

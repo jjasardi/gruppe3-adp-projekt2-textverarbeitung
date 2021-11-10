@@ -26,9 +26,9 @@ public class Texteditor {
      */
     private void start() {
         output = new Output();
-        System.out.print(output.getOutput("welcome"));
+        output.direktOutput("welcome");
         while (output.run() == true) {
-            System.out.print(output.getOutput("command"));
+            output.direktOutput("command");
             output.formatNextLine();
         }
     }
