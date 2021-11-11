@@ -46,7 +46,7 @@ public class Output {
      */
     private void setErrorOutput() {
         errorOutput.put("noCommand", "Ihre Eingabe ist keine gültiger Befehlssatz.\n");
-        errorOutput.put("noNumber", "Die eingebene Absatznummer ist keine Nummer.\n");
+        errorOutput.put("noNumber", "Keine Nummer angegeben.\n");
         errorOutput.put("minusNumber", "Die angegebene Zahl ist negativ.\n");
         errorOutput.put("toBigNumber", "Die angegebene Zahl ist zu gross.\n");
         errorOutput.put("notValidNumber", "Die angegebene Zahl liegt nicht im gültigen Bereich.\n");

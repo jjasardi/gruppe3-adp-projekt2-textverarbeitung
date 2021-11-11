@@ -56,9 +56,7 @@ public class Logic {
             spaltenBreite = 0;
             output.printOutput("toRaw");
         } else if (input.getCommand().equals("FORMAT FIX")) {
-            spaltenBreite = input.getParagraphNr();
-            output.printOutput("toFix");
-            System.out.print(input.getParagraphNr() + "\n");
+            FormatFix();
         } else if (input.getCommand().equals("DEL")) {
             del();
         } else if (input.getCommand().equals("INDEX")) {
@@ -127,6 +125,21 @@ public class Logic {
         } else {
             text.loescheAbsatz(input.getParagraphNr());
             output.printOutput("deln");
+            System.out.print(input.getParagraphNr() + "\n");
+        }
+    }
+
+    /**
+     * Checkt ob Format Fix eine Nummer hat und setzt sie dann auf die spaltenBreite.
+     * 
+     * ParagraphNr ist hier die Spaltenbreite. TODO: k so?
+     */
+    private void FormatFix() {
+        if (input.getParagraphNr() == null) {
+            output.printErrorOutput("noNumber");
+        } else {
+            spaltenBreite = input.getParagraphNr();
+            output.printOutput("toFix");
             System.out.print(input.getParagraphNr() + "\n");
         }
     }

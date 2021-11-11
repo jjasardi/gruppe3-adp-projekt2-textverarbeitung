@@ -72,6 +72,11 @@ public class Input {
         return false;
     }
 
+    /**
+     * schaut das die Absatznummer nicht grösser als 9999 sein kann.
+     * @param paragraphNr
+     * @return true wenn Absatznummer < 10000, sonst false
+     */
     private boolean checkParagraphNr(String paragraphNr) {
         if (paragraphNr.length() <= 4) {
             return true;
@@ -109,6 +114,7 @@ public class Input {
             if (checkParagraphNr(commandSplit[1])) {
                 paragraphNr = Integer.parseInt(commandSplit[1]);
             } else {
+                output.printErrorOutput("toBigNumber");
                 error = true;
             }
         }
@@ -178,16 +184,24 @@ public class Input {
         return input.replaceAll("[^a-zA-Z0-9äöüÄÖÜ .,:;\\-!?’()\\\"%@+*[\\\\]{}\\/\\\\&#$]", "");
     }
 
+    /**
+     * gibt den aktuellen Error stand zurück.
+     * @return
+     */
     public boolean getError() {
         return error;
     }
 
+    /**
+     * Setzt den Error auf ture oder false.
+     * @param error
+     */
     public void setError(boolean error) {
         this.error = error;
     }
 
     /**
-     * Beendet den Input. TODO
+     * Beendet den Input. TODO: weiss ned was genau schreiben
      */
     public void close() {
         scannerCommand.close();
