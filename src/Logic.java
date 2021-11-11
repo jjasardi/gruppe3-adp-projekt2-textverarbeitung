@@ -34,8 +34,10 @@ public class Logic {
         input.formatCommandNextLine();
         if (input.getError() == false) {
             executeCommand();
+        } else {
+            input.setError(false);
         }
-        input.setError(false);
+
     }
 
     /**
@@ -77,7 +79,7 @@ public class Logic {
         wort1 = input.getTextInput();
         output.printOutput("toReplace");
         wort2 = input.getTextInput();
-        if (input.getParagraphNr() == 0) {
+        if (input.getParagraphNr() == null) {
             text.textErsetzen(wort1, wort2);
         } else {
             text.textErsetzen(input.getParagraphNr(), wort1, wort2);
@@ -89,7 +91,7 @@ public class Logic {
      * einer Arraylist hinzu.
      */
     private void dummy() {
-        if (input.getParagraphNr() == 0) {
+        if (input.getParagraphNr() == null) {
             text.addDummyText();
             output.printOutput("addedDummy");
         } else {
@@ -105,7 +107,7 @@ public class Logic {
      */
     private void add() {
         output.printOutput("addText");
-        if (input.getParagraphNr() == 0) {
+        if (input.getParagraphNr() == null) {
             text.addAbsatz(input.getTextInput());
             output.printOutput("addedText");
         } else {
@@ -119,7 +121,7 @@ public class Logic {
      * Unterscheided zwischen del und del n. Loescht Absatz.
      */
     private void del() {
-        if (input.getParagraphNr() == 0) {
+        if (input.getParagraphNr() == null) {
             text.loescheAbsatz();
             output.printOutput("del");
         } else {

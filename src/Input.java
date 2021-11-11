@@ -93,7 +93,7 @@ public class Input {
     // }
 
     /**
-     * Wenn der Array nur aus einem Element besteht wird der Paragraph auf 0
+     * Wenn der Array nur aus einem Element besteht wird der Paragraph auf "null"
      * gesetzt. Wenn der Array aus zwei Elementen besteht wird der erste zum command
      * und der zweite zum Paragraphen. Wenn es mehr als zwei sind gibt es einen
      * Error aus.
@@ -103,20 +103,20 @@ public class Input {
     private void setCommandAndParagraphNr(String[] commandSplit) {
         if (commandSplit.length == 1) {
             command = commandSplit[0].trim();
-            paragraphNr = 0;
+            paragraphNr = null;
         } else if (commandSplit.length == 2) {
             command = commandSplit[0].trim();
             if (checkParagraphNr(commandSplit[1])) {
                 paragraphNr = Integer.parseInt(commandSplit[1]);
             } else {
-                paragraphNr = null;
+                error = true;
             }
         }
     }
 
     /**
      * Ueberprueft ob der Input ein Command ist. Wenn ja wird ueberprueft ob der
-     * Paragraph 0 ist und wenn nicht ob er gueltig ist und ob er negativ ist.
+     * Paragraph "null" ist und wenn nicht ob er gueltig ist und ob er negativ ist.
      * 
      * @param absaetze
      */
@@ -124,12 +124,12 @@ public class Input {
         if (isCommand(command) == false) {
             output.printErrorOutput("noCommand");
             error = true;
-        } else if (paragraphNr != 0) {
-            if (command.contains("FORMAT") == false && paragraphNr != 0
+        } else if (paragraphNr != null) {
+            if (command.contains("FORMAT") == false && paragraphNr != null
                     && (paragraphNr < 1 || paragraphNr > (absaetze.size()) + 1)) {
                 output.printErrorOutput("notValidNumber");
                 error = true;
-            } else if (command.contains("FORMAT") == true && paragraphNr != 0 && paragraphNr < 1) {
+            } else if (command.contains("FORMAT") == true && paragraphNr != null && paragraphNr < 1) {
                 output.printErrorOutput("minusNumber");
                 error = true;
             }
