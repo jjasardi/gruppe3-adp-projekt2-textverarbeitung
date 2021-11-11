@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -18,11 +19,17 @@ public class Text {
             + "consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. "
             + "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
     private HashMap<String, Set<Integer>> index;
+    private HashMap<String, Integer> woerterHaeufigkeit;
 
     public Text() {
         format = new Format();
         absaetze = new ArrayList<>();
         index = new HashMap<>();
+        woerterHaeufigkeit = new HashMap<>();
+    }
+
+    public ArrayList<String> getAbsaetze() {
+        return absaetze;
     }
 
     /**
@@ -32,7 +39,7 @@ public class Text {
      * @param absatzNummer An welcher Stelle der Absatz eingefügt werden soll
      */
     public void addAbsatz(String absatz, int absatzNummer) {
-        absaetze.add(--absatzNummer , absatz);
+        absaetze.add(--absatzNummer, absatz);
     }
 
     /**
@@ -108,49 +115,68 @@ public class Text {
      * @return String. gibt den geänderten Absatz zurück
      */
     public void textErsetzen(String zuSuchen, String ersetzenMit) {
-        String absatz = absaetze.get(absaetze.size()-1);
+        String absatz = absaetze.get(absaetze.size() - 1);
         absatz = absatz.replace(zuSuchen, ersetzenMit);
-        absaetze.set(absaetze.size()-1, absatz);
+        absaetze.set(absaetze.size() - 1, absatz);
     }
 
-    public ArrayList<String> getAbsaetze() {
-        return absaetze;
-    }
-
-    public void indexAktualisieren() {
+    /**
+     * Geht durch alle Woerter aller Absaetze durch und ergänzt das
+     * Wortverzeichnis zusammen mit ihre Häufigkeit
+     */
+    private void indexAktualisieren() {
+        index.clear();
+        woerterHaeufigkeit.clear();
         for (int absatzNr = 1; absatzNr <= absaetze.size(); absatzNr++) {
             String absatz = absaetze.get(absatzNr - 1);
+            absatz = absatz.replaceAll("[^a-zA-ZäöüÄÖÜ ]", "");
             String woerterInAbsatz[] = absatz.split(" ");
             for (String wortInAbsatz : woerterInAbsatz) {
                 wortInAbsatz = wortInAbsatz.trim();
-                // erste Buchstabe gross
                 wortInAbsatz = wortInAbsatz.substring(0, 1).toUpperCase() + wortInAbsatz.substring(1);
-                // TODO: wort = entferneSatzzeichen(wort);
 
-                Set<Integer> vorkommenInAbsaetzeNr = new HashSet<Integer>();
-                if (index.containsKey(wortInAbsatz)) {
-                    vorkommenInAbsaetzeNr = index.get(wortInAbsatz);
-                    vorkommenInAbsaetzeNr.add(absatzNr);
-                    index.put(wortInAbsatz, vorkommenInAbsaetzeNr);
-                } else {
-                    vorkommenInAbsaetzeNr.add(absatzNr);
-                    index.put(wortInAbsatz, vorkommenInAbsaetzeNr);
+                Set<Integer> vorkommenInAbsaetzeNr = new HashSet<>();
+                int wortHaeufigkeit = 1;
+                if (!wortInAbsatz.isEmpty()) {
+                    if (index.containsKey(wortInAbsatz)) {
+                        wortHaeufigkeit = woerterHaeufigkeit.get(wortInAbsatz);
+                        ++wortHaeufigkeit;
+                        woerterHaeufigkeit.put(wortInAbsatz, wortHaeufigkeit);
+
+                        vorkommenInAbsaetzeNr = index.get(wortInAbsatz);
+                        vorkommenInAbsaetzeNr.add(absatzNr);
+                        index.put(wortInAbsatz, vorkommenInAbsaetzeNr);
+                    } else {
+                        woerterHaeufigkeit.put(wortInAbsatz, wortHaeufigkeit);
+                        vorkommenInAbsaetzeNr.add(absatzNr);
+                        index.put(wortInAbsatz, vorkommenInAbsaetzeNr);
+                    }
                 }
             }
         }
     }
 
+    /**
+     * Gibt alle Woerter aus, die ueber  alle  Absätze gesehen 
+     * öfter  als  dreimal  vorkommen zusammen mit den Absatznummern, 
+     * wo das jeweilige Wort vorkommt, als Komma getrennte Zahlenfolge.
+     */
     public void indexAusgeben() {
         indexAktualisieren();
+
         Set<Map.Entry<String, Set<Integer>>> entrySet = index.entrySet();
         for (Map.Entry<String, Set<Integer>> entry : entrySet) {
             String wort = entry.getKey();
             Set<Integer> vorkommenInAbsaetzeNr = entry.getValue();
-            if (vorkommenInAbsaetzeNr.size() > 3) {
+            int wortHaeufigkeit = woerterHaeufigkeit.get(wort);
+            if (wortHaeufigkeit > 3) {
+                Iterator<Integer> iterate = vorkommenInAbsaetzeNr.iterator();
                 System.out.print(wort);
-                // for (int absatzNr : vorkommenInAbsaetzeNr) {
-
-                // }
+                System.out.print(" " + iterate.next());
+                while (iterate.hasNext()) {
+                    System.out.print(", " + iterate.next());
+                }
+                System.out.println();
             }
         }
     }
