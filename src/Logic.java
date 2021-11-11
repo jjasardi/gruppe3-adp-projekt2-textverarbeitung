@@ -31,7 +31,7 @@ public class Logic {
      * wird der entsprechende Befehl ausfgefuehrt.
      */
     public void runNextLine() {
-        input.formatNextLine();
+        input.formatCommandNextLine();
         if (input.getError() == false) {
             executeCommand();
         }
@@ -54,9 +54,9 @@ public class Logic {
             spaltenBreite = 0;
             output.printOutput("toRaw");
         } else if (input.getCommand().equals("FORMAT FIX")) {
-            spaltenBreite = getParagraph();
+            spaltenBreite = input.getParagraphNr();
             output.printOutput("toFix");
-            System.out.print(getParagraph() + "\n");
+            System.out.print(input.getParagraphNr() + "\n");
         } else if (input.getCommand().equals("DEL")) {
             del();
         } else if (input.getCommand().equals("INDEX")) {
@@ -77,10 +77,10 @@ public class Logic {
         wort1 = input.getTextInput();
         output.printOutput("toReplace");
         wort2 = input.getTextInput();
-        if (input.getParagraph() == null) {
+        if (input.getParagraphNr() == 0) {
             text.textErsetzen(wort1, wort2);
         } else {
-            text.textErsetzen(getParagraph(), wort1, wort2);
+            text.textErsetzen(input.getParagraphNr(), wort1, wort2);
         }
     }
 
@@ -89,13 +89,13 @@ public class Logic {
      * einer Arraylist hinzu.
      */
     private void dummy() {
-        if (input.getParagraph() == null) {
+        if (input.getParagraphNr() == 0) {
             text.addDummyText();
             output.printOutput("addedDummy");
         } else {
-            text.addDummyText(getParagraph());
+            text.addDummyText(input.getParagraphNr());
             output.printOutput("addedDummyn");
-            System.out.print(getParagraph() + "\n");
+            System.out.print(input.getParagraphNr() + "\n");
         }
     }
 
@@ -105,13 +105,13 @@ public class Logic {
      */
     private void add() {
         output.printOutput("addText");
-        if (input.getParagraph() == null) {
+        if (input.getParagraphNr() == 0) {
             text.addAbsatz(input.getTextInput());
             output.printOutput("addedText");
         } else {
-            text.addAbsatz(input.getTextInput(), getParagraph());
+            text.addAbsatz(input.getTextInput(), input.getParagraphNr());
             output.printOutput("addedTextn");
-            System.out.print(getParagraph() + "\n");
+            System.out.print(input.getParagraphNr() + "\n");
         }
     }
 
@@ -119,18 +119,14 @@ public class Logic {
      * Unterscheided zwischen del und del n. Loescht Absatz.
      */
     private void del() {
-        if (input.getParagraph() == null) {
+        if (input.getParagraphNr() == 0) {
             text.loescheAbsatz();
             output.printOutput("del");
         } else {
-            text.loescheAbsatz(getParagraph());
+            text.loescheAbsatz(input.getParagraphNr());
             output.printOutput("deln");
-            System.out.print(getParagraph() + "\n");
+            System.out.print(input.getParagraphNr() + "\n");
         }
-    }
-
-    private int getParagraph() {
-        return Integer.parseInt(input.getParagraph());
     }
 
     /**

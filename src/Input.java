@@ -13,7 +13,7 @@ public class Input {
     private Scanner scannerText;
     private Text text;
     private String command;
-    private String paragraph;
+    private Integer paragraphNr;
     private boolean error;
     private Output output;
 
@@ -34,16 +34,16 @@ public class Input {
     }
 
     /**
-     * Lest den Input macht alles Grossbuchstaben und Splittet es in ein Array. Der
-     * Array wird aufgeteilt in Command und Paragraph.
+     * Lest den Input, macht alles Grossbuchstaben und Splittet es in ein Array. Der
+     * Array wird aufgeteilt in Command und Paragraph zahl.
      * 
      * @return Input line
      */
-    public void formatNextLine() {
-        String formatNextLine = getCommandInput().toUpperCase();
-        String[] commandSplit = splitInput(formatNextLine);
-        setCommandAndParagraph(commandSplit);
-        inputCheck(text.getAbsaetze()); // TODO aufteilen in 2 methoden.
+    public void formatCommandNextLine() {
+        String commandInput = getCommandInput().toUpperCase();
+        String[] commandSplit = splitCommandInput(commandInput);
+        setCommandAndParagraphNr(commandSplit);
+        commandInputCheck(text.getAbsaetze());
     }
 
     /**
@@ -52,7 +52,7 @@ public class Input {
      * @param command
      * @return command und wenn eine Zahl dabei noch den Paragraph.
      */
-    private String[] splitInput(String command) {
+    private String[] splitCommandInput(String command) {
         String[] commandSplit = command.split("(?<=\\D)(?=\\d)");
         return commandSplit;
     }
@@ -72,6 +72,13 @@ public class Input {
         return false;
     }
 
+    private boolean checkParagraphNr(String paragraphNr) {
+        if (paragraphNr.length() <= 4) {
+            return true;
+        }
+        return false;
+    }
+
     // /**
     // * Gibt true zurueck wenn der String eine Nummer ist.
     // *
@@ -86,42 +93,43 @@ public class Input {
     // }
 
     /**
-     * Wenn der Array nur aus einem Element besteht wird der Paragraph 'Null'
+     * Wenn der Array nur aus einem Element besteht wird der Paragraph auf 0
      * gesetzt. Wenn der Array aus zwei Elementen besteht wird der erste zum command
      * und der zweite zum Paragraphen. Wenn es mehr als zwei sind gibt es einen
      * Error aus.
      * 
      * @param commandSplit
      */
-    private void setCommandAndParagraph(String[] commandSplit) {
+    private void setCommandAndParagraphNr(String[] commandSplit) {
         if (commandSplit.length == 1) {
             command = commandSplit[0].trim();
-            paragraph = null;
+            paragraphNr = 0;
         } else if (commandSplit.length == 2) {
             command = commandSplit[0].trim();
-            paragraph = commandSplit[1];
-        } else {
-            System.err.println("error");
+            if (checkParagraphNr(commandSplit[1])) {
+                paragraphNr = Integer.parseInt(commandSplit[1]);
+            } else {
+                paragraphNr = null;
+            }
         }
     }
 
     /**
      * Ueberprueft ob der Input ein Command ist. Wenn ja wird ueberprueft ob der
-     * Paragraph 'null' ist und wenn nicht ob er gueltig ist und ob er negativ ist.
+     * Paragraph 0 ist und wenn nicht ob er gueltig ist und ob er negativ ist.
      * 
      * @param absaetze
      */
-    private void inputCheck(ArrayList<String> absaetze) {
+    private void commandInputCheck(ArrayList<String> absaetze) {
         if (isCommand(command) == false) {
             output.printErrorOutput("noCommand");
             error = true;
-        } else if (paragraph != null) {
-            int index = Integer.parseInt(paragraph);
-            if (command.contains("FORMAT") == false && paragraph != null
-                    && (index < 1 || index > (absaetze.size()) + 1)) {
+        } else if (paragraphNr != 0) {
+            if (command.contains("FORMAT") == false && paragraphNr != 0
+                    && (paragraphNr < 1 || paragraphNr > (absaetze.size()) + 1)) {
                 output.printErrorOutput("notValidNumber");
                 error = true;
-            } else if (command.contains("FORMAT") == true && paragraph != null && index < 1) {
+            } else if (command.contains("FORMAT") == true && paragraphNr != 0 && paragraphNr < 1) {
                 output.printErrorOutput("minusNumber");
                 error = true;
             }
@@ -138,8 +146,8 @@ public class Input {
     /**
      * @return gibt Paragraph zurueck.
      */
-    public String getParagraph() {
-        return paragraph;
+    public Integer getParagraphNr() {
+        return paragraphNr;
     }
 
     /**

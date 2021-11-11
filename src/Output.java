@@ -30,15 +30,15 @@ public class Output {
         output.put("command", "Bitte geben Sie einen Befehl ein.\n> ");
         output.put("addText", "Bitte geben Sie einen Text ein.\n> ");
         output.put("addedText", "Ihr Text wurde hinzugefügt.\n");
-        output.put("addedTextn", "Ihr Text wurde zu diesem Index hinzugefügt: ");
+        output.put("addedTextn", "Ihr Text wurde zu dieser Absatznummer hinzugefügt: ");
         output.put("addedDummy", "Ein Dummy-Text wurde hinzugefügt.\n");
-        output.put("addedDummyn", "Ein Dummy-Text zu diesem Index hinzugefügt: ");
+        output.put("addedDummyn", "Ein Dummy-Text zu dieser Absatznummer hinzugefügt: ");
         output.put("toRaw", "Das Format ist jetzt auf Standart eingestellt.\n");
         output.put("toFix", "Das Format ist jetzt auf diesen Wert eingestellt: ");
         output.put("replace", "Welches Wort oder Textteil möchten Sie ersetzen?\n> ");
         output.put("toReplace", "Mit welchem Wort oder Textteil möchten Sie Ihre Auswahl ersetzen?\n> ");
         output.put("del", "Der letzte Absatz wurde gelöscht.\n");
-        output.put("deln", "Der Absatz aus diesem Index wurde gelöscht: ");
+        output.put("deln", "Der Absatz auf dieser Absatznummer wurde gelöscht: ");
     }
 
     /**
@@ -46,9 +46,10 @@ public class Output {
      */
     private void setErrorOutput() {
         errorOutput.put("noCommand", "Ihre Eingabe ist keine gültiger Befehlssatz.\n");
-        errorOutput.put("noNumber", "Der eingebene Index ist keine Nummer.\n");
+        errorOutput.put("noNumber", "Die eingebene Absatznummer ist keine Nummer.\n");
         errorOutput.put("minusNumber", "Die angegebene Zahl ist negativ.\n");
-        errorOutput.put("notValidNumber", "Die angegebene Zahl liegt nicht im gültigen Indexbereich.\n");
+        errorOutput.put("toBigNumber", "Die angegebene Zahl ist zu gross.\n");
+        errorOutput.put("notValidNumber", "Die angegebene Zahl liegt nicht im gültigen Bereich.\n");
         errorOutput.put("notValidString", "Der eingegebene Text ist nicht gültig.\n"); // ??
         errorOutput.put("noString", "Bitte einen gültigen Text eingeben.\n"); // ??
         errorOutput.put("notValidWord", "Das eingegebene Wort ist nicht gültig.\n"); // ??
