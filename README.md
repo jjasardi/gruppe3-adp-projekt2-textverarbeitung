@@ -6,7 +6,7 @@ Führen Sie anschliessend die main() methode aus.
 
 Folgendes sind die gültigen Befehle:
 
-# Befehle
+## Befehle
 |Befehl|Beschreibung|
 |---|---|
 |ADD [n]|Ruft  zur  Eingabe  eines  Absatzes  auf  und  fügt  den  eingegebenen  Absatz  hinzu. Wird keine Absatznummer n angegeben, wird der Absatz am Ende angefügt|
