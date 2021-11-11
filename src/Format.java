@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 /**
- * Diese Klasse enthaelt Methoden zur Formatierung von Absätzen.
+ * Diese Klasse enthaelt Methoden zur Formatierung von Absaetzen.
  * 
  * @author sadikdur
  * @version 1
@@ -19,34 +19,35 @@ public class Format {
      * Druckt Absaetze nach vorgegebener Spaltenbreite aus. Wenn Woerter laenger
      * sind als die Spaltenbreite werden sie auseinandergebrochen.
      * 
-     * @param absaetze      Arraylist
+     * @param absaetze      Arraylist<String>
      * @param spaltenBreite maximale Zeichen pro Zeile
      */
     public void formatFix(ArrayList<String> absaetze, int spaltenBreite) {
         for (String absatz : absaetze) {
-            String[] absatzString = absatz.split(" ");
+            String[] absatzStrings = absatz.split(" ");
             String spalte = "";
-            for (String string : absatzString) {
-                int laenge = string.length();
-                if (laenge > spaltenBreite) {
-                    String[] subString = string.split("(?<=\\G.{" + spaltenBreite + "})");
-                    for (String stringKlein : subString) {
-                        if (spalte.length() + stringKlein.length() <= spaltenBreite) {
-                            spalte = stringKlein + " ";
+            for (String wort : absatzStrings) {
+                int laengeWort = wort.length();
+                int laengeSpalte = spalte.length();
+                if (laengeWort > spaltenBreite) {
+                    String[] wortTeile = wort.split("(?<=\\G.{" + spaltenBreite + "})");
+                    for (String wortTeil : wortTeile) {
+                        if (spalte.length() + wortTeil.length() <= spaltenBreite) {
+                            spalte = wortTeil + " ";
                             System.out.print(spalte);
                         } else {
                             System.out.print("\n");
-                            spalte = stringKlein + " ";
+                            spalte = wortTeil + " ";
                             System.out.print(spalte);
                         }
                     }
-                } else if (spalte.length() + laenge > spaltenBreite) {
+                } else if (laengeSpalte + laengeWort > spaltenBreite) {
                     System.out.print("\n");
-                    spalte = string + " ";
+                    spalte = wort + " ";
                     System.out.print(spalte);
-                } else if (spalte.length() + laenge <= spaltenBreite) {
-                    spalte += string + " ";
-                    System.out.print(string + " ");
+                } else if (laengeSpalte + laengeWort <= spaltenBreite) {
+                    spalte += wort + " ";
+                    System.out.print(wort + " ");
                 }
             }
             System.out.println("\n");

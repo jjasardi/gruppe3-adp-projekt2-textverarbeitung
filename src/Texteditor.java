@@ -20,7 +20,7 @@ public class Texteditor {
     }
 
     /**
-     * Erstellt ein neues Output Objekt und initialisiert das "loop" fuer das
+     * Erstellt ein neues Output Objekt und initialisiert das "Mainloop" fuer das
      * Programm.
      */
     private void start() {
@@ -28,7 +28,7 @@ public class Texteditor {
         output.printOutput("welcome");
         while (output.run() == true) {
             output.printOutput("command");
-            output.formatNextLine();
+            output.runNextLine();
         }
     }
 }

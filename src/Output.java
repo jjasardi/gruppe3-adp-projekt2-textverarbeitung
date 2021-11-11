@@ -8,7 +8,6 @@ import java.util.HashMap;
  */
 public class Output {
     private Logic logic;
-    private Input input;
 
     private HashMap<String, String> output;
     private HashMap<String, String> errorOutput;
@@ -22,9 +21,6 @@ public class Output {
         setOutput();
         setErrorOutput();
         logic = new Logic(this);
-        input = new Input(this);
-        input.setLogic(logic);
-        logic.setInput(input);
     }
 
     /**
@@ -90,8 +86,8 @@ public class Output {
     /**
      * TODO
      */
-    public void formatNextLine() {
-        input.formatNextLine();
+    public void runNextLine() {
+        logic.runNextLine();
     }
 
 }

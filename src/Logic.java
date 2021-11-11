@@ -1,9 +1,8 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Diese Texteditor klasse enthält die Main methode zur Ausfuehrung des
- * Projekts. TODO
+ * Die Klasse Logic enthaelt Methoden zur Ausfuhr von Befehlen. Darueber hinaus
+ * gibt es Methoden, welche die Mainloop beenden.
  * 
  * @author sadikdur, Schiess
  */
@@ -17,13 +16,17 @@ public class Logic {
     private boolean exit;
 
     /**
-     * Konstruktor initialisiert das Output Objekt.
+     * Konstruktor zeigt auf das bestehende Output Objekt und erstellt 2 neue
+     * Objekte. Initialisiert Werte.
      * 
-     * @param output Output objekt
+     * @param output Objekt
      */
     public Logic(Output output) {
         this.output = output;
-
+        input = new Input(output, this);
+        text = new Text();
+        spaltenBreite = 0;
+        exit = false;
     }
 
     /**
@@ -33,19 +36,21 @@ public class Logic {
      * 
      * @param input Input objekt
      */
-    public void setInput(Input input) {
-        this.input = input;
-        text = new Text();
-        spaltenBreite = 0;
-        exit = false;
-    }
 
-    public Input getInput() {
-        return this.input;
+    /**
+     * Diese methode ruft die Eingabe aus Input auf. Falls die Eingabe gueltig ist
+     * wird der entsprechende Befehl ausfgefuehrt.
+     */
+    public void runNextLine() {
+        input.formatNextLine();
+        if (input.getError() == false) {
+            executeCommand();
+        }
+        input.setError(false);
     }
 
     /**
-     * Diese methode fuehrt die methoden auf bezug zur Eingabe aus.
+     * Diese methode fuehrt commands auf bezug zur Eingabe aus.
      */
     public void executeCommand() {
         if (input.getCommand().equals("EXIT")) {
@@ -66,7 +71,7 @@ public class Logic {
         } else if (input.getCommand().equals("DEL")) {
             del();
         } else if (input.getCommand().equals("INDEX")) {
-            text.indexAusgeben();
+            text.index();
         } else if (input.getCommand().equals("REPLACE")) {
             replace();
         }
@@ -83,7 +88,8 @@ public class Logic {
     }
 
     /**
-     * Ersetzt Wort1/Absatzteil1 durch Wort2/Absatzteil2.
+     * Unterscheided zwischen replace und replace n. Ersetzt Wort1/Absatzteil1 durch
+     * Wort2/Absatzteil2.
      */
     private void replace() {
         String wort1 = "";
@@ -100,7 +106,8 @@ public class Logic {
     }
 
     /**
-     * Fuegt einen vorgegeben String zu einer Arraylist hinzu.
+     * Unterscheided zwischen dummy und dummy n. Fuegt einen vorgegeben String zu
+     * einer Arraylist hinzu.
      */
     private void dummy() {
         if (input.getParagraph() == null) {
@@ -114,7 +121,8 @@ public class Logic {
     }
 
     /**
-     * Ruft zur Eingabe auf und fuegt Eingabe in einer Arraylist hinzu.
+     * Unterscheided zwischen add und add n. Ruft zur Eingabe auf und fuegt Eingabe
+     * in einer Arraylist hinzu.
      */
     private void add() {
         output.printOutput("addText");
@@ -129,7 +137,7 @@ public class Logic {
     }
 
     /**
-     * Loescht Absatz
+     * Unterscheided zwischen del und del n. Loescht Absatz.
      */
     private void del() {
         if (input.getParagraph() == null) {
@@ -144,10 +152,6 @@ public class Logic {
 
     private int getParagraph() {
         return Integer.parseInt(input.getParagraph());
-    }
-
-    public ArrayList<String> getAbsaetze() {
-        return text.getAbsaetze();
     }
 
     /**

@@ -10,7 +10,7 @@ import java.util.Scanner;
  */
 public class Input {
     private Scanner scanner;
-    private Logic logic;
+    private Text text;
     private String command;
     private String paragraph;
     private boolean error;
@@ -24,7 +24,7 @@ public class Input {
      * 
      * @param output Output output
      */
-    public Input(Output output) {
+    public Input(Output output, Logic logic) {
         this.output = output;
     }
 
@@ -38,12 +38,7 @@ public class Input {
         String formatNextLine = getInput().toUpperCase();
         String[] commandSplit = splitInput(formatNextLine);
         setCommandAndParagraph(commandSplit);
-
-        inputCheck(logic.getAbsaetze()); // TODO aufteilen in 2 methoden.
-        if (error == false) {
-            logic.executeCommand();
-        }
-        error = false;
+        inputCheck(text.getAbsaetze()); // TODO aufteilen in 2 methoden.
     }
 
     /**
@@ -160,28 +155,17 @@ public class Input {
         return scanner.nextLine();
     }
 
-    /**
-     * @return gibt Logic zurueck.
-     */
-    public Logic getLogic() {
-        return this.logic;
+    public boolean getError() {
+        return error;
     }
 
+    public void setError(boolean error) {
+        this.error = error;
+    }
     /**
      * Beendet den Input. TODO
      */
     public void close() {
         scanner.close();
-    }
-
-    /**
-     * TODO
-     * 
-     * @param logic
-     */
-    public void setLogic(Logic logic) {
-        this.logic = logic;
-        scanner = new Scanner(System.in);
-        error = false;
     }
 }
