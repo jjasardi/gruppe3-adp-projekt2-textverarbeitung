@@ -23,8 +23,8 @@ public class Logic {
      */
     public Logic(Output output) {
         this.output = output;
-        input = new Input(output, this);
         text = new Text();
+        input = new Input(output, text);        
         spaltenBreite = 0;
         exit = false;
     }

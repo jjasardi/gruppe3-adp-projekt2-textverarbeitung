@@ -24,9 +24,14 @@ public class Input {
      * 
      * @param output Output output
      */
-    public Input(Output output, Logic logic) {
+    public Input(Output output, Text text) {
         this.output = output;
+        this.text = text;
+        scanner = new Scanner(System.in);
+        error = false;
+
     }
+
 
     /**
      * Lest den Input macht alles Grossbuchstaben und Splittet es in ein Array. Der
