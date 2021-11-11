@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * 
  * @author jasard
  * @version 1.0
  */
@@ -36,7 +35,7 @@ public class Text {
      * fuegt den Absatz an die eingegebene Stelle hinzu
      * 
      * @param absatz       String Objekt, welches hinzugefuegt werden soll
-     * @param absatzNummer An welcher Stelle der Absatz eingefügt werden soll
+     * @param absatzNummer An welcher Stelle der Absatz eingefuegt werden soll
      */
     public void addAbsatz(String absatz, int absatzNummer) {
         absaetze.add(--absatzNummer, absatz);
@@ -54,7 +53,7 @@ public class Text {
     /**
      * loescht den Absatz mit der eingegebene Absatznummer
      * 
-     * @param absatzNummer Die Nummer des zu löschenden Absatzes
+     * @param absatzNummer Die Nummer des zu loeschenden Absatzes
      */
     public void loescheAbsatz(int absatzNummer) {
         absaetze.remove(--absatzNummer);
@@ -70,7 +69,7 @@ public class Text {
     /**
      * fuegt einen DummyText am Ende der Arraylist hinzu
      * 
-     * @param absatzNummer An welcher Stelle der DummyText eingefügt werden soll
+     * @param absatzNummer An welcher Stelle der DummyText eingefuegt werden soll
      */
     public void addDummyText(int absatzNummer) {
         absaetze.add(--absatzNummer, dummyText);
@@ -79,7 +78,7 @@ public class Text {
     /**
      * fuegt einen DummyText an die eingegebene Stelle hinzu
      * 
-     * @param absatzNummer An welcher Stelle der DummyText eingefügt werden soll
+     * @param absatzNummer An welcher Stelle der DummyText eingefuegt werden soll
      */
     public void addDummyText() {
         absaetze.add(dummyText);
@@ -99,7 +98,7 @@ public class Text {
      * @param absatzNummer in Welchem Absatz gesucht werden soll
      * @param zuSuchen     nach welchem Textteil gesucht werden soll
      * @param ersetzenMit  mit was soll das Gesuchte ersetzt werden
-     * @return String. gibt den geänderten Absatz zurück
+     * @return String. gibt den geaenderten Absatz zurueck
      */
     public void textErsetzen(int absatzNummer, String zuSuchen, String ersetzenMit) {
         String absatz = absaetze.get(--absatzNummer);
@@ -112,7 +111,7 @@ public class Text {
      * 
      * @param zuSuchen    nach welchem Textteil gesucht werden soll
      * @param ersetzenMit mit was soll das Gesuchte ersetzt werden
-     * @return String. gibt den geänderten Absatz zurück
+     * @return String. gibt den geaenderten Absatz zurueck
      */
     public void textErsetzen(String zuSuchen, String ersetzenMit) {
         String absatz = absaetze.get(absaetze.size() - 1);
@@ -121,8 +120,8 @@ public class Text {
     }
 
     /**
-     * Geht durch alle Woerter aller Absaetze durch und ergänzt das
-     * Wortverzeichnis zusammen mit ihre Häufigkeit
+     * Geht durch alle Woerter aller Absaetze durch und ergaenzt das Wortverzeichnis
+     * zusammen mit ihre Haeufigkeit
      */
     private void indexAktualisieren() {
         index.clear();
@@ -157,9 +156,9 @@ public class Text {
     }
 
     /**
-     * Gibt alle Woerter aus, die ueber  alle  Absätze gesehen 
-     * öfter  als  dreimal  vorkommen zusammen mit den Absatznummern, 
-     * wo das jeweilige Wort vorkommt, als Komma getrennte Zahlenfolge.
+     * Gibt alle Woerter aus, die ueber alle Absaetze gesehen oefter als dreimal
+     * vorkommen zusammen mit den Absatznummern, wo das jeweilige Wort vorkommt, als
+     * Komma getrennte Zahlenfolge.
      */
     public void indexAusgeben() {
         indexAktualisieren();

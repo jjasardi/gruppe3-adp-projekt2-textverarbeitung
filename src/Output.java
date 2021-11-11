@@ -1,14 +1,12 @@
 import java.util.HashMap;
 
 /**
- * Diese Klasse enthaelt Methoden für die Ausgabe über System.out und System.err
+ * Diese Klasse enthaelt Methoden fuer die Ausgabe ueber System.out und System.err
  * 
  * @version 1.0
  * @author Sadikdur, Schiess
  */
 public class Output {
-    private Logic logic;
-
     private HashMap<String, String> output;
     private HashMap<String, String> errorOutput;
 
@@ -47,20 +45,20 @@ public class Output {
      * Diese Methode initialisiert alle Error-Outputs Strings in eine HashMap.
      */
     private void setErrorOutput() {
-        errorOutput.put("noCommand", "Ihre Eingabe ist keine gueltiger Befehlssatz.\n");
+        errorOutput.put("noCommand", "Ihre Eingabe ist keine gültiger Befehlssatz.\n");
         errorOutput.put("noNumber", "Der eingebene Index ist keine Nummer.\n");
         errorOutput.put("minusNumber", "Die angegebene Zahl ist negativ.\n");
-        errorOutput.put("notValidNumber", "Die angegebene Zahl liegt nicht im gueltigen Indexbereich.\n");
-        errorOutput.put("notValidString", "Der eingegebene Text ist nicht gueltig.\n"); // ??
-        errorOutput.put("noString", "Bitte einen gueltigen Text eingeben.\n"); // ??
-        errorOutput.put("notValidWord", "Das eingegebene Wort ist nicht gueltig.\n"); // ??
-        errorOutput.put("noWord", "Bitte ein gueltiges Wort eingeben.\n"); // ??
+        errorOutput.put("notValidNumber", "Die angegebene Zahl liegt nicht im gültigen Indexbereich.\n");
+        errorOutput.put("notValidString", "Der eingegebene Text ist nicht gültig.\n"); // ??
+        errorOutput.put("noString", "Bitte einen gültigen Text eingeben.\n"); // ??
+        errorOutput.put("notValidWord", "Das eingegebene Wort ist nicht gültig.\n"); // ??
+        errorOutput.put("noWord", "Bitte ein gültiges Wort eingeben.\n"); // ??
     }
 
     /**
      * Gibt mit dem "Key", den richtigen String Output im System.out aus.
      * 
-     * @param key String für richtige ausgabe.
+     * @param key String fuer richtige ausgabe.
      */
     public void printOutput(String key) {
         System.out.print(output.get(key));
@@ -69,7 +67,7 @@ public class Output {
     /**
      * Gibt mit dem "Key", den richtigen String Error-Output im System.err aus.
      * 
-     * @param key String für richtige ausgabe.
+     * @param key String fuer richtige ausgabe.
      */
     public void printErrorOutput(String key) {
         System.err.print(errorOutput.get(key));

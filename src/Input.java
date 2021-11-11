@@ -9,7 +9,8 @@ import java.util.Scanner;
  * @author Sadikdur, Schiess
  */
 public class Input {
-    private Scanner scanner;
+    private Scanner scannerCommand;
+    private Scanner scannerText;
     private Text text;
     private String command;
     private String paragraph;
@@ -27,11 +28,10 @@ public class Input {
     public Input(Output output, Text text) {
         this.output = output;
         this.text = text;
-        scanner = new Scanner(System.in);
+        scannerCommand = new Scanner(System.in);
         error = false;
 
     }
-
 
     /**
      * Lest den Input macht alles Grossbuchstaben und Splittet es in ein Array. Der
@@ -40,7 +40,7 @@ public class Input {
      * @return Input line
      */
     public void formatNextLine() {
-        String formatNextLine = getInput().toUpperCase();
+        String formatNextLine = getCommandInput().toUpperCase();
         String[] commandSplit = splitInput(formatNextLine);
         setCommandAndParagraph(commandSplit);
         inputCheck(text.getAbsaetze()); // TODO aufteilen in 2 methoden.
@@ -129,17 +129,6 @@ public class Input {
     }
 
     /**
-     * filters all forbidden characters out. exception: 'a-z', 'A-Z', '0-9',
-     * 'äöüÄÖÜ', '.,;:!?%$@&+*#(){}/\'"[]'
-     * 
-     * @param input the unfiltered paragraph.
-     * @return String, gives the filteret paragraph back.
-     */
-    public String filterParagraph(String input) {
-        return input.replaceAll("[^a-zA-Z0-9äöüÄÖÜ .,:;\\-!?’()\\\"%@+*[\\\\]{}\\/\\\\&#$]", "");
-    }
-
-    /**
      * @return gibt command zurueck.
      */
     public String getCommand() {
@@ -156,8 +145,29 @@ public class Input {
     /**
      * @return gibt Input zurueck.
      */
-    public String getInput() {
-        return scanner.nextLine();
+    public String getCommandInput() {
+        return scannerCommand.nextLine();
+    }
+
+    /**
+     * Scan Text Eingabe und gibt diesen als String ohne verbotene Zeichen zurueck.
+     * 
+     * @return gefilterer String
+     */
+    public String getTextInput() {
+        scannerText = new Scanner(System.in);
+        return filterParagraph(scannerText.nextLine());
+    }
+
+    /**
+     * Filtert alle verbotenen Zeichen aus dem Absatz heraus. Ausnahme: 'a-z',
+     * 'A-Z', '0-9', 'äöüÄÖÜ', '.,;:!?%$@&+*#(){}/\'"[]'
+     * 
+     * @param input Der ungefilterte Absatz.
+     * @return Gibt den gefilterten Absatz zurueck.
+     */
+    private String filterParagraph(String input) {
+        return input.replaceAll("[^a-zA-Z0-9äöüÄÖÜ .,:;\\-!?’()\\\"%@+*[\\\\]{}\\/\\\\&#$]", "");
     }
 
     public boolean getError() {
@@ -167,10 +177,11 @@ public class Input {
     public void setError(boolean error) {
         this.error = error;
     }
+
     /**
      * Beendet den Input. TODO
      */
     public void close() {
-        scanner.close();
+        scannerCommand.close();
     }
 }

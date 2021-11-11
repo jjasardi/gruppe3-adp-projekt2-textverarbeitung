@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 /**
  * Die Klasse Logic enthaelt Methoden zur Ausfuhr von Befehlen. Darueber hinaus
  * gibt es Methoden, welche die Mainloop beenden.
@@ -12,7 +10,6 @@ public class Logic {
     private Text text;
     private Output output;
     private int spaltenBreite;
-    private Scanner scan;
     private boolean exit;
 
     /**
@@ -24,7 +21,7 @@ public class Logic {
     public Logic() {
         output = new Output();
         text = new Text();
-        input = new Input(output, text);        
+        input = new Input(output, text);
         spaltenBreite = 0;
         exit = false;
     }
@@ -70,16 +67,6 @@ public class Logic {
     }
 
     /**
-     * Scan Eingabe und liefert diesen als String.
-     * 
-     * @return gefilterer String
-     */
-    private String scan() {
-        scan = new Scanner(System.in);
-        return input.filterParagraph(scan.nextLine());
-    }
-
-    /**
      * Unterscheided zwischen replace und replace n. Ersetzt Wort1/Absatzteil1 durch
      * Wort2/Absatzteil2.
      */
@@ -87,9 +74,9 @@ public class Logic {
         String wort1 = "";
         String wort2 = "";
         output.printOutput("replace");
-        wort1 = scan();
+        wort1 = input.getTextInput();
         output.printOutput("toReplace");
-        wort2 = scan();
+        wort2 = input.getTextInput();
         if (input.getParagraph() == null) {
             text.textErsetzen(wort1, wort2);
         } else {
@@ -119,10 +106,10 @@ public class Logic {
     private void add() {
         output.printOutput("addText");
         if (input.getParagraph() == null) {
-            text.addAbsatz(scan());
+            text.addAbsatz(input.getTextInput());
             output.printOutput("addedText");
         } else {
-            text.addAbsatz(scan(), getParagraph());
+            text.addAbsatz(input.getTextInput(), getParagraph());
             output.printOutput("addedTextn");
             System.out.print(getParagraph() + "\n");
         }
