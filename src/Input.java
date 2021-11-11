@@ -17,8 +17,8 @@ public class Input {
     private boolean error;
     private Output output;
 
-    private static final String[] allCommands = { "ADD", "DEL", "DUMMY", "EXIT", "FORMAT RAW", "FORMAT FIX",
-            "INDEX", "PRINT", "REPLACE" };
+    private static final String[] allCommands = { "ADD", "DEL", "DUMMY", "EXIT", "FORMAT RAW", "FORMAT FIX", "INDEX",
+            "PRINT", "REPLACE" };
 
     /**
      * Konstruktor initialisiert das Output Objekt.
@@ -125,11 +125,14 @@ public class Input {
             output.printErrorOutput("noCommand");
             error = true;
         } else if (paragraphNr != null) {
-            if (command.contains("FORMAT") == false && paragraphNr != null
+            if (command.contains("DEL") == true && (paragraphNr < 1 || paragraphNr > absaetze.size())) {
+                output.printErrorOutput("notValidNumber");
+                error = true;
+            } else if (command.contains("FORMAT") == false
                     && (paragraphNr < 1 || paragraphNr > (absaetze.size()) + 1)) {
                 output.printErrorOutput("notValidNumber");
                 error = true;
-            } else if (command.contains("FORMAT") == true && paragraphNr != null && paragraphNr < 1) {
+            } else if (command.contains("FORMAT") == true && paragraphNr < 1) {
                 output.printErrorOutput("minusNumber");
                 error = true;
             }
