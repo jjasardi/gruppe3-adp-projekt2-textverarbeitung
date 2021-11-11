@@ -71,7 +71,7 @@ public class Logic {
         } else if (input.getCommand().equals("DEL")) {
             del();
         } else if (input.getCommand().equals("INDEX")) {
-            text.index();
+            text.indexAusgeben();
         } else if (input.getCommand().equals("REPLACE")) {
             replace();
         }
