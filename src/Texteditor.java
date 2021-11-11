@@ -6,7 +6,7 @@
  */
 
 public class Texteditor {
-    private Output output;
+    private Logic logic;
 
     public static void main(String[] args) {
         Texteditor texteditor = new Texteditor();
@@ -24,11 +24,11 @@ public class Texteditor {
      * Programm.
      */
     private void start() {
-        output = new Output();
-        output.printOutput("welcome");
-        while (output.run() == true) {
-            output.printOutput("command");
-            output.runNextLine();
+        logic = new Logic();
+        logic.getWelcome();
+        while (logic.run() == true) {
+            logic.getCommand();
+            logic.runNextLine();
         }
     }
 }

@@ -20,7 +20,6 @@ public class Output {
         errorOutput = new HashMap<>();
         setOutput();
         setErrorOutput();
-        logic = new Logic(this);
     }
 
     /**
@@ -75,19 +74,4 @@ public class Output {
     public void printErrorOutput(String key) {
         System.err.print(errorOutput.get(key));
     }
-
-    /**
-     * @return TODO
-     */
-    public boolean run() {
-        return logic.run();
-    }
-
-    /**
-     * TODO
-     */
-    public void runNextLine() {
-        logic.runNextLine();
-    }
-
 }

@@ -21,21 +21,13 @@ public class Logic {
      * 
      * @param output Objekt
      */
-    public Logic(Output output) {
-        this.output = output;
+    public Logic() {
+        output = new Output();
         text = new Text();
         input = new Input(output, text);        
         spaltenBreite = 0;
         exit = false;
     }
-
-    /**
-     * Diese methode macht das, das Input objekt auf das selbe objekt zeigt wie die
-     * Input Klasse. Sie erstellt ein neues Text Objekt und initialisiert die
-     * Datenfelder.
-     * 
-     * @param input Input objekt
-     */
 
     /**
      * Diese methode ruft die Eingabe aus Input auf. Falls die Eingabe gueltig ist
@@ -52,7 +44,7 @@ public class Logic {
     /**
      * Diese methode fuehrt commands auf bezug zur Eingabe aus.
      */
-    public void executeCommand() {
+    private void executeCommand() {
         if (input.getCommand().equals("EXIT")) {
             exit();
         } else if (input.getCommand().equals("ADD")) {
@@ -172,5 +164,13 @@ public class Logic {
     public void exit() {
         input.close();
         exit = true;
+    }
+
+    public void getWelcome() {
+        output.printOutput("welcome");
+    }
+
+    public void getCommand() {
+        output.printOutput("command");
     }
 }

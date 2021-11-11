@@ -118,10 +118,10 @@ public class Input {
         } else if (paragraph != null) {
             int index = Integer.parseInt(paragraph);
             if (command.contains("FORMAT") == false && paragraph != null
-                    && (index < 0 || index > (absaetze.size()) + 1)) {
+                    && (index < 1 || index > (absaetze.size()) + 1)) {
                 output.printErrorOutput("notValidNumber");
                 error = true;
-            } else if (command.contains("FORMAT") == true && paragraph != null && index < 0) {
+            } else if (command.contains("FORMAT") == true && paragraph != null && index < 1) {
                 output.printErrorOutput("minusNumber");
                 error = true;
             }
