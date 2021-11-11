@@ -25,9 +25,9 @@ public class Texteditor {
      */
     private void start() {
         logic = new Logic();
-        logic.getWelcome();
+        logic.getOutput("welcome");
         while (logic.run() == true) {
-            logic.getCommand();
+            logic.getOutput("command");
             logic.runNextLine();
         }
     }

@@ -166,11 +166,7 @@ public class Logic {
         exit = true;
     }
 
-    public void getWelcome() {
-        output.printOutput("welcome");
-    }
-
-    public void getCommand() {
-        output.printOutput("command");
+    public void getOutput(String key) {
+        output.printOutput(key);
     }
 }
