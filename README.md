@@ -1,7 +1,7 @@
 # Textverarbeitung der Gruppe ADP
 
 
-Um das Programm auszuführen öffnen Sie die Texteditor.java Datei mit dem IDE ihrer Wahl.
+Um das Programm auszuführen, öffnen Sie die Texteditor.java Datei mit dem IDE ihrer Wahl.
 Führen Sie anschliessend die main() methode aus.
 
 Folgendes sind die gültigen Befehle:
