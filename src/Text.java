@@ -12,14 +12,15 @@ import java.util.Set;
  */
 
 public class Text {
+    private static final int MINDESTHAEUFIGKEIT = 3;
     private Format format;
     private ArrayList<String> absaetze;
     private String dummyText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et "
             + "dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
             + "consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. "
             + "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-    private HashMap<String, Set<Integer>> index;
-    private HashMap<String, Integer> woerterHaeufigkeit;
+    HashMap<String, Set<Integer>> index;
+    HashMap<String, Integer> woerterHaeufigkeit;
 
     public Text() {
         format = new Format();
@@ -121,10 +122,10 @@ public class Text {
     }
 
     /**
-     * Geht durch alle Woerter aller Absaetze durch und ergänzt das
-     * Wortverzeichnis zusammen mit ihre Häufigkeit
+     * Geht durch alle Woerter aller Absaetze durch und ergänzt das Wortverzeichnis
+     * zusammen mit ihre Häufigkeit
      */
-    private void indexAktualisieren() {
+    void indexAktualisieren() {
         index.clear();
         woerterHaeufigkeit.clear();
         for (int absatzNr = 1; absatzNr <= absaetze.size(); absatzNr++) {
@@ -132,12 +133,13 @@ public class Text {
             absatz = absatz.replaceAll("[^a-zA-ZäöüÄÖÜ ]", "");
             String woerterInAbsatz[] = absatz.split(" ");
             for (String wortInAbsatz : woerterInAbsatz) {
-                wortInAbsatz = wortInAbsatz.trim();
-                wortInAbsatz = wortInAbsatz.substring(0, 1).toUpperCase() + wortInAbsatz.substring(1);
-
-                Set<Integer> vorkommenInAbsaetzeNr = new HashSet<>();
-                int wortHaeufigkeit = 1;
                 if (!wortInAbsatz.isEmpty()) {
+                    wortInAbsatz = wortInAbsatz.trim();
+                    wortInAbsatz = wortInAbsatz.substring(0, 1).toUpperCase() + wortInAbsatz.substring(1);
+
+                    Set<Integer> vorkommenInAbsaetzeNr = new HashSet<>();
+                    int wortHaeufigkeit = 1;
+
                     if (index.containsKey(wortInAbsatz)) {
                         wortHaeufigkeit = woerterHaeufigkeit.get(wortInAbsatz);
                         ++wortHaeufigkeit;
@@ -157,9 +159,9 @@ public class Text {
     }
 
     /**
-     * Gibt alle Woerter aus, die ueber  alle  Absätze gesehen 
-     * öfter  als  dreimal  vorkommen zusammen mit den Absatznummern, 
-     * wo das jeweilige Wort vorkommt, als Komma getrennte Zahlenfolge.
+     * Gibt alle Woerter aus, die ueber alle Absaetze gesehen öfter als dreimal
+     * vorkommen zusammen mit den Absatznummern, wo das jeweilige Wort vorkommt, als
+     * Komma getrennte Zahlenfolge.
      */
     public void indexAusgeben() {
         indexAktualisieren();
@@ -169,7 +171,7 @@ public class Text {
             String wort = entry.getKey();
             Set<Integer> vorkommenInAbsaetzeNr = entry.getValue();
             int wortHaeufigkeit = woerterHaeufigkeit.get(wort);
-            if (wortHaeufigkeit > 3) {
+            if (wortHaeufigkeit >= MINDESTHAEUFIGKEIT) {
                 Iterator<Integer> iterate = vorkommenInAbsaetzeNr.iterator();
                 System.out.print(wort);
                 System.out.print(" " + iterate.next());
