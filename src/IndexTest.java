@@ -8,13 +8,13 @@ import org.junit.Test;
 
 public class IndexTest {
     private Text text;
-    private HashMap<String, Set<Integer>> indexTest;
+    private HashMap<String, Set<Integer>> wortVerzeichnisTest;
     private HashMap<String, Integer> woerterHaeufigkeitTest;
 
     @Before
     public void setUp() {
         text = new Text();
-        indexTest = new HashMap<>();
+        wortVerzeichnisTest = new HashMap<>();
         woerterHaeufigkeitTest = new HashMap<>();
     }
 
@@ -24,84 +24,84 @@ public class IndexTest {
         text.addAbsatz("");
         text.addAbsatz("");
         text.addAbsatz("");
-        text.indexAktualisieren();
+        text.indexAusgeben();
 
 
-        assertEquals(indexTest, text.index);
-        assertEquals(woerterHaeufigkeitTest, text.woerterHaeufigkeit);
+        assertEquals(wortVerzeichnisTest, text.index.wortVerzeichnis);
+        assertEquals(woerterHaeufigkeitTest, text.index.woerterHaeufigkeit);
     }
 
     @Test
     public void testMindestHaeufigkeitSelbenAbsatz() {
         text.addAbsatz("lorem lorem lorem");
         text.addAbsatz("ipsum ipsum ipsum");
-        text.indexAktualisieren();
+        text.indexAusgeben();
 
         Set<Integer> vorkommenInAbsaetzeNr = new HashSet<>();
         vorkommenInAbsaetzeNr.add(1);
-        indexTest.put("Lorem", vorkommenInAbsaetzeNr);
+        wortVerzeichnisTest.put("Lorem", vorkommenInAbsaetzeNr);
 
         vorkommenInAbsaetzeNr = new HashSet<>();
         vorkommenInAbsaetzeNr.add(2);
-        indexTest.put("Ipsum", vorkommenInAbsaetzeNr);
+        wortVerzeichnisTest.put("Ipsum", vorkommenInAbsaetzeNr);
 
         woerterHaeufigkeitTest.put("Lorem", 3);
         woerterHaeufigkeitTest.put("Ipsum", 3);
 
-        assertEquals(indexTest, text.index);
-        assertEquals(woerterHaeufigkeitTest, text.woerterHaeufigkeit);
+        assertEquals(wortVerzeichnisTest, text.index.wortVerzeichnis);
+        assertEquals(woerterHaeufigkeitTest, text.index.woerterHaeufigkeit);
     }
 
     @Test
     public void testMindestHaeufigkeitEintraegeVerschiedeneAbsaetze() {
         text.addAbsatz("lorem ipsum lorem ipsum");
         text.addAbsatz("lorem ipsum");
-        text.indexAktualisieren();
+        text.indexAusgeben();
 
         Set<Integer> vorkommenInAbsaetzeNr = new HashSet<>();
         vorkommenInAbsaetzeNr.add(1);
         vorkommenInAbsaetzeNr.add(2);
-        indexTest.put("Lorem", vorkommenInAbsaetzeNr);
+        wortVerzeichnisTest.put("Lorem", vorkommenInAbsaetzeNr);
 
         vorkommenInAbsaetzeNr = new HashSet<>();
         vorkommenInAbsaetzeNr.add(1);
         vorkommenInAbsaetzeNr.add(2);
-        indexTest.put("Ipsum", vorkommenInAbsaetzeNr);
+        wortVerzeichnisTest.put("Ipsum", vorkommenInAbsaetzeNr);
 
         woerterHaeufigkeitTest.put("Lorem", 3);
         woerterHaeufigkeitTest.put("Ipsum", 3);
 
-        assertEquals(indexTest, text.index);
-        assertEquals(woerterHaeufigkeitTest, text.woerterHaeufigkeit);
+        assertEquals(wortVerzeichnisTest, text.index.wortVerzeichnis);
+        assertEquals(woerterHaeufigkeitTest, text.index.woerterHaeufigkeit);
     }
 
     @Test
     public void testZweiEintraege() {
         text.addAbsatz("lorem lorem");
         text.addAbsatz("ipsum ipsum");
-        text.indexAktualisieren();
+        text.indexAusgeben();
 
         Set<Integer> vorkommenInAbsaetzeNr = new HashSet<>();
         vorkommenInAbsaetzeNr.add(1);
-        indexTest.put("Lorem", vorkommenInAbsaetzeNr);
+        wortVerzeichnisTest.put("Lorem", vorkommenInAbsaetzeNr);
 
         vorkommenInAbsaetzeNr = new HashSet<>();
         vorkommenInAbsaetzeNr.add(2);
-        indexTest.put("Ipsum", vorkommenInAbsaetzeNr);
+        wortVerzeichnisTest.put("Ipsum", vorkommenInAbsaetzeNr);
 
         woerterHaeufigkeitTest.put("Lorem", 2);
         woerterHaeufigkeitTest.put("Ipsum", 2);
 
-        assertEquals(indexTest, text.index);
-        assertEquals(woerterHaeufigkeitTest, text.woerterHaeufigkeit);
+        assertEquals(wortVerzeichnisTest, text.index.wortVerzeichnis);
+        assertEquals(woerterHaeufigkeitTest, text.index.woerterHaeufigkeit);
     }
 
     @Test
     public void testNullAbsatz() {
         text.addAbsatz(null);
-        text.indexAktualisieren();
+        text.indexAusgeben();
 
-        assertEquals(indexTest, text.index);
-        assertEquals(woerterHaeufigkeitTest, text.woerterHaeufigkeit);
+        assertEquals(wortVerzeichnisTest, text.index.wortVerzeichnis);
+        assertEquals(woerterHaeufigkeitTest, text.index.woerterHaeufigkeit);
     }
 }

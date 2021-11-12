@@ -1,9 +1,4 @@
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * @author jasard
@@ -11,22 +6,19 @@ import java.util.Set;
  */
 
 public class Text {
-    private static final int MINDESTHAEUFIGKEIT = 3;
     private static final int EINS = 1;
     private Format format;
     private ArrayList<String> absaetze;
+    Index index;
     private String dummyText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et "
             + "dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
             + "consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. "
             + "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-    HashMap<String, Set<Integer>> index;
-    HashMap<String, Integer> woerterHaeufigkeit;
 
     public Text() {
         format = new Format();
         absaetze = new ArrayList<>();
-        index = new HashMap<>();
-        woerterHaeufigkeit = new HashMap<>();
+        index = new Index();
     }
 
     public ArrayList<String> getAbsaetze() {
@@ -121,64 +113,8 @@ public class Text {
         absaetze.set(absaetze.size() - EINS, absatz);
     }
 
-    /**
-     * Geht durch alle Woerter aller Absaetze durch und ergänzt das Wortverzeichnis
-     * zusammen mit ihre Häufigkeit
-     */
-    void indexAktualisieren() {
-        index.clear();
-        woerterHaeufigkeit.clear();
-        for (int absatzNr = 1; absatzNr <= absaetze.size(); absatzNr++) {
-            String absatz = absaetze.get(absatzNr - 1);
-            absatz = absatz.replaceAll("[^a-zA-ZäöüÄÖÜ ]", "");
-            String woerterInAbsatz[] = absatz.split(" ");
-            for (String wortInAbsatz : woerterInAbsatz) {
-                if (!wortInAbsatz.isEmpty()) {
-                    wortInAbsatz = wortInAbsatz.trim();
-                    wortInAbsatz = wortInAbsatz.substring(0, 1).toUpperCase() + wortInAbsatz.substring(1);
-
-                    Set<Integer> vorkommenInAbsaetzeNr = new HashSet<>();
-                    int wortHaeufigkeit = 1;
-
-                    if (index.containsKey(wortInAbsatz)) {
-                        wortHaeufigkeit = woerterHaeufigkeit.get(wortInAbsatz) + 1;
-                        woerterHaeufigkeit.put(wortInAbsatz, wortHaeufigkeit);
-
-                        vorkommenInAbsaetzeNr = index.get(wortInAbsatz);
-                        vorkommenInAbsaetzeNr.add(absatzNr);
-                        index.put(wortInAbsatz, vorkommenInAbsaetzeNr);
-                    } else {
-                        woerterHaeufigkeit.put(wortInAbsatz, wortHaeufigkeit);
-                        vorkommenInAbsaetzeNr.add(absatzNr);
-                        index.put(wortInAbsatz, vorkommenInAbsaetzeNr);
-                    }
-                }
-            }
-        }
-    }
-
-    /**
-     * Gibt alle Woerter aus, die ueber alle Absaetze gesehen öfter als dreimal
-     * vorkommen zusammen mit den Absatznummern, wo das jeweilige Wort vorkommt, als
-     * Komma getrennte Zahlenfolge.
-     */
-    public void indexAusgeben() {
-        indexAktualisieren();
-
-        Set<Map.Entry<String, Set<Integer>>> entrySet = index.entrySet();
-        for (Map.Entry<String, Set<Integer>> entry : entrySet) {
-            String wort = entry.getKey();
-            Set<Integer> vorkommenInAbsaetzeNr = entry.getValue();
-            int wortHaeufigkeit = woerterHaeufigkeit.get(wort);
-            if (wortHaeufigkeit >= MINDESTHAEUFIGKEIT) {
-                Iterator<Integer> iterate = vorkommenInAbsaetzeNr.iterator();
-                System.out.print(wort);
-                System.out.print(" " + iterate.next());
-                while (iterate.hasNext()) {
-                    System.out.print(", " + iterate.next());
-                }
-                System.out.println();
-            }
-        }
+    public void indexAusgeben(){
+        index.indexAktualisieren(absaetze);
+        index.indexAusgeben();
     }
 }
