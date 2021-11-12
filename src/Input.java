@@ -3,7 +3,8 @@ import java.util.Scanner;
 
 /**
  * Die Klasse enthaelt Methoden feur den Input durch die Konsole. Ueberbrueft
- * die eingaben und gibt gegebenenfalls ein Error in der Konsole aus.
+ * und filtert die Eingaben und gibt gegebenenfalls ein Error in der Konsole
+ * aus.
  * 
  * @version 1.0
  * @author Sadikdur, Schiess
@@ -17,7 +18,10 @@ public class Input {
     private boolean error;
     private Output output;
 
-    private static final int EINS = 1;
+    private static final int NULL_KORREKTUR = 1;
+    private static final String ERLAUBTE_ZEICHEN = "[^a-zA-Z0-9äöüÄÖÜ .,:;\\-!?’()\\\"%@+*[\\\\]{}\\/\\\\&#$]";
+    private static final String NUR_ZAHLEN = "\\d+";
+    private static final String BUCHSTABE_ZAHL_TRENNUNG = "(?<=\\D)(?=\\d)";
     private static final String[] allCommands = { "ADD", "DEL", "DUMMY", "EXIT", "FORMAT RAW", "FORMAT FIX", "INDEX",
             "PRINT", "REPLACE" };
 
@@ -35,15 +39,14 @@ public class Input {
     }
 
     /**
-     * Lest den Input, macht alles Grossbuchstaben und Splittet es in ein Array. Der
-     * Array wird aufgeteilt in Command und Paragraph zahl.
-     * 
-     * @return Input line
+     * Initialisiert command und paragraphNr. Liest den Input, macht alles
+     * Grossbuchstaben und Splittet die Woerter in ein Array. Das Array wird
+     * aufgeteilt in Command und ParagraphNr.
      */
     public void formatCommandNextLine() {
         command = "";
         paragraphNr = null;
-        String commandInput = getCommandInput().toUpperCase();
+        String commandInput = getScannerCommand().toUpperCase();
         String[] commandSplit = splitCommandInput(commandInput);
         setCommandAndParagraphNr(commandSplit);
         commandInputCheck(text.getAbsaetze());
@@ -51,18 +54,19 @@ public class Input {
 
     /**
      * Splitet den Input nur zwischen Zeichen und Zahlen. z.B. add 5 = "add " + "5",
-     * add
+     * add = "add", format fix 50 = "format fix " "50"
      * 
      * @param commandInput Input String
      * @return command und wenn eine Zahl dabei noch den Paragraph.
      */
     private String[] splitCommandInput(String commandInput) {
-        String[] commandSplit = commandInput.split("(?<=\\D)(?=\\d)");
+        String[] commandSplit = commandInput.split(BUCHSTABE_ZAHL_TRENNUNG);
         return commandSplit;
     }
 
     /**
-     * Gibt true zurueck wenn der String command in allCommands enthalten ist.
+     * Gibt true zurueck wenn der String command in allCommands String Array
+     * enthalten ist.
      * 
      * @param command Command String
      * @return boolean true/false
@@ -78,26 +82,25 @@ public class Input {
 
     /**
      * Checkt ob der String nicht länger als 4 Zeichen ist und ob er nur Zahlen
-     * enthält.
+     * enthält. Wertebereich : 0-9999
      *
-     * @param paragraphNr zu testende Absatznummer
-     * @return true wenn der String nur Zahlen enthält und max 4 Zeichen lang ist,
-     *         somit max 999.
+     * @param paragraphNr zu testende Absatznummer als String
+     * @return boolean true/false
      */
     private boolean checkParagraphNr(String paragraphNr) {
-        if (paragraphNr.length() <= 4 && paragraphNr.matches("\\d+")) {
+        if (paragraphNr.length() <= 4 && paragraphNr.matches(NUR_ZAHLEN)) {
             return true;
         }
         return false;
     }
 
     /**
-     * Wenn der Array nur aus einem Element besteht wird der Paragraph auf "null"
-     * gesetzt. Wenn der Array aus zwei Elementen besteht wird der erste zum command
-     * und der zweite zum Paragraphen. Wenn es mehr als zwei sind gibt es einen
-     * Error aus.
+     * Weist Stringarray Werte zu String variabeln zu. Entsprich das Stringarray
+     * nicht dem vorgegeben format, wird eine Fehlermeldung gedruckt und ein
+     * Fehlersignal gesetzt.
      * 
-     * @param commandSplit Array das in Command und Absatznummer gesetzt wird.
+     * @param commandSplit String Array das in Command und Absatznummer gesetzt
+     *                     wird.
      */
     private void setCommandAndParagraphNr(String[] commandSplit) {
         if (commandSplit.length == 1) {
@@ -116,27 +119,34 @@ public class Input {
     }
 
     /**
+     * Ueberprueft die Eingabe ob es ein gueltiger Befehl ist. Falls eine Zahl
+     * angegeben ist, wird geprueft ob die gueltig ist. Falls ein Fehler vorliegt
+     * wird eine Fehlermeldung gedruckt und ein Fehlersignal gesetzt.
      * 
-     * 
-     * @param absaetze ArrayList von Strings
+     * @param absaetze Arraylist der Text Klasse.
      */
     private void commandInputCheck(ArrayList<String> absaetze) {
         if (isCommand(command) == false) {
             output.printErrorOutput("noCommand");
+            error = true;
+        } else if (absaetze.size() == 0 && (command.equals("DEL") == true || command.equals("REPLACE") == true
+                || command.equals("INDEX") == true)) {
+            output.printErrorOutput("absatzLeer");
             error = true;
         } else if (paragraphNr != null) {
             if (command.equals("EXIT") || command.equals("PRINT") || command.equals("FORMAT RAW")
                     || command.equals("INDEX")) {
                 output.printErrorOutput("noCommand");
                 error = true;
-            } else if (command.contains("DEL") == true && (paragraphNr < EINS || paragraphNr > absaetze.size())) {
+            } else if (command.contains("DEL") == true
+                    && (paragraphNr < NULL_KORREKTUR || paragraphNr > absaetze.size())) {
                 output.printErrorOutput("notValidNumber");
                 error = true;
             } else if (command.contains("FORMAT") == false
-                    && (paragraphNr < EINS || paragraphNr > (absaetze.size()) + EINS)) {
+                    && (paragraphNr < NULL_KORREKTUR || paragraphNr > (absaetze.size()) + NULL_KORREKTUR)) {
                 output.printErrorOutput("notValidNumber");
                 error = true;
-            } else if (command.contains("FORMAT") == true && paragraphNr < EINS) {
+            } else if (command.contains("FORMAT") == true && paragraphNr < NULL_KORREKTUR) {
                 output.printErrorOutput("minusNumber");
                 error = true;
             }
@@ -144,51 +154,58 @@ public class Input {
     }
 
     /**
-     * @return gibt command zurueck.
+     * GetCommand
+     * 
+     * @return Gibt command als String zurueck.
      */
     public String getCommand() {
         return command;
     }
 
     /**
-     * @return gibt Paragraph zurueck.
+     * GetParagraphNr
+     * 
+     * @return Paragraph als Integer.
      */
     public Integer getParagraphNr() {
         return paragraphNr;
     }
 
     /**
-     * @return gibt Input zurueck.
+     * Holt den Wert aus dem ScannerCommand objekt.
+     * 
+     * @return ScannerCommand als String
      */
-    public String getCommandInput() {
+    private String getScannerCommand() {
         return scannerCommand.nextLine();
     }
 
     /**
-     * Scan Text Eingabe und gibt diesen als String ohne verbotene Zeichen zurueck.
+     * Erstellt scannerText Scannerobjekt und gibt diesen als String ohne verbotene
+     * Zeichen zurueck.
      * 
      * @return gefilterer String
      */
     public String getTextInput() {
         scannerText = new Scanner(System.in);
-        return filterParagraph(scannerText.nextLine());
+        return filterText(scannerText.nextLine());
     }
 
     /**
      * Filtert alle verbotenen Zeichen aus dem Absatz heraus. Ausnahme: 'a-z',
-     * 'A-Z', '0-9', 'äöüÄÖÜ', '.,;:!?%$@&+*#(){}/\'"[]'
+     * 'A-Z', '0-9', 'äöüÄÖÜ', ' .,;:!?%$@&+*#(){}/\'"[]'
      * 
-     * @param input Der ungefilterte Absatz.
+     * @param input Der ungefilterte String .
      * @return Gibt den gefilterten Absatz zurueck.
      */
-    private String filterParagraph(String input) {
-        return input.replaceAll("[^a-zA-Z0-9äöüÄÖÜ .,:;\\-!?’()\\\"%@+*[\\\\]{}\\/\\\\&#$]", "");
+    private String filterText(String input) {
+        return input.replaceAll(ERLAUBTE_ZEICHEN, "");
     }
 
     /**
-     * gibt den aktuellen Error stand zurück.
+     * Gibt den aktuellen error Wert zurück.
      * 
-     * @return Error true or false.
+     * @return boolean true or false.
      */
     public boolean getError() {
         return error;
@@ -204,9 +221,10 @@ public class Input {
     }
 
     /**
-     * Beendet den scannerCommand Scanner.
+     * Beendet das scannerCommand und scannerText Scannerobjekt.
      */
     public void close() {
+        scannerText.close();
         scannerCommand.close();
     }
 }
