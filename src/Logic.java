@@ -37,7 +37,6 @@ public class Logic {
         } else {
             input.setError(false);
         }
-
     }
 
     /**
@@ -130,9 +129,8 @@ public class Logic {
     }
 
     /**
-     * Checkt ob Format Fix eine Nummer hat und setzt sie dann auf die spaltenBreite.
-     * 
-     * ParagraphNr ist hier die Spaltenbreite. TODO: k so?
+     * Checkt ob Format Fix eine Nummer hat und setzt sie dann auf die
+     * spaltenBreite. ParagraphNr ist hier die Spaltenbreite.
      */
     private void FormatFix() {
         if (input.getParagraphNr() == null) {
@@ -164,8 +162,13 @@ public class Logic {
         exit = true;
     }
 
+    /**
+     * Diese erlaubt der Texteditor Klasse das Drucken von Outputs.
+     * 
+     * @param key Command als String
+     */
     public void getOutput(String key) {
         output.printOutput(key);
     }
-    
+
 }

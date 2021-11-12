@@ -6,11 +6,21 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Diese Klasse enthaelt TestMethoden für die Index Funktion.
+ * 
+ * @author jasard
+ * @version 1.0
+ */
+
 public class IndexTest {
     private Text text;
     private HashMap<String, Set<Integer>> wortVerzeichnisTest;
     private HashMap<String, Integer> woerterHaeufigkeitTest;
 
+    /**
+     * Erstellt 2 Hashmap und ein Text Objekt.
+     */
     @Before
     public void setUp() {
         text = new Text();
@@ -18,6 +28,11 @@ public class IndexTest {
         woerterHaeufigkeitTest = new HashMap<>();
     }
 
+    /**
+     * Prueft ob die Index Funktion mit leeren Absaetzen funktioniert.
+     * 
+     * @Result Wortverzeichniss und wortVerzeichnis sind leer.
+     */
     @Test
     public void testLeereAbsaetze() {
         text.addAbsatz("");
@@ -31,6 +46,11 @@ public class IndexTest {
         assertEquals(woerterHaeufigkeitTest, text.index.woerterHaeufigkeit);
     }
 
+    /**
+     * Prueft wie die Index Funktion mit 3 gleichen Woerter im selben Absatz funktioniert.
+     * 
+     * @Result Es wird nur eine Zahl pro Wort ausgegeben.
+     */
     @Test
     public void testMindestHaeufigkeitSelbenAbsatz() {
         text.addAbsatz("lorem lorem lorem");
@@ -52,6 +72,11 @@ public class IndexTest {
         assertEquals(woerterHaeufigkeitTest, text.index.woerterHaeufigkeit);
     }
 
+    /**
+     * Prueft wie die Index Funktion mit 3 gleichen Woerter in verschiedene Absaetze funktioniert.
+     * 
+     * @Result Es werden mehrere Woerter ausgegeben in folgender Form: Wort n, n...
+     */
     @Test
     public void testMindestHaeufigkeitEintraegeVerschiedeneAbsaetze() {
         text.addAbsatz("lorem ipsum lorem ipsum");
@@ -75,6 +100,11 @@ public class IndexTest {
         assertEquals(woerterHaeufigkeitTest, text.index.woerterHaeufigkeit);
     }
 
+    /**
+     * Prueft wie die Index Funktion mit weniger 3 als gleichen Woertern funktioniert.
+     * 
+     * @Result keine Ausgabe
+     */
     @Test
     public void testZweiEintraege() {
         text.addAbsatz("lorem lorem");
@@ -96,10 +126,27 @@ public class IndexTest {
         assertEquals(woerterHaeufigkeitTest, text.index.woerterHaeufigkeit);
     }
 
+    /**
+     * Prueft wie die Index Funktion mit Umlauten funktioniert.
+     * 
+     * @Result Umlaute werden wie normale Worter behandelt.
+     */
     @Test
-    public void testNullAbsatz() {
-        text.addAbsatz(null);
+    public void testUmlaute() {
+        text.addAbsatz("Häuser Häuser Häuser");
+        text.addAbsatz("Mäuse Mäuse Mäuse");
         text.indexAusgeben();
+
+        Set<Integer> vorkommenInAbsaetzeNr = new HashSet<>();
+        vorkommenInAbsaetzeNr.add(1);
+        wortVerzeichnisTest.put("Häuser", vorkommenInAbsaetzeNr);
+
+        vorkommenInAbsaetzeNr = new HashSet<>();
+        vorkommenInAbsaetzeNr.add(2);
+        wortVerzeichnisTest.put("Mäuse", vorkommenInAbsaetzeNr);
+
+        woerterHaeufigkeitTest.put("Häuser", 3);
+        woerterHaeufigkeitTest.put("Mäuse", 3);
 
         assertEquals(wortVerzeichnisTest, text.index.wortVerzeichnis);
         assertEquals(woerterHaeufigkeitTest, text.index.woerterHaeufigkeit);

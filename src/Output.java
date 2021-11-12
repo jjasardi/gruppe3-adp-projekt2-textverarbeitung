@@ -1,7 +1,7 @@
 import java.util.HashMap;
 
 /**
- * Diese Klasse enthaelt Methoden fuer die Ausgabe ueber System.out und System.err
+ * Diese Klasse enthaelt Methoden fuer die Ausgaben ueber System.out und System.err
  * 
  * @version 1.0
  * @author Sadikdur, Schiess
@@ -11,7 +11,7 @@ public class Output {
     private HashMap<String, String> errorOutput;
 
     /**
-     * Konstruktor initialisiert das Output Objekt mit Logic und Input Objekt.
+     * Konstruktor initialisiert die Hashmaps und fuellt sie.
      */
     public Output() {
         output = new HashMap<>();
@@ -48,10 +48,11 @@ public class Output {
         errorOutput.put("noCommand", "Ihre Eingabe ist keine gültiger Befehlssatz.\n");
         errorOutput.put("noNumber", "Keine Nummer angegeben.\n");
         errorOutput.put("notValidNumber", "Die angegebene Zahl liegt nicht im gültigen Bereich.\n");
+        errorOutput.put("absatzLeer", "Die Absatzliste ist leer.\n");
     }
 
     /**
-     * Gibt mit dem "Key", den richtigen String Output im System.out aus.
+     * Druckt mit dem "Key", den richtigen String Output im System.out.
      * 
      * @param key String fuer richtige ausgabe.
      */
@@ -60,7 +61,7 @@ public class Output {
     }
 
     /**
-     * Gibt mit dem "Key", den richtigen String Error-Output im System.err aus.
+     * Druckt mit dem "Key", den richtigen String Error-Output im System.err.
      * 
      * @param key String fuer richtige ausgabe.
      */

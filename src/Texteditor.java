@@ -8,13 +8,18 @@
 public class Texteditor {
     private Logic logic;
 
+    /**
+     * Main-Methode
+     * 
+     * @param args Eingabe vom Typ String
+     */
     public static void main(String[] args) {
         Texteditor texteditor = new Texteditor();
         texteditor.start();
     }
 
     /**
-     * leeer Konstruktor TODO: brauchts den?
+     * leeer Konstruktor.
      */
     public Texteditor() {
     }
