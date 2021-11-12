@@ -139,14 +139,14 @@ public class Input {
                 output.printErrorOutput("noCommand");
                 error = true;
             } else if ((command.contains("DEL") == true || command.contains("REPLACE") == true)
-                    && (commandNr < NULL_KORREKTUR || commandNr > absaetze.size())) {
+                    && (commandNr < 1 || commandNr > absaetze.size())) {
                 output.printErrorOutput("notValidNumber");
                 error = true;
             } else if (command.contains("FORMAT") == false
-                    && (commandNr < NULL_KORREKTUR || commandNr > (absaetze.size()) + NULL_KORREKTUR)) {
+                    && (commandNr < 1 || commandNr > (absaetze.size()) + NULL_KORREKTUR)) {
                 output.printErrorOutput("notValidNumber");
                 error = true;
-            } else if (command.contains("FORMAT") == true && commandNr < NULL_KORREKTUR) {
+            } else if (command.contains("FORMAT") == true && commandNr < 1) {
                 output.printErrorOutput("minusNumber");
                 error = true;
             }
