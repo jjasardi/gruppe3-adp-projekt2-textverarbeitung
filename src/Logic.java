@@ -167,4 +167,5 @@ public class Logic {
     public void getOutput(String key) {
         output.printOutput(key);
     }
+    
 }

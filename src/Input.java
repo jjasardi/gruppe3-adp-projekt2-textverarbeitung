@@ -80,8 +80,8 @@ public class Input {
      * enthält.
      *
      * @param paragraphNr zu testende Absatznummer
-     * @return true wenn der String nur Zahlen enthält und max 4 Zeichen
-     *         lang ist, somit max 999.
+     * @return true wenn der String nur Zahlen enthält und max 4 Zeichen lang ist,
+     *         somit max 999.
      */
     private boolean checkParagraphNr(String paragraphNr) {
         if (paragraphNr.length() <= 4 && paragraphNr.matches("\\d+")) {
@@ -115,17 +115,20 @@ public class Input {
     }
 
     /**
-     * Ueberprueft ob der Input ein Command ist. Wenn ja wird ueberprueft ob der
-     * Paragraph "null" ist und wenn nicht ob er gueltig ist und ob er negativ ist.
      * 
-     * @param absaetze TODO: was genau
+     * 
+     * @param absaetze ArrayList von Strings
      */
     private void commandInputCheck(ArrayList<String> absaetze) {
         if (isCommand(command) == false) {
             output.printErrorOutput("noCommand");
             error = true;
         } else if (paragraphNr != null) {
-            if (command.contains("DEL") == true && (paragraphNr < 1 || paragraphNr > absaetze.size())) {
+            if (command.equals("EXIT") || command.equals("PRINT") || command.equals("FORMAT RAW")
+                    || command.equals("INDEX")) {
+                output.printErrorOutput("noCommand");
+                error = true;
+            } else if (command.contains("DEL") == true && (paragraphNr < 1 || paragraphNr > absaetze.size())) {
                 output.printErrorOutput("notValidNumber");
                 error = true;
             } else if (command.contains("FORMAT") == false
