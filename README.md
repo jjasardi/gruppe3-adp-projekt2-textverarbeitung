@@ -27,4 +27,5 @@ Folgendes sind die gültigen Befehle:
 
 
 ## Testing
-![Testing](https://github.zhaw.ch/PM1-IT21aWIN-fame-rayi-wahl/gruppe3-adp-projekt2-textverarbeitung/blob/main/doc/Dokumentation%20Testing.pdf)
+[Dokumentation Testing.pdf](https://github.zhaw.ch/PM1-IT21aWIN-fame-rayi-wahl/gruppe3-adp-projekt2-textverarbeitung/files/468/Dokumentation.Testing.pdf)
+
