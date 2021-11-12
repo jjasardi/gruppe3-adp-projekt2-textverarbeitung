@@ -6,9 +6,10 @@ Führen Sie anschliessend die main() methode aus.
 Um das Programm von der Kommandozeile zu starten, kompilieren Sie zuerst mit "javac Texteditor.java"
 und geben Sie dann "java Texteditor" ein
 
-Folgendes sind die gültigen Befehle:
+
 
 ## Befehle
+Folgendes sind die gültigen Befehle:
 |Befehl|Beschreibung|
 |---|---|
 |ADD [n]|Ruft  zur  Eingabe  eines  Absatzes  auf  und  fügt  den  eingegebenen  Absatz  hinzu. Wird keine Absatznummer n angegeben, wird der Absatz am Ende angefügt|
@@ -24,5 +25,5 @@ Folgendes sind die gültigen Befehle:
 ## Klassendiagramm
 ![Klassendiagramm](https://github.zhaw.ch/storage/user/4867/files/b9627ddb-df24-4687-8187-b1e0d780d4a8)
 
-
+## Testing
 
