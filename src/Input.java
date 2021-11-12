@@ -138,7 +138,7 @@ public class Input {
                     || command.equals("INDEX")) {
                 output.printErrorOutput("noCommand");
                 error = true;
-            } else if (command.contains("DEL") == true
+            } else if ((command.contains("DEL") == true || command.contains("REPLACE") == true)
                     && (commandNr < NULL_KORREKTUR || commandNr > absaetze.size())) {
                 output.printErrorOutput("notValidNumber");
                 error = true;
