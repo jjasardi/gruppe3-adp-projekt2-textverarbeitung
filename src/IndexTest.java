@@ -47,6 +47,20 @@ public class IndexTest {
     }
 
     /**
+     * Prueft ob die Index Funktion mit leerer Arraylist funktioniert.
+     * 
+     * @Result Wortverzeichniss und wortVerzeichnis sind leer.
+     */
+    @Test
+    public void testLeereArraylist() {
+        text.indexAusgeben();
+
+
+        assertEquals(wortVerzeichnisTest, text.index.wortVerzeichnis);
+        assertEquals(woerterHaeufigkeitTest, text.index.woerterHaeufigkeit);
+    }
+
+    /**
      * Prueft wie die Index Funktion mit 3 gleichen Woerter im selben Absatz funktioniert.
      * 
      * @Result Es wird nur eine Zahl pro Wort ausgegeben.
@@ -95,6 +109,66 @@ public class IndexTest {
 
         woerterHaeufigkeitTest.put("Lorem", 3);
         woerterHaeufigkeitTest.put("Ipsum", 3);
+
+        assertEquals(wortVerzeichnisTest, text.index.wortVerzeichnis);
+        assertEquals(woerterHaeufigkeitTest, text.index.woerterHaeufigkeit);
+    }
+
+        /**
+     * Prueft wie die Index Funktion mit mehr als 3 gleichen Woerter in verschiedene Absaetze funktioniert.
+     * 
+     * @Result Es werden mehrere Woerter ausgegeben in folgender Form: Wort n, n...
+     */
+    @Test
+    public void testMindestHaeufigkeitEintraegeVerschiedeneAbsaetzeMehrAlsDrei() {
+        text.addAbsatz("Mein dein keine Maus");
+        text.addAbsatz("Mein dein keine Maus");
+        text.addAbsatz("Mein dein keine Maus");
+        text.addAbsatz("Mein dein keine Maus");
+        text.addAbsatz("Mein dein keine Maus");
+        text.addAbsatz("Mein dein keine Maus");
+        text.indexAusgeben();
+
+        Set<Integer> vorkommenInAbsaetzeNr = new HashSet<>();
+        vorkommenInAbsaetzeNr.add(1);
+        vorkommenInAbsaetzeNr.add(2);
+        vorkommenInAbsaetzeNr.add(3);
+        vorkommenInAbsaetzeNr.add(4);
+        vorkommenInAbsaetzeNr.add(5);
+        vorkommenInAbsaetzeNr.add(6);
+        wortVerzeichnisTest.put("Mein", vorkommenInAbsaetzeNr);
+
+        vorkommenInAbsaetzeNr = new HashSet<>();
+        vorkommenInAbsaetzeNr.add(1);
+        vorkommenInAbsaetzeNr.add(2);
+        vorkommenInAbsaetzeNr.add(3);
+        vorkommenInAbsaetzeNr.add(4);
+        vorkommenInAbsaetzeNr.add(5);
+        vorkommenInAbsaetzeNr.add(6);
+        wortVerzeichnisTest.put("Dein", vorkommenInAbsaetzeNr);
+
+        vorkommenInAbsaetzeNr = new HashSet<>();
+        vorkommenInAbsaetzeNr.add(1);
+        vorkommenInAbsaetzeNr.add(2);
+        vorkommenInAbsaetzeNr.add(3);
+        vorkommenInAbsaetzeNr.add(4);
+        vorkommenInAbsaetzeNr.add(5);
+        vorkommenInAbsaetzeNr.add(6);
+        wortVerzeichnisTest.put("Keine", vorkommenInAbsaetzeNr);
+
+        vorkommenInAbsaetzeNr = new HashSet<>();
+        vorkommenInAbsaetzeNr.add(1);
+        vorkommenInAbsaetzeNr.add(2);
+        vorkommenInAbsaetzeNr.add(3);
+        vorkommenInAbsaetzeNr.add(4);
+        vorkommenInAbsaetzeNr.add(5);
+        vorkommenInAbsaetzeNr.add(6);
+        wortVerzeichnisTest.put("Maus", vorkommenInAbsaetzeNr);
+
+        woerterHaeufigkeitTest.put("Mein", 6);
+        woerterHaeufigkeitTest.put("Dein", 6);
+        woerterHaeufigkeitTest.put("Keine", 6);
+        woerterHaeufigkeitTest.put("Maus", 6);
 
         assertEquals(wortVerzeichnisTest, text.index.wortVerzeichnis);
         assertEquals(woerterHaeufigkeitTest, text.index.woerterHaeufigkeit);
