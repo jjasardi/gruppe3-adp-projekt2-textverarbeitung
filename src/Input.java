@@ -146,10 +146,7 @@ public class Input {
                     && (commandNr < 1 || commandNr > (absaetze.size()) + NULL_KORREKTUR)) {
                 output.printErrorOutput("notValidNumber");
                 error = true;
-            } else if (command.contains("FORMAT") == true && commandNr < 1) {
-                output.printErrorOutput("minusNumber");
-                error = true;
-            }
+            } 
         }
     }
 
