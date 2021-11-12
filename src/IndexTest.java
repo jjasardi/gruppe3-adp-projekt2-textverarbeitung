@@ -128,43 +128,33 @@ public class IndexTest {
         text.addAbsatz("Mein dein keine Maus");
         text.addAbsatz("Mein dein keine Maus");
         text.indexAusgeben();
-
+        int anzahlWoerter = 6;
+        
         Set<Integer> vorkommenInAbsaetzeNr = new HashSet<>();
-        vorkommenInAbsaetzeNr.add(1);
-        vorkommenInAbsaetzeNr.add(2);
-        vorkommenInAbsaetzeNr.add(3);
-        vorkommenInAbsaetzeNr.add(4);
-        vorkommenInAbsaetzeNr.add(5);
-        vorkommenInAbsaetzeNr.add(6);
+        for (int i = 1; i <= anzahlWoerter; i++) {
+            woerterHaefigkeit(vorkommenInAbsaetzeNr, i);
+        }
         wortVerzeichnisTest.put("Mein", vorkommenInAbsaetzeNr);
 
         vorkommenInAbsaetzeNr = new HashSet<>();
-        vorkommenInAbsaetzeNr.add(1);
-        vorkommenInAbsaetzeNr.add(2);
-        vorkommenInAbsaetzeNr.add(3);
-        vorkommenInAbsaetzeNr.add(4);
-        vorkommenInAbsaetzeNr.add(5);
-        vorkommenInAbsaetzeNr.add(6);
+        for (int i = 1; i <= anzahlWoerter; i++) {
+            woerterHaefigkeit(vorkommenInAbsaetzeNr, i);
+        }
         wortVerzeichnisTest.put("Dein", vorkommenInAbsaetzeNr);
 
         vorkommenInAbsaetzeNr = new HashSet<>();
-        vorkommenInAbsaetzeNr.add(1);
-        vorkommenInAbsaetzeNr.add(2);
-        vorkommenInAbsaetzeNr.add(3);
-        vorkommenInAbsaetzeNr.add(4);
-        vorkommenInAbsaetzeNr.add(5);
-        vorkommenInAbsaetzeNr.add(6);
+        for (int i = 1; i <= anzahlWoerter; i++) {
+            woerterHaefigkeit(vorkommenInAbsaetzeNr, i);
+        }
         wortVerzeichnisTest.put("Keine", vorkommenInAbsaetzeNr);
 
         vorkommenInAbsaetzeNr = new HashSet<>();
-        vorkommenInAbsaetzeNr.add(1);
-        vorkommenInAbsaetzeNr.add(2);
-        vorkommenInAbsaetzeNr.add(3);
-        vorkommenInAbsaetzeNr.add(4);
-        vorkommenInAbsaetzeNr.add(5);
-        vorkommenInAbsaetzeNr.add(6);
+        for (int i = 1; i <= anzahlWoerter; i++) {
+            woerterHaefigkeit(vorkommenInAbsaetzeNr, i);
+        }
         wortVerzeichnisTest.put("Maus", vorkommenInAbsaetzeNr);
 
+        
         woerterHaeufigkeitTest.put("Mein", 6);
         woerterHaeufigkeitTest.put("Dein", 6);
         woerterHaeufigkeitTest.put("Keine", 6);
@@ -172,6 +162,11 @@ public class IndexTest {
 
         assertEquals(wortVerzeichnisTest, text.index.wortVerzeichnis);
         assertEquals(woerterHaeufigkeitTest, text.index.woerterHaeufigkeit);
+    }
+
+    public void woerterHaefigkeit(Set<Integer> set, int index) {
+        set.add(index);
+
     }
 
     /**
