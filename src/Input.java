@@ -22,7 +22,7 @@ public class Input {
     private static final String ERLAUBTE_ZEICHEN = "[^a-zA-Z0-9äöüÄÖÜ .,:;\\-!?’()\\\"%@+*[\\\\]{}\\/\\\\&#$]";
     private static final String NUR_ZAHLEN = "\\d+";
     private static final String BUCHSTABE_ZAHL_TRENNUNG = "(?<=\\D)(?=\\d)";
-    private static final String[] allCommands = { "ADD", "DEL", "DUMMY", "EXIT", "FORMAT RAW", "FORMAT FIX", "INDEX",
+    private static final String[] ALL_COMMANDS = { "ADD", "DEL", "DUMMY", "EXIT", "FORMAT RAW", "FORMAT FIX", "INDEX",
             "PRINT", "REPLACE" };
 
     /**
@@ -65,15 +65,15 @@ public class Input {
     }
 
     /**
-     * Gibt true zurueck wenn der String command in allCommands String Array
+     * Gibt true zurueck wenn der String command in ALL_COMMANDS String Array
      * enthalten ist.
      * 
      * @param command Command String
      * @return boolean true/false
      */
     private boolean isCommand(String command) {
-        for (int i = 0; i < allCommands.length; i++) {
-            if (command.equals(allCommands[i])) {
+        for (int i = 0; i < ALL_COMMANDS.length; i++) {
+            if (command.equals(ALL_COMMANDS[i])) {
                 return true;
             }
         }
