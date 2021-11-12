@@ -1,5 +1,5 @@
 /**
- * Diese Texteditor klasse enthält die Main methode zur Ausfuehrung des
+ * Diese Texteditor klasse enthaelt die Main methode zur Ausfuehrung des
  * Projekts.
  * 
  * @author sadikdur, Schiess
@@ -14,7 +14,7 @@ public class Texteditor {
     }
 
     /**
-     * leeer Konstruktor
+     * leeer Konstruktor TODO: brauchts den?
      */
     public Texteditor() {
     }
