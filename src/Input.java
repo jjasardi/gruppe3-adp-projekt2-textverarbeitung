@@ -49,20 +49,21 @@ public class Input {
     }
 
     /**
-     * Splitet den Input wenn eine Zahl dabei ist.
+     * Splitet den Input nur zwischen Zeichen und Zahlen. z.B. add 5 = "add " + "5",
+     * add
      * 
-     * @param command
+     * @param commandInput Input String
      * @return command und wenn eine Zahl dabei noch den Paragraph.
      */
-    private String[] splitCommandInput(String command) {
-        String[] commandSplit = command.split("(?<=\\D)(?=\\d)");
+    private String[] splitCommandInput(String commandInput) {
+        String[] commandSplit = commandInput.split("(?<=\\D)(?=\\d)");
         return commandSplit;
     }
 
     /**
      * Gibt true zurueck wenn der String command in allCommands enthalten ist.
      * 
-     * @param command
+     * @param command Command String
      * @return boolean true/false
      */
     private boolean isCommand(String command) {
@@ -75,9 +76,12 @@ public class Input {
     }
 
     /**
-     * schaut das die Absatznummer nicht grösser als 9999 sein kann.
-     * @param paragraphNr
-     * @return true wenn Absatznummer < 10000, sonst false
+     * Checkt ob der String nicht länger als 4 Zeichen ist und ob er nur Zahlen
+     * enthält.
+     *
+     * @param paragraphNr zu testende Absatznummer
+     * @return true wenn der String nur Zahlen enthält und max 4 Zeichen
+     *         lang ist, somit max 999.
      */
     private boolean checkParagraphNr(String paragraphNr) {
         if (paragraphNr.length() <= 4 && paragraphNr.matches("\\d+")) {
@@ -86,26 +90,13 @@ public class Input {
         return false;
     }
 
-    // /**
-    // * Gibt true zurueck wenn der String eine Nummer ist.
-    // *
-    // * @param inputSplit
-    // * @return boolean true/false
-    // */
-    // private boolean isNumber() {
-    // if (paragraph.matches("\\d+")) {
-    // return true;
-    // }
-    // return false;
-    // }
-
     /**
      * Wenn der Array nur aus einem Element besteht wird der Paragraph auf "null"
      * gesetzt. Wenn der Array aus zwei Elementen besteht wird der erste zum command
      * und der zweite zum Paragraphen. Wenn es mehr als zwei sind gibt es einen
      * Error aus.
      * 
-     * @param commandSplit
+     * @param commandSplit Array das in Command und Absatznummer gesetzt wird.
      */
     private void setCommandAndParagraphNr(String[] commandSplit) {
         if (commandSplit.length == 1) {
@@ -119,7 +110,6 @@ public class Input {
                 error = true;
             }
         } else {
-            System.err.println("fehler");
             error = true;
         }
     }
@@ -128,7 +118,7 @@ public class Input {
      * Ueberprueft ob der Input ein Command ist. Wenn ja wird ueberprueft ob der
      * Paragraph "null" ist und wenn nicht ob er gueltig ist und ob er negativ ist.
      * 
-     * @param absaetze
+     * @param absaetze TODO: was genau
      */
     private void commandInputCheck(ArrayList<String> absaetze) {
         if (isCommand(command) == false) {
@@ -193,7 +183,8 @@ public class Input {
 
     /**
      * gibt den aktuellen Error stand zurück.
-     * @return
+     * 
+     * @return Error true or false.
      */
     public boolean getError() {
         return error;
@@ -201,7 +192,8 @@ public class Input {
 
     /**
      * Setzt den Error auf ture oder false.
-     * @param error
+     * 
+     * @param error Aktueller Error.
      */
     public void setError(boolean error) {
         this.error = error;

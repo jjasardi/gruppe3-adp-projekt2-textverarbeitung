@@ -47,13 +47,7 @@ public class Output {
     private void setErrorOutput() {
         errorOutput.put("noCommand", "Ihre Eingabe ist keine gültiger Befehlssatz.\n");
         errorOutput.put("noNumber", "Keine Nummer angegeben.\n");
-        errorOutput.put("minusNumber", "Die angegebene Zahl ist negativ.\n");
-        errorOutput.put("toBigNumber", "Die angegebene Zahl ist zu gross.\n");
         errorOutput.put("notValidNumber", "Die angegebene Zahl liegt nicht im gültigen Bereich.\n");
-        errorOutput.put("notValidString", "Der eingegebene Text ist nicht gültig.\n"); // ??
-        errorOutput.put("noString", "Bitte einen gültigen Text eingeben.\n"); // ??
-        errorOutput.put("notValidWord", "Das eingegebene Wort ist nicht gültig.\n"); // ??
-        errorOutput.put("noWord", "Bitte ein gültiges Wort eingeben.\n"); // ??
     }
 
     /**
