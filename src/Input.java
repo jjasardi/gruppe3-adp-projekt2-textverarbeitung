@@ -17,6 +17,7 @@ public class Input {
     private boolean error;
     private Output output;
 
+    private static final int EINS = 1;
     private static final String[] allCommands = { "ADD", "DEL", "DUMMY", "EXIT", "FORMAT RAW", "FORMAT FIX", "INDEX",
             "PRINT", "REPLACE" };
 
@@ -128,14 +129,14 @@ public class Input {
                     || command.equals("INDEX")) {
                 output.printErrorOutput("noCommand");
                 error = true;
-            } else if (command.contains("DEL") == true && (paragraphNr < 1 || paragraphNr > absaetze.size())) {
+            } else if (command.contains("DEL") == true && (paragraphNr < EINS || paragraphNr > absaetze.size())) {
                 output.printErrorOutput("notValidNumber");
                 error = true;
             } else if (command.contains("FORMAT") == false
-                    && (paragraphNr < 1 || paragraphNr > (absaetze.size()) + 1)) {
+                    && (paragraphNr < EINS || paragraphNr > (absaetze.size()) + EINS)) {
                 output.printErrorOutput("notValidNumber");
                 error = true;
-            } else if (command.contains("FORMAT") == true && paragraphNr < 1) {
+            } else if (command.contains("FORMAT") == true && paragraphNr < EINS) {
                 output.printErrorOutput("minusNumber");
                 error = true;
             }
@@ -203,7 +204,7 @@ public class Input {
     }
 
     /**
-     * Beendet den Input. TODO: weiss ned was genau schreiben
+     * Beendet den scannerCommand Scanner.
      */
     public void close() {
         scannerCommand.close();

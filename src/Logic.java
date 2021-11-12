@@ -95,7 +95,7 @@ public class Logic {
         } else {
             text.addDummyText(input.getParagraphNr());
             output.printOutput("addedDummyn");
-            System.out.print(input.getParagraphNr() + "\n");
+            System.out.println(input.getParagraphNr());
         }
     }
 
@@ -111,7 +111,7 @@ public class Logic {
         } else {
             text.addAbsatz(input.getTextInput(), input.getParagraphNr());
             output.printOutput("addedTextn");
-            System.out.print(input.getParagraphNr() + "\n");
+            System.out.println(input.getParagraphNr());
         }
     }
 
@@ -125,7 +125,7 @@ public class Logic {
         } else {
             text.loescheAbsatz(input.getParagraphNr());
             output.printOutput("deln");
-            System.out.print(input.getParagraphNr() + "\n");
+            System.out.println(input.getParagraphNr());
         }
     }
 
@@ -140,7 +140,7 @@ public class Logic {
         } else {
             spaltenBreite = input.getParagraphNr();
             output.printOutput("toFix");
-            System.out.print(input.getParagraphNr() + "\n");
+            System.out.println(input.getParagraphNr());
         }
     }
 

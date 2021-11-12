@@ -12,6 +12,7 @@ import java.util.Set;
 
 public class Text {
     private static final int MINDESTHAEUFIGKEIT = 3;
+    private static final int EINS = 1;
     private Format format;
     private ArrayList<String> absaetze;
     private String dummyText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et "
@@ -39,7 +40,7 @@ public class Text {
      * @param absatzNummer An welcher Stelle der Absatz eingefuegt werden soll
      */
     public void addAbsatz(String absatz, int absatzNummer) {
-        absaetze.add(absatzNummer -1, absatz);
+        absaetze.add(absatzNummer -EINS, absatz);
     }
 
     /**
@@ -57,14 +58,14 @@ public class Text {
      * @param absatzNummer Die Nummer des zu loeschenden Absatzes
      */
     public void loescheAbsatz(int absatzNummer) {
-        absaetze.remove(absatzNummer -1);
+        absaetze.remove(absatzNummer -EINS);
     }
 
     /**
      * loescht den letzten Absatz aus der ArrayList
      */
     public void loescheAbsatz() {
-        absaetze.remove(absaetze.size() - 1);
+        absaetze.remove(absaetze.size() - EINS);
     }
 
     /**
@@ -73,7 +74,7 @@ public class Text {
      * @param absatzNummer An welcher Stelle der DummyText eingefuegt werden soll
      */
     public void addDummyText(int absatzNummer) {
-        absaetze.add(absatzNummer - 1, dummyText);
+        absaetze.add(absatzNummer - EINS, dummyText);
     }
 
     /**
@@ -102,9 +103,9 @@ public class Text {
      * @return String. gibt den geaenderten Absatz zurueck
      */
     public void textErsetzen(int absatzNummer, String zuSuchen, String ersetzenMit) {
-        String absatz = absaetze.get(absatzNummer -1);
+        String absatz = absaetze.get(absatzNummer -EINS);
         absatz = absatz.replace(zuSuchen, ersetzenMit);
-        absaetze.set((absatzNummer -1), absatz);
+        absaetze.set((absatzNummer -EINS), absatz);
     }
 
     /**
@@ -115,9 +116,9 @@ public class Text {
      * @return String. gibt den geaenderten Absatz zurueck
      */
     public void textErsetzen(String zuSuchen, String ersetzenMit) {
-        String absatz = absaetze.get(absaetze.size() - 1);
+        String absatz = absaetze.get(absaetze.size() - EINS);
         absatz = absatz.replace(zuSuchen, ersetzenMit);
-        absaetze.set(absaetze.size() - 1, absatz);
+        absaetze.set(absaetze.size() - EINS, absatz);
     }
 
     /**

@@ -8,6 +8,8 @@ import java.util.ArrayList;
  */
 public class Format {
 
+    private static final int EINS = 1;
+
     /**
      * leerer Konstruktor
      */
@@ -61,7 +63,7 @@ public class Format {
      */
     public void formatRaw(ArrayList<String> absaetze) {
         for (int index = 0; index < absaetze.size(); index++) {
-            System.out.println((index + 1) + " : " + absaetze.get(index));
+            System.out.println((index + EINS) + " : " + absaetze.get(index));
         }
     }
 }
