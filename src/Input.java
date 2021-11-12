@@ -14,7 +14,7 @@ public class Input {
     private Scanner scannerText;
     private Text text;
     private String command;
-    private Integer paragraphNr;
+    private Integer commandNr;
     private boolean error;
     private Output output;
 
@@ -39,16 +39,16 @@ public class Input {
     }
 
     /**
-     * Initialisiert command und paragraphNr. Liest den Input, macht alles
+     * Initialisiert command und commandNr. Liest den Input, macht alles
      * Grossbuchstaben und Splittet die Woerter in ein Array. Das Array wird
-     * aufgeteilt in Command und ParagraphNr.
+     * aufgeteilt in Command und commandNr.
      */
     public void formatCommandNextLine() {
         command = "";
-        paragraphNr = null;
+        commandNr = null;
         String commandInput = getScannerCommand().toUpperCase();
         String[] commandSplit = splitCommandInput(commandInput);
-        setCommandAndParagraphNr(commandSplit);
+        setCommandAndcommandNr(commandSplit);
         commandInputCheck(text.getAbsaetze());
     }
 
@@ -84,11 +84,11 @@ public class Input {
      * Checkt ob der String nicht länger als 4 Zeichen ist und ob er nur Zahlen
      * enthält. Wertebereich : 0-9999
      *
-     * @param paragraphNr zu testende Absatznummer als String
+     * @param commandNr zu testende Absatznummer als String
      * @return boolean true/false
      */
-    private boolean checkParagraphNr(String paragraphNr) {
-        if (paragraphNr.length() <= 4 && paragraphNr.matches(NUR_ZAHLEN)) {
+    private boolean checkcommandNr(String commandNr) {
+        if (commandNr.length() <= 4 && commandNr.matches(NUR_ZAHLEN)) {
             return true;
         }
         return false;
@@ -102,13 +102,13 @@ public class Input {
      * @param commandSplit String Array das in Command und Absatznummer gesetzt
      *                     wird.
      */
-    private void setCommandAndParagraphNr(String[] commandSplit) {
+    private void setCommandAndcommandNr(String[] commandSplit) {
         if (commandSplit.length == 1) {
             command = commandSplit[0].trim();
         } else if (commandSplit.length == 2) {
             command = commandSplit[0].trim();
-            if (checkParagraphNr(commandSplit[1])) {
-                paragraphNr = Integer.parseInt(commandSplit[1]);
+            if (checkcommandNr(commandSplit[1])) {
+                commandNr = Integer.parseInt(commandSplit[1]);
             } else {
                 output.printErrorOutput("notValidNumber");
                 error = true;
@@ -133,20 +133,20 @@ public class Input {
                 || command.equals("INDEX") == true)) {
             output.printErrorOutput("absatzLeer");
             error = true;
-        } else if (paragraphNr != null) {
+        } else if (commandNr != null) {
             if (command.equals("EXIT") || command.equals("PRINT") || command.equals("FORMAT RAW")
                     || command.equals("INDEX")) {
                 output.printErrorOutput("noCommand");
                 error = true;
             } else if (command.contains("DEL") == true
-                    && (paragraphNr < NULL_KORREKTUR || paragraphNr > absaetze.size())) {
+                    && (commandNr < NULL_KORREKTUR || commandNr > absaetze.size())) {
                 output.printErrorOutput("notValidNumber");
                 error = true;
             } else if (command.contains("FORMAT") == false
-                    && (paragraphNr < NULL_KORREKTUR || paragraphNr > (absaetze.size()) + NULL_KORREKTUR)) {
+                    && (commandNr < NULL_KORREKTUR || commandNr > (absaetze.size()) + NULL_KORREKTUR)) {
                 output.printErrorOutput("notValidNumber");
                 error = true;
-            } else if (command.contains("FORMAT") == true && paragraphNr < NULL_KORREKTUR) {
+            } else if (command.contains("FORMAT") == true && commandNr < NULL_KORREKTUR) {
                 output.printErrorOutput("minusNumber");
                 error = true;
             }
@@ -163,12 +163,12 @@ public class Input {
     }
 
     /**
-     * GetParagraphNr
+     * GetCommandNr
      * 
      * @return Paragraph als Integer.
      */
-    public Integer getParagraphNr() {
-        return paragraphNr;
+    public Integer getCommandNr() {
+        return commandNr;
     }
 
     /**
@@ -224,7 +224,9 @@ public class Input {
      * Beendet das scannerCommand und scannerText Scannerobjekt.
      */
     public void close() {
+        if (scannerText != null) {
         scannerText.close();
+        }
         scannerCommand.close();
     }
 }

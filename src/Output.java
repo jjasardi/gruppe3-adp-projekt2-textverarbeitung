@@ -1,7 +1,8 @@
 import java.util.HashMap;
 
 /**
- * Diese Klasse enthaelt Methoden fuer die Ausgaben ueber System.out und System.err
+ * Diese Klasse enthaelt Methoden fuer die Ausgaben ueber System.out und
+ * System.err
  * 
  * @version 1.0
  * @author Sadikdur, Schiess
@@ -24,9 +25,7 @@ public class Output {
      * Diese Methode initialisiert alle Output Strings in eine HashMap.
      */
     private void setOutput() {
-        output.put("welcome",
-                "Willkommen zum Texteditor von ADP \n" + "Bitte geben Sie Einen Text ein oder erstellen "
-                        + "sie einen Dummy-Text mit dem Befehl DUMMY. \n");
+        output.put("welcome", "Willkommen zum Texteditor von ADP \n");
         output.put("command", "Bitte geben Sie einen Befehl ein.\n> ");
         output.put("addText", "Bitte geben Sie einen Text ein.\n> ");
         output.put("addedText", "Ihr Text wurde hinzugefügt.\n");

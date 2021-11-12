@@ -76,10 +76,10 @@ public class Logic {
         wort1 = input.getTextInput();
         output.printOutput("toReplace");
         wort2 = input.getTextInput();
-        if (input.getParagraphNr() == null) {
+        if (input.getCommandNr() == null) {
             text.textErsetzen(wort1, wort2);
         } else {
-            text.textErsetzen(input.getParagraphNr(), wort1, wort2);
+            text.textErsetzen(input.getCommandNr(), wort1, wort2);
         }
     }
 
@@ -88,13 +88,13 @@ public class Logic {
      * einer Arraylist hinzu.
      */
     private void dummy() {
-        if (input.getParagraphNr() == null) {
+        if (input.getCommandNr() == null) {
             text.addDummyText();
             output.printOutput("addedDummy");
         } else {
-            text.addDummyText(input.getParagraphNr());
+            text.addDummyText(input.getCommandNr());
             output.printOutput("addedDummyn");
-            System.out.println(input.getParagraphNr());
+            System.out.println(input.getCommandNr());
         }
     }
 
@@ -104,13 +104,13 @@ public class Logic {
      */
     private void add() {
         output.printOutput("addText");
-        if (input.getParagraphNr() == null) {
+        if (input.getCommandNr() == null) {
             text.addAbsatz(input.getTextInput());
             output.printOutput("addedText");
         } else {
-            text.addAbsatz(input.getTextInput(), input.getParagraphNr());
+            text.addAbsatz(input.getTextInput(), input.getCommandNr());
             output.printOutput("addedTextn");
-            System.out.println(input.getParagraphNr());
+            System.out.println(input.getCommandNr());
         }
     }
 
@@ -118,27 +118,27 @@ public class Logic {
      * Unterscheided zwischen del und del n. Loescht Absatz.
      */
     private void del() {
-        if (input.getParagraphNr() == null) {
+        if (input.getCommandNr() == null) {
             text.loescheAbsatz();
             output.printOutput("del");
         } else {
-            text.loescheAbsatz(input.getParagraphNr());
+            text.loescheAbsatz(input.getCommandNr());
             output.printOutput("deln");
-            System.out.println(input.getParagraphNr());
+            System.out.println(input.getCommandNr());
         }
     }
 
     /**
      * Checkt ob Format Fix eine Nummer hat und setzt sie dann auf die
-     * spaltenBreite. ParagraphNr ist hier die Spaltenbreite.
+     * spaltenBreite. CommandNr ist hier die Spaltenbreite.
      */
     private void FormatFix() {
-        if (input.getParagraphNr() == null) {
+        if (input.getCommandNr() == null) {
             output.printErrorOutput("noNumber");
         } else {
-            spaltenBreite = input.getParagraphNr();
+            spaltenBreite = input.getCommandNr();
             output.printOutput("toFix");
-            System.out.println(input.getParagraphNr());
+            System.out.println(input.getCommandNr());
         }
     }
 
