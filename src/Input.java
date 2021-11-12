@@ -40,6 +40,8 @@ public class Input {
      * @return Input line
      */
     public void formatCommandNextLine() {
+        command = null;
+        paragraphNr = null;
         String commandInput = getCommandInput().toUpperCase();
         String[] commandSplit = splitCommandInput(commandInput);
         setCommandAndParagraphNr(commandSplit);
@@ -108,7 +110,6 @@ public class Input {
     private void setCommandAndParagraphNr(String[] commandSplit) {
         if (commandSplit.length == 1) {
             command = commandSplit[0].trim();
-            paragraphNr = null;
         } else if (commandSplit.length == 2) {
             command = commandSplit[0].trim();
             if (checkParagraphNr(commandSplit[1])) {
@@ -119,6 +120,7 @@ public class Input {
             }
         } else {
             System.err.println("fehler");
+            error = true;
         }
     }
 
