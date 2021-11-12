@@ -3,6 +3,8 @@
 
 Um das Programm auszuführen, öffnen Sie die Texteditor.java Datei mit dem IDE ihrer Wahl.
 Führen Sie anschliessend die main() methode aus.
+Um das Programm von der Kommandozeile zu starten, kompilieren Sie zuerst mit "javac Texteditor.java"
+und geben Sie dann "java Texteditor" ein
 
 Folgendes sind die gültigen Befehle:
 
