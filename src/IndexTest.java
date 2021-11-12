@@ -31,7 +31,7 @@ public class IndexTest {
     /**
      * Prueft ob die Index Funktion mit leeren Absaetzen funktioniert.
      * 
-     * @Result Wortverzeichniss und wortVerzeichnis sind leer.
+     * @Result wortVerzeichnis und woerterHaeufigkeit sind leere HashMaps.
      */
     @Test
     public void testLeereAbsaetze() {
@@ -41,7 +41,6 @@ public class IndexTest {
         text.addAbsatz("");
         text.indexAusgeben();
 
-
         assertEquals(wortVerzeichnisTest, text.index.wortVerzeichnis);
         assertEquals(woerterHaeufigkeitTest, text.index.woerterHaeufigkeit);
     }
@@ -49,21 +48,23 @@ public class IndexTest {
     /**
      * Prueft ob die Index Funktion mit leerer Arraylist funktioniert.
      * 
-     * @Result Wortverzeichniss und wortVerzeichnis sind leer.
+     * @Result wortVerzeichnis und woerterHaeufigkeit sind leere HashMaps.
      */
     @Test
     public void testLeereArraylist() {
         text.indexAusgeben();
-
 
         assertEquals(wortVerzeichnisTest, text.index.wortVerzeichnis);
         assertEquals(woerterHaeufigkeitTest, text.index.woerterHaeufigkeit);
     }
 
     /**
-     * Prueft wie die Index Funktion mit 3 gleichen Woerter im selben Absatz funktioniert.
+     * Prueft ob die Index Funktion mit 3 gleichen Woerter im selben Absatz
+     * funktioniert.
      * 
-     * @Result Es wird nur eine Zahl pro Wort ausgegeben.
+     * @Result das wortVerzeichnis- und woerterHaeufigkeit–Hashmaps haben folgende Werte:
+     *         wortVerzeichnis = ["Lorem", <1>] ["Ipsum", <2>]
+     *         woerterHaeufigkeit = ["Lorem", 3] ["Ipsum", 3]
      */
     @Test
     public void testMindestHaeufigkeitSelbenAbsatz() {
@@ -87,9 +88,12 @@ public class IndexTest {
     }
 
     /**
-     * Prueft wie die Index Funktion mit 3 gleichen Woerter in verschiedene Absaetze funktioniert.
+     * Prueft ob die Index Funktion mit 3 gleichen Woerter in verschiedene Absaetze
+     * funktioniert.
      * 
-     * @Result Es werden mehrere Woerter ausgegeben in folgender Form: Wort n, n...
+     * @Result das wortVerzeichnis- und woerterHaeufigkeit–Hashmaps haben folgende Werte:
+     *         wortVerzeichnis = ["Lorem", <1, 2>] ["Ipsum", <1, 2>] 
+     *         woerterHaeufigkeit = ["Lorem", 3] ["Ipsum", 3]
      */
     @Test
     public void testMindestHaeufigkeitEintraegeVerschiedeneAbsaetze() {
@@ -114,10 +118,13 @@ public class IndexTest {
         assertEquals(woerterHaeufigkeitTest, text.index.woerterHaeufigkeit);
     }
 
-        /**
-     * Prueft wie die Index Funktion mit mehr als 3 gleichen Woerter in verschiedene Absaetze funktioniert.
+    /**
+     * Prueft ob die Index Funktion mit mehr als 3 gleichen Woerter in verschiedene
+     * Absaetze funktioniert.
      * 
-     * @Result Es werden mehrere Woerter ausgegeben in folgender Form: Wort n, n...
+     * @Result das wortVerzeichnis- und woerterHaeufigkeit–Hashmaps haben folgende Werte:
+     *         wortVerzeichnis = ["Dein", <1, 2, 3, 4, 5, 6>] ["Keine", <1, 2, 3, 4, 5, 6>] ["Maus", <1, 2, 3, 4, 5, 6>] ["Mein", <1, 2, 3, 4, 5, 6>] 
+     *         woerterHaeufigkeit = ["Dein", 6] ["Keine", 6] ["Maus", 6] ["Mein", 6]
      */
     @Test
     public void testMindestHaeufigkeitEintraegeVerschiedeneAbsaetzeMehrAlsDrei() {
@@ -175,9 +182,13 @@ public class IndexTest {
     }
 
     /**
-     * Prueft wie die Index Funktion mit weniger 3 als gleichen Woertern funktioniert.
+     * Prueft ob die Index Funktion mit weniger 3 als gleichen Woertern
+     * funktioniert.
      * 
-     * @Result keine Ausgabe
+     * @Result das wortVerzeichnis- und woerterHaeufigkeit–Hashmaps haben folgende Werte:
+     *         wortVerzeichnis = ["Lorem", <1>] ["Ipsum", <2>] 
+     *         woerterHaeufigkeit = ["Lorem", 2] ["Ipsum", 2]
+     *         und werden nicht ausgegeben 
      */
     @Test
     public void testZweiEintraege() {
@@ -201,9 +212,11 @@ public class IndexTest {
     }
 
     /**
-     * Prueft wie die Index Funktion mit Umlauten funktioniert.
+     * Prueft ob die Index Funktion mit Woerter mit Umlauten funktioniert.
      * 
-     * @Result Umlaute werden wie normale Worter behandelt.
+     * @Result das wortVerzeichnis- und woerterHaeufigkeit–Hashmaps haben folgende Werte:
+     *         wortVerzeichnis = ["Mäuse", <2>] ["Häuser", <1>]
+     *         woerterHaeufigkeit = ["Maüse", 3] ["Häuser", 3]
      */
     @Test
     public void testUmlaute() {
