@@ -78,7 +78,7 @@ public class Input {
      * @return true wenn Absatznummer < 10000, sonst false
      */
     private boolean checkParagraphNr(String paragraphNr) {
-        if (paragraphNr.length() <= 4) {
+        if (paragraphNr.length() <= 4 && paragraphNr.matches("\\d+")) {
             return true;
         }
         return false;
@@ -114,9 +114,11 @@ public class Input {
             if (checkParagraphNr(commandSplit[1])) {
                 paragraphNr = Integer.parseInt(commandSplit[1]);
             } else {
-                output.printErrorOutput("toBigNumber");
+                output.printErrorOutput("notValidNumber");
                 error = true;
             }
+        } else {
+            System.err.println("fehler");
         }
     }
 
