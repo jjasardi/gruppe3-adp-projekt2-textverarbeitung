@@ -38,7 +38,7 @@ public class Text {
      * @param absatzNummer An welcher Stelle der Absatz eingefuegt werden soll
      */
     public void addAbsatz(String absatz, int absatzNummer) {
-        absaetze.add(--absatzNummer, absatz);
+        absaetze.add(absatzNummer -1, absatz);
     }
 
     /**
@@ -56,7 +56,7 @@ public class Text {
      * @param absatzNummer Die Nummer des zu loeschenden Absatzes
      */
     public void loescheAbsatz(int absatzNummer) {
-        absaetze.remove(--absatzNummer);
+        absaetze.remove(absatzNummer -1);
     }
 
     /**
@@ -72,7 +72,7 @@ public class Text {
      * @param absatzNummer An welcher Stelle der DummyText eingefuegt werden soll
      */
     public void addDummyText(int absatzNummer) {
-        absaetze.add(--absatzNummer, dummyText);
+        absaetze.add(absatzNummer - 1, dummyText);
     }
 
     /**
@@ -101,9 +101,9 @@ public class Text {
      * @return String. gibt den geaenderten Absatz zurueck
      */
     public void textErsetzen(int absatzNummer, String zuSuchen, String ersetzenMit) {
-        String absatz = absaetze.get(--absatzNummer);
+        String absatz = absaetze.get(absatzNummer -1);
         absatz = absatz.replace(zuSuchen, ersetzenMit);
-        absaetze.set(absatzNummer, absatz);
+        absaetze.set((absatzNummer -1), absatz);
     }
 
     /**
@@ -120,8 +120,8 @@ public class Text {
     }
 
     /**
-     * Geht durch alle Woerter aller Absaetze durch und ergaenzt das Wortverzeichnis
-     * zusammen mit ihre Haeufigkeit
+     * Geht durch alle Woerter aller Absaetze durch und ergänzt das Wortverzeichnis
+     * zusammen mit ihre Häufigkeit
      */
     private void indexAktualisieren() {
         index.clear();
@@ -138,8 +138,7 @@ public class Text {
                 int wortHaeufigkeit = 1;
                 if (!wortInAbsatz.isEmpty()) {
                     if (index.containsKey(wortInAbsatz)) {
-                        wortHaeufigkeit = woerterHaeufigkeit.get(wortInAbsatz);
-                        ++wortHaeufigkeit;
+                        wortHaeufigkeit = woerterHaeufigkeit.get(wortInAbsatz) + 1;
                         woerterHaeufigkeit.put(wortInAbsatz, wortHaeufigkeit);
 
                         vorkommenInAbsaetzeNr = index.get(wortInAbsatz);
@@ -156,7 +155,7 @@ public class Text {
     }
 
     /**
-     * Gibt alle Woerter aus, die ueber alle Absaetze gesehen oefter als dreimal
+     * Gibt alle Woerter aus, die ueber alle Absätze gesehen öfter als dreimal
      * vorkommen zusammen mit den Absatznummern, wo das jeweilige Wort vorkommt, als
      * Komma getrennte Zahlenfolge.
      */
