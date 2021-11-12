@@ -46,7 +46,7 @@ public class Input {
     public void formatCommandNextLine() {
         command = "";
         commandNr = null;
-        String commandInput = getScannerCommand().toUpperCase();
+        String commandInput = ScannerCommand().toUpperCase();
         String[] commandSplit = splitCommandInput(commandInput);
         setCommandAndcommandNr(commandSplit);
         commandInputCheck(text.getAbsaetze());
@@ -176,7 +176,7 @@ public class Input {
      * 
      * @return ScannerCommand als String
      */
-    private String getScannerCommand() {
+    private String ScannerCommand() {
         return scannerCommand.nextLine();
     }
 

@@ -143,6 +143,14 @@ public class Logic {
     }
 
     /**
+     * Schliesst den Scan und signalisiert das Beenden des Programs.
+     */
+    private void exit() {
+        input.close();
+        exit = true;
+    }
+
+    /**
      * Wenn das Programm beendet wird, wechselt diese Methode den Wert.
      * 
      * @return boolean true/false
@@ -152,14 +160,6 @@ public class Logic {
             return false;
         } else
             return true;
-    }
-
-    /**
-     * Schliesst den Scan und signalisiert das Beenden des Programs.
-     */
-    public void exit() {
-        input.close();
-        exit = true;
     }
 
     /**
