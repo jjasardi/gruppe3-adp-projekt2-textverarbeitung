@@ -40,7 +40,7 @@ public class Input {
      * @return Input line
      */
     public void formatCommandNextLine() {
-        command = null;
+        command = "";
         paragraphNr = null;
         String commandInput = getCommandInput().toUpperCase();
         String[] commandSplit = splitCommandInput(commandInput);
