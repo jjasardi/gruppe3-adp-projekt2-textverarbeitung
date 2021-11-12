@@ -22,6 +22,7 @@ Folgendes sind die gültigen Befehle:
 |REPLACE [n]|Ruft zuerst zur Eingabe eines zu suchenden Wortes oder Textteils im Absatz n auf und anschliessend zur Eingabe des Textes, mit dem das Gesuchte ersetzt werden soll.  Das  Suchen  und  Ersetzten  erfolgt  pro  Absatz,  nicht  über  Absatzgrenzen hinweg. Wird keine Absatznummer n angegeben, wird der letzte Absatz geändert. |
 
 ## Klassendiagramm
-![Klassendiagramm](https://github.zhaw.ch/storage/user/4867/files/17078452-870c-44fe-98f7-c4ff6a2c7a6b)
+![Klassendiagramm](https://github.zhaw.ch/storage/user/4867/files/b9627ddb-df24-4687-8187-b1e0d780d4a8)
+
 
 
